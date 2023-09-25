@@ -1,10 +1,17 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
+# Tugas Besar 1 IF2121 Aljabar Linear dan Geometri
+> Kelas 01 IF-G Kelompok 5 - APAU & APIN
 
-# Name of the project
-> Additional information or tagline
+Sistem Persamaan Linier, Determinan, dan Aplikasinya
+Semester ganjil Tahun 2023/2024
 
-A brief description of your project, what it is used for and how does life get
-awesome when someone starts to use it.
+Program Studi Teknik Informatika
+Sekolah Teknik Elektro dan Informatika
+Institut Teknologi Bandung
+
+Nama Kelompok :
+- 13522019 - Wilson Yusda
+- 13522021 - Filbert Garciano
+- 13522047 - Farel Winalda
 
 ## Installing / Getting started
 
