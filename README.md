@@ -10,7 +10,7 @@ Institut Teknologi Bandung
 
 Nama Kelompok :
 - 13522019 - Wilson Yusda
-- 13522021 - Filbert Garciano
+- 13522021 - Filbert 
 - 13522047 - Farel Winalda
 
 ## Installing / Getting started
