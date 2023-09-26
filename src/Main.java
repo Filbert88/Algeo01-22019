@@ -12,24 +12,32 @@ public class Main {
             pilihan=scanner.next();
 
             if (pilihan.equals(Selection.menu_spl)) {
-                Selection.option_spl();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Input Pilihan : ");
+                boolean selesai = false;
+                while (!selesai) {
+                    Selection.option_spl();
+                    String pilihan_input="";
                     pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP SISTEM PERSAMAAN LINEAR");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP SISTEM PERSAMAAN LINEAR 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
+                    while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+                        System.out.println("Inputan tidak valid");
+                        System.out.print("Jenis Input : ");
+                        pilihan_input=scanner.next();
+                    }
+                    if (pilihan_input.equals(Selection.submenu_1)) {
+                        selesai=SPL.page(scanner);
+                        if (selesai) {
+                            pilihan=Selection.kembali(scanner);   
+                        }
+                    }
+                    else if (pilihan_input.equals(Selection.submenu_2)) {
+                        selesai=SPL.page(scanner);
+                        if (selesai) {
+                            pilihan=Selection.kembali(scanner);   
+                        }
+                    }
+                    else if (pilihan_input.equals(Selection.submenu_3)) {
+                        Selection.menu_utama();
+                        selesai=true;
+                    }   
                 }
             }
 
@@ -39,7 +47,7 @@ public class Main {
                 pilihan_input=scanner.next();
                 while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
-                    System.out.print("Input Pilihan : ");
+                    System.out.print("Jenis Input : ");
                     pilihan_input=scanner.next();
                 }
                 if (pilihan_input.equals(Selection.submenu_1)) {
@@ -61,7 +69,7 @@ public class Main {
                 pilihan_input=scanner.next();
                 while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
-                    System.out.print("Input Pilihan : ");
+                    System.out.print("Jenis Input : ");
                     pilihan_input=scanner.next();
                 }
                 if (pilihan_input.equals(Selection.submenu_1)) {
@@ -83,7 +91,7 @@ public class Main {
                 pilihan_input=scanner.next();
                 while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
-                    System.out.print("Input Pilihan : ");
+                    System.out.print("Jenis Input : ");
                     pilihan_input=scanner.next();
                 }
                 if (pilihan_input.equals(Selection.submenu_1)) {
@@ -105,7 +113,7 @@ public class Main {
                 pilihan_input=scanner.next();
                 while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
-                    System.out.print("Input Pilihan : ");
+                    System.out.print("Jenis Input : ");
                     pilihan_input=scanner.next();
                 }
                 if (pilihan_input.equals(Selection.submenu_1)) {
@@ -127,7 +135,7 @@ public class Main {
                 pilihan_input=scanner.next();
                 while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
-                    System.out.print("Input Pilihan : ");
+                    System.out.print("Jenis Input : ");
                     pilihan_input=scanner.next();
                 }
                 if (pilihan_input.equals(Selection.submenu_1)) {

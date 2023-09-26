@@ -70,7 +70,7 @@ public class Selection {
         System.out.println("|                (2) Input File                 |");
         System.out.println("|                (3) Menu Utama                 |");
         Selection.ui();
-        System.out.print("Pilih input : ");
+        System.out.print("Jenis input : ");
     }
 
     public static void option_determinan(){
@@ -87,7 +87,7 @@ public class Selection {
         System.out.println("|                (2) Input File                 |");
         System.out.println("|                (3) Menu Utama                 |");
         Selection.ui();
-        System.out.print("Pilih input : ");
+        System.out.print("Jenis input : ");
     }
 
     public static void option_invers(){
@@ -104,7 +104,7 @@ public class Selection {
         System.out.println("|                (2) Input File                 |");
         System.out.println("|                (3) Menu Utama                 |");
         Selection.ui();
-        System.out.print("Pilih input : ");
+        System.out.print("Jenis input : ");
     }
 
     public static void option_interpolasi(){
@@ -121,7 +121,7 @@ public class Selection {
         System.out.println("|                (2) Input File                 |");
         System.out.println("|                (3) Menu Utama                 |");
         Selection.ui();
-        System.out.print("Pilih input : ");
+        System.out.print("Jenis input : ");
     }
 
     public static void option_interpolasi_bicubic(){
@@ -138,7 +138,7 @@ public class Selection {
         System.out.println("|                (2) Input File                 |");
         System.out.println("|                (3) Menu Utama                 |");
         Selection.ui();
-        System.out.print("Pilih input : ");
+        System.out.print("Jenis input : ");
     }
 
     public static void option_regresi(){
@@ -155,7 +155,7 @@ public class Selection {
         System.out.println("|                (2) Input File                 |");
         System.out.println("|                (3) Menu Utama                 |");
         Selection.ui();
-        System.out.print("Pilih input : ");
+        System.out.print("Jenis input : ");
     }
 
     public static void option_exit(){
