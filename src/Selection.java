@@ -1,4 +1,5 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Selection {
     public static void menu_utama(){
@@ -16,12 +17,18 @@ public class Selection {
 
     public static void clear(){
         try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            String os = System.getProperty("os.name").toLowerCase();
+            ProcessBuilder processBuilder;
+
+            if (os.contains("win")) {
+                processBuilder = new ProcessBuilder("cmd", "/c", "cls");
             } else {
-                System.out.flush();
+                processBuilder = new ProcessBuilder("clear");
             }
-        } catch (Exception e) {}
+            processBuilder.inheritIO().start().waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static int menu_spl=1;
@@ -139,8 +146,7 @@ public class Selection {
         System.out.println();
     }
 
-    public static int kembali(){
-        Scanner scanner = new Scanner(System.in);
+    public static int kembali(Scanner scanner){
         String kembali;
         System.out.println();
         System.out.print("Apakah anda ingin keluar dari program (Y/N) : ");
