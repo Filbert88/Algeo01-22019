@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 public class Matrix {
     int rows;
     int columns;
-    public double [][] matrix;
+    public double[][] matrix;
 
     public Matrix (int row, int col){
         this.rows = row;
@@ -16,14 +16,6 @@ public class Matrix {
         return this.matrix[i][j];
     }
 
-    public void setELmt(int row, int col, double val){
-        if((row < this.rows) && (col< this.columns)){
-            this.matrix[row][col] = val;
-        }else{
-            System.out.println("Invalid baris dan kolum");
-        }
-    }
-    
     public int getRow(){
         return this.rows;
     }
@@ -32,14 +24,28 @@ public class Matrix {
         return this.columns;
     }
 
-    public void printMatrix(){
+    public void setELmt(int row, int col, double val){
+        if((row < this.rows) && (col< this.columns)){
+            this.matrix[row][col] = val;
+        }else{
+            System.out.println("Invalid baris dan kolum");
+        }
+    }
+
+    public void printMatrix(double [][] matrix){
         int i,j;
-        for(i=0; i< this.rows; i++) {
-            for(j = 0; j < this.columns; j++){
-                if(j != (this.columns -1)){
-                    System.out.printf("%.2f ",this.matrix[i][j]);
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        System.out.println("Matriks: ");
+        for(i=0; i< rows; i++) {
+            for(j = 0; j < columns; j++){
+                if (matrix[i][j] == -0){
+                    matrix[i][j] = 0;
+                }
+                if(j != (columns -1)){
+                    System.out.printf("%.2f ",matrix[i][j]);
                 }else{
-                    System.out.printf("%.2f",this.matrix[i][j]);
+                    System.out.printf("%.2f",matrix[i][j]);
                 }
             }
             System.out.println();
@@ -48,7 +54,7 @@ public class Matrix {
 
     public void readMatrixFromTerminal(Scanner scanner){
         double elmt;
-        int row, column,i,j;
+        int row,column,i,j;
         System.out.print("Masukkan Jumlah Baris: ");
         row = scanner.nextInt();
         System.out.print("Masukkan Jumlah Kolom: ");
@@ -64,6 +70,28 @@ public class Matrix {
                 elmt = scanner.nextDouble();
                 this.matrix[i][j] = elmt;
             }
+        }
+    }
+
+    public void readSquareMatrix(Scanner scanner){
+        double elmt;
+        int row,column,i,j;
+        System.out.print("Masukkan Jumlah Ukuran Matriz yang diinginkan: ");
+        row = scanner.nextInt();
+        this.rows = row;
+        column = row;
+        this.columns = column;
+        this.matrix = new double[row][column];
+        if(isSquare()){
+            System.out.println("Masukkan Matriks: ");
+            for(i=0;i<row;i++){
+                for(j=0;j<column;j++){
+                    elmt = scanner.nextDouble();
+                    this.matrix[i][j] = elmt;
+                }
+            }
+        }else{
+            System.out.println("Bukan Matriks persegi");
         }
     }
 
@@ -123,13 +151,13 @@ public class Matrix {
             System.out.println("The file is not a txt file.");
         }
     }
-        public static boolean isTxtFile(String fileName){
-            int length = fileName.length();
-            if (fileName.endsWith(".txt")){
-                return true;
-            }
-            else{
-                return false;
-            }
+
+    public static boolean isTxtFile(String fileName){
+        if (fileName.endsWith(".txt")){
+            return true;
         }
+        else{
+            return false;
+        }
+    }
     }

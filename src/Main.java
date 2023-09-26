@@ -3,162 +3,190 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String pilihan = "";
+        // String pilihan = "";
 
-        Selection.menu_utama();
+        // Selection.menu_utama();
 
-        while (!pilihan.equals(Selection.menu_exit)){
-            System.out.print("Input Pilihan : ");
-            pilihan=scanner.next();
+        // while (!pilihan.equals(Selection.menu_exit)){
+        //     System.out.print("Input Pilihan : ");
+        //     pilihan=scanner.next();
 
-            if (pilihan.equals(Selection.menu_spl)) {
-                boolean selesai = false;
-                while (!selesai) {
-                    Selection.option_spl();
-                    String pilihan_input="";
-                    pilihan_input=scanner.next();
-                    while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                        System.out.println("Inputan tidak valid");
-                        System.out.print("Jenis Input : ");
-                        pilihan_input=scanner.next();
-                    }
-                    if (pilihan_input.equals(Selection.submenu_1)) {
-                        selesai=SPL.page(scanner);
-                        if (selesai) {
-                            pilihan=Selection.kembali(scanner);   
-                        }
-                    }
-                    else if (pilihan_input.equals(Selection.submenu_2)) {
-                        selesai=SPL.page(scanner);
-                        if (selesai) {
-                            pilihan=Selection.kembali(scanner);   
-                        }
-                    }
-                    else if (pilihan_input.equals(Selection.submenu_3)) {
-                        Selection.menu_utama();
-                        selesai=true;
-                    }   
-                }
-            }
+        //     if (pilihan.equals(Selection.menu_spl)) {
+        //         boolean selesai = false;
+        //         while (!selesai) {
+        //             Selection.option_spl();
+        //             String pilihan_input="";
+        //             pilihan_input=scanner.next();
+        //             while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+        //                 System.out.println("Inputan tidak valid");
+        //                 System.out.print("Jenis Input : ");
+        //                 pilihan_input=scanner.next();
+        //             }
+        //             if (pilihan_input.equals(Selection.submenu_1)) {
+        //                 selesai=SPL.page(scanner);
+        //                 if (selesai) {
+        //                     pilihan=Selection.kembali(scanner);   
+        //                 }
+        //             }
+        //             else if (pilihan_input.equals(Selection.submenu_2)) {
+        //                 selesai=SPL.page(scanner);
+        //                 if (selesai) {
+        //                     pilihan=Selection.kembali(scanner);   
+        //                 }
+        //             }
+        //             else if (pilihan_input.equals(Selection.submenu_3)) {
+        //                 Selection.menu_utama();
+        //                 selesai=true;
+        //             }   
+        //         }
+        //     }
 
-            else if (pilihan.equals(Selection.menu_determinan)) {
-                Selection.option_determinan();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Jenis Input : ");
-                    pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP DETERMINAN");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP DETERMINAN 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
-                }
-            }
+        //     else if (pilihan.equals(Selection.menu_determinan)) {
+        //         boolean selesai = false;
+        //         while (!selesai){
+        //             Selection.option_determinan();
+        //             String pilihan_input="";
+        //             pilihan_input=scanner.next();
+        //             while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+        //                 System.out.println("Inputan tidak valid");
+        //                 System.out.print("Jenis Input : ");
+        //                 pilihan_input=scanner.next();
+        //             }
+        //             if (pilihan_input.equals(Selection.submenu_1)) {
+        //                 selesai=Determinan.Page(scanner);
+        //                     if (selesai) {
+        //                         pilihan=Selection.kembali(scanner);   
+        //                     }
+        //             }
+        //             else if (pilihan_input.equals(Selection.submenu_2)) {
+        //                 selesai = Determinan.Page(scanner);
+        //                 if (selesai) {
+        //                     pilihan=Selection.kembali(scanner);   
+        //                 }
+        //             }
+        //             else if (pilihan_input.equals(Selection.submenu_3)) {
+        //                 Selection.menu_utama();
+        //                 selesai = true;
+        //             }
+        //         }
+               
+        //     }
 
-            else if (pilihan.equals(Selection.menu_invers)) {
-                Selection.option_invers();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Jenis Input : ");
-                    pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP INVERS");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP INVERS 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
-                }
-            }
+        //     else if (pilihan.equals(Selection.menu_invers)) {
+        //         Selection.option_invers();
+        //         String pilihan_input="";
+        //         pilihan_input=scanner.next();
+        //         while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+        //             System.out.println("Inputan tidak valid");
+        //             System.out.print("Jenis Input : ");
+        //             pilihan_input=scanner.next();
+        //         }
+        //         if (pilihan_input.equals(Selection.submenu_1)) {
+        //             System.out.println("MANTAP INVERS");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_2)) {
+        //             System.out.println("MANTAP INVERS 2");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_3)) {
+        //             Selection.menu_utama();
+        //         }
+        //     }
 
-            else if (pilihan.equals(Selection.menu_interpolasi)) {
-                Selection.option_interpolasi();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Jenis Input : ");
-                    pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP INTERPOLASI");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP INTERPOLASI 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
-                }
-            }
+        //     else if (pilihan.equals(Selection.menu_interpolasi)) {
+        //         Selection.option_interpolasi();
+        //         String pilihan_input="";
+        //         pilihan_input=scanner.next();
+        //         while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+        //             System.out.println("Inputan tidak valid");
+        //             System.out.print("Jenis Input : ");
+        //             pilihan_input=scanner.next();
+        //         }
+        //         if (pilihan_input.equals(Selection.submenu_1)) {
+        //             System.out.println("MANTAP INTERPOLASI");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_2)) {
+        //             System.out.println("MANTAP INTERPOLASI 2");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_3)) {
+        //             Selection.menu_utama();
+        //         }
+        //     }
 
-            else if (pilihan.equals(Selection.menu_interpolasi_bicubic)) {
-                Selection.option_interpolasi_bicubic();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Jenis Input : ");
-                    pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP INTERPOLASI BICUBIC");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP INTERPOLASI BICUBIC 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
-                }
-            }
+        //     else if (pilihan.equals(Selection.menu_interpolasi_bicubic)) {
+        //         Selection.option_interpolasi_bicubic();
+        //         String pilihan_input="";
+        //         pilihan_input=scanner.next();
+        //         while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+        //             System.out.println("Inputan tidak valid");
+        //             System.out.print("Jenis Input : ");
+        //             pilihan_input=scanner.next();
+        //         }
+        //         if (pilihan_input.equals(Selection.submenu_1)) {
+        //             System.out.println("MANTAP INTERPOLASI BICUBIC");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_2)) {
+        //             System.out.println("MANTAP INTERPOLASI BICUBIC 2");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_3)) {
+        //             Selection.menu_utama();
+        //         }
+        //     }
 
-            else if (pilihan.equals(Selection.menu_regresi)) {
-                Selection.option_regresi();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Jenis Input : ");
-                    pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP REGRESI");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP REGRESI 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
-                }
-            }
+        //     else if (pilihan.equals(Selection.menu_regresi)) {
+        //         Selection.option_regresi();
+        //         String pilihan_input="";
+        //         pilihan_input=scanner.next();
+        //         while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+        //             System.out.println("Inputan tidak valid");
+        //             System.out.print("Jenis Input : ");
+        //             pilihan_input=scanner.next();
+        //         }
+        //         if (pilihan_input.equals(Selection.submenu_1)) {
+        //             System.out.println("MANTAP REGRESI");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_2)) {
+        //             System.out.println("MANTAP REGRESI 2");
+        //             pilihan=Selection.kembali(scanner);
+        //         }
+        //         else if (pilihan_input.equals(Selection.submenu_3)) {
+        //             Selection.menu_utama();
+        //         }
+        //     }
 
-            else if (pilihan.equals(Selection.menu_exit)) {
-                Selection.option_exit();
-            }
+        //     else if (pilihan.equals(Selection.menu_exit)) {
+        //         Selection.option_exit();
+        //     }
 
-            else{
-                System.out.println("Opsi Menu tidak tersedia");
-            }
-        }
+        //     else{
+        //         System.out.println("Opsi Menu tidak tersedia");
+        //     }
+        // }
+        Matrix m = new Matrix(0, 0);
+        m.readSquareMatrix(scanner);
+        
+        // Call the calculateOne method to get the new matrix
+        double [][] matrix = m.matrix;
+        double det = Determinan.determinan(matrix); 
+
+        double[][] cofactorMatrix = Determinan.cofactorMat(matrix);
+        double[][] calculateOneM = Determinan.minor(matrix, 1, 1);
+        // Print the cofactor matrix
+        // System.out.println("Cofactor Matrix:");
+        // m.printMatrix(cofactorMatrix);
+        // Print the new matrix
+        Selection.ui();
+        System.out.println("Calcu1 Matrix:");
+        m.printMatrix(calculateOneM);
+        Selection.ui();
+        // System.out.println("Determinan:");
+        // System.out.printf("%.2f",det);
         scanner.close();
     }
 }
