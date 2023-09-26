@@ -181,7 +181,7 @@ public class Selection {
         }
         else if (kembali.equalsIgnoreCase("Y")) {
             Selection.option_exit();
-            return "6";
+            return "7";
         }
         return "";
     }
