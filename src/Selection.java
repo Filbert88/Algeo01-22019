@@ -31,26 +31,28 @@ public class Selection {
         }
     }
 
-    public static int menu_spl=1;
-    public static int menu_determinan=2;
-    public static int menu_invers=3;
-    public static int menu_interpolasi=4;
-    public static int menu_regresi=5;
-    public static int menu_exit=6;
+    public static String menu_spl="1";
+    public static String menu_determinan="2";
+    public static String menu_invers="3";
+    public static String menu_interpolasi="4";
+    public static String menu_interpolasi_bicubic="5";
+    public static String menu_regresi="6";
+    public static String menu_exit="7";
 
-    public static int submenu_1=1;
-    public static int submenu_2=2;
-    public static int submenu_3=3;
+    public static String submenu_1="1";
+    public static String submenu_2="2";
+    public static String submenu_3="3";
 
     public static void option(){
         System.out.println("|                  Select Menu                  |");
         Selection.ui();
-        System.out.println("|                   (1) SPL                     |");
+        System.out.println("|         (1) Sistem Persamaan Linear           |");
         System.out.println("|                (2) Determinan                 |");
-        System.out.println("|                 (3) Invers                    |");
-        System.out.println("|               (4) Interpolasi                 |");
-        System.out.println("|                 (5) Regresi                   |");
-        System.out.println("|                   (6) Exit                    |");
+        System.out.println("|             (3) Matriks Balikan               |");
+        System.out.println("|           (4) Interpolasi Polinom             |");
+        System.out.println("|        (5) Interpolasi Bicubic Spline         |");
+        System.out.println("|          (6) Regresi linier berganda          |");
+        System.out.println("|                   (7) Exit                    |");
         Selection.ui();
     }
 
@@ -58,9 +60,9 @@ public class Selection {
         Selection.clear();
         System.out.println();
         Selection.ui();
-        System.out.println("|            Apau & Apin SPL Calculator         |");
+        System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|            Sistem Persamaan Linear            |");
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
         Selection.ui();
         System.out.println("|                 Please Select                 |");
         Selection.ui();
@@ -75,7 +77,7 @@ public class Selection {
         Selection.clear();
         System.out.println();
         Selection.ui();
-        System.out.println("|            Apau & Apin SPL Calculator         |");
+        System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
         System.out.println("|                  DETERMINAN                   |");
         Selection.ui();
@@ -92,9 +94,9 @@ public class Selection {
         Selection.clear();
         System.out.println();
         Selection.ui();
-        System.out.println("|            Apau & Apin SPL Calculator         |");
+        System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|                    INVERS                     |");
+        System.out.println("|                MATRIKS BALIKAN                |");
         Selection.ui();
         System.out.println("|                 Please Select                 |");
         Selection.ui();
@@ -109,9 +111,26 @@ public class Selection {
         Selection.clear();
         System.out.println();
         Selection.ui();
-        System.out.println("|            Apau & Apin SPL Calculator         |");
+        System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|                  INTERPOLASI                  |");
+        System.out.println("|              INTERPOLASI POLINOM              |");
+        Selection.ui();
+        System.out.println("|                 Please Select                 |");
+        Selection.ui();
+        System.out.println("|               (1) Input Manual                |");
+        System.out.println("|                (2) Input File                 |");
+        System.out.println("|                (3) Menu Utama                 |");
+        Selection.ui();
+        System.out.print("Pilih input : ");
+    }
+
+    public static void option_interpolasi_bicubic(){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|           INTERPOLASI BICUBIC SPLINE          |");
         Selection.ui();
         System.out.println("|                 Please Select                 |");
         Selection.ui();
@@ -126,7 +145,7 @@ public class Selection {
         Selection.clear();
         System.out.println();
         Selection.ui();
-        System.out.println("|            Apau & Apin SPL Calculator         |");
+        System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
         System.out.println("|                REGRESI LINEAR                 |");
         Selection.ui();
@@ -146,7 +165,7 @@ public class Selection {
         System.out.println();
     }
 
-    public static int kembali(Scanner scanner){
+    public static String kembali(Scanner scanner){
         String kembali;
         System.out.println();
         System.out.print("Apakah anda ingin keluar dari program (Y/N) : ");
@@ -158,12 +177,12 @@ public class Selection {
         }
         if (kembali.equalsIgnoreCase("N")) {
             Selection.menu_utama();
-            return 0;
+            return "";
         }
         else if (kembali.equalsIgnoreCase("Y")) {
             Selection.option_exit();
-            return 6;
+            return "6";
         }
-        return 0;
+        return "";
     }
 }
