@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.*;
+import java.io.BufferedReader;
 
 public class Matrix {
     int rows;
@@ -85,4 +87,49 @@ public class Matrix {
     public boolean isSquare(){
         return this.rows == this.columns;
     }
-}
+
+    public void readMatrixFromFile(Scanner scanner) {
+        int row=0;
+        int col=0;
+        int counter=0;
+        String fileName = scanner.nextLine();
+        if(isTxtFile(fileName)){
+            String filePath = "../test/"+fileName;
+            try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = rowcolReader.readLine()) != null) {
+                    row +=1;
+                    String[] temparray = line.split(" ");
+                    col = temparray.length;
+                }
+                rowcolReader.close();
+                BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
+                this.rows = row;
+                this.columns = col;
+                this.matrix = new double[row][col];
+                while ((line = matrixReader.readLine()) != null) {
+                    String[] temparray = line.split(" ");
+                    for (int i = 0; i < col; i++) {
+                    double value = Double.parseDouble(temparray[i]);
+                    this.setELmt(counter,i,value);
+                    }
+                    counter +=1;
+                }
+            } catch (IOException e) {
+                System.out.println("Please make sure the file exist and readable.");
+            }
+        }
+        else{
+            System.out.println("The file is not a txt file.");
+        }
+    }
+        public static boolean isTxtFile(String fileName){
+            int length = fileName.length();
+            if (fileName.endsWith(".txt")){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
