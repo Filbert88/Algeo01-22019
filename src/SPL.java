@@ -27,19 +27,20 @@ public class SPL {
         }
 
         if (pilih.equals("1")){
-            System.out.println("HALO");
+            System.out.println();
+            Gauss(scanner);
             return true;
         }
         else if (pilih.equals("2")){
-            System.out.println("HALO");
+            System.out.println();
             return true;
         }
         else if (pilih.equals("3")){
-            System.out.println("HALO");
+            System.out.println();
             return true;
         }
         else if (pilih.equals("4")){
-            System.out.println("HALO");
+            System.out.println();
             return true;
         }
         else if (pilih.equals("5")){
@@ -49,7 +50,14 @@ public class SPL {
         return false;
     }
 
-    public static void OBE(){
+    public static void Gauss(Scanner scanner){
+        Matrix M = new Matrix(0, 0);
+        M.readMatrixFromTerminal(scanner);
 
+        System.out.println();
+        System.out.println("Matriks :");
+        M.printMatrix(M.matrix);
+
+        Matrix.OBE(M);
     }
 }
