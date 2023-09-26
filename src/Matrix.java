@@ -207,8 +207,6 @@ public class Matrix {
                     M.printMatrix(M.matrix);
                 }
 
-                System.out.println();
-                System.out.print("Matriks : (");
                 int count=0;
                 for (int i = now+1; i < M.rows; i++) {
                     if (M.getElmt(i,now)!=0) {
@@ -219,6 +217,11 @@ public class Matrix {
                         if (count!=0) {
                             System.out.print(", ");
                         }
+                        else{
+                            System.out.println();
+                            System.out.print("Matriks : ");
+                            System.out.print("(");
+                        }
                         count++;
                         if (pengali>=0) {
                             System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
@@ -228,11 +231,7 @@ public class Matrix {
                         }
                     }
                 }
-                if (count==0) {
-                    System.out.println("Tidak ada perubahan)");
-                    M.printMatrix(M.matrix);
-                }
-                else{
+                if (count!=0) {
                     System.out.println(")");
                     M.printMatrix(M.matrix);
                 }
@@ -259,8 +258,6 @@ public class Matrix {
             if (identitas) {
                 int now=M.rows-1;
                 while (now>=0) {
-                    System.out.println();
-                    System.out.print("Matriks : (");
                     int count=0;
                     for (int i = now-1; i >= 0; i--) {
                         if (M.getElmt(i,now)!=0) {
@@ -271,6 +268,11 @@ public class Matrix {
                             if (count!=0) {
                                 System.out.print(", ");
                             }
+                            else{
+                                System.out.println();
+                                System.out.print("Matriks : ");                                
+                                System.out.print("(");
+                            }
                             count++;
                             if (pengali>=0) {
                                 System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
@@ -280,11 +282,7 @@ public class Matrix {
                             }
                         }
                     }
-                    if (count==0) {
-                        System.out.println("Tidak ada perubahan)");
-                        M.printMatrix(M.matrix);
-                    }
-                    else{
+                    if (count!=0) {
                         System.out.println(")");
                         M.printMatrix(M.matrix);
                     }

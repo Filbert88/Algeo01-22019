@@ -52,6 +52,15 @@ public class SPL {
     }
 
     public static void Gauss(Scanner scanner){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|                 METODE GAUSS                  |");
+        Selection.ui();        
         Matrix M = new Matrix(0, 0);
         M.readMatrixFromTerminal(scanner);
 
@@ -63,6 +72,15 @@ public class SPL {
     }
 
     public static void GaussJordan(Scanner scanner){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|              METODE GAUSS JORDAN              |");
+        Selection.ui();
         Matrix M = new Matrix(0, 0);
         M.readMatrixFromTerminal(scanner);
 
