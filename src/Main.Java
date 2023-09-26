@@ -15,20 +15,20 @@ public class Main {
                 Selection.option_spl();
                 String pilihan_input="";
                 pilihan_input=scanner.next();
-                while (pilihan_input!=Selection.submenu_1 && pilihan_input!=Selection.submenu_2 && pilihan_input!=Selection.submenu_3) {
+                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Input Pilihan : ");
                     pilihan_input=scanner.next();
                 }
-                if (pilihan_input==Selection.submenu_1) {
+                if (pilihan_input.equals(Selection.submenu_1)) {
                     System.out.println("MANTAP SISTEM PERSAMAAN LINEAR");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_2) {
+                else if (pilihan_input.equals(Selection.submenu_2)) {
                     System.out.println("MANTAP SISTEM PERSAMAAN LINEAR 2");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_3) {
+                else if (pilihan_input.equals(Selection.submenu_3)) {
                     Selection.menu_utama();
                 }
             }
@@ -37,20 +37,20 @@ public class Main {
                 Selection.option_determinan();
                 String pilihan_input="";
                 pilihan_input=scanner.next();
-                while (pilihan_input!=Selection.submenu_1 && pilihan_input!=Selection.submenu_2 && pilihan_input!=Selection.submenu_3) {
+                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Input Pilihan : ");
                     pilihan_input=scanner.next();
                 }
-                if (pilihan_input==Selection.submenu_1) {
+                if (pilihan_input.equals(Selection.submenu_1)) {
                     System.out.println("MANTAP DETERMINAN");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_2) {
+                else if (pilihan_input.equals(Selection.submenu_2)) {
                     System.out.println("MANTAP DETERMINAN 2");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_3) {
+                else if (pilihan_input.equals(Selection.submenu_3)) {
                     Selection.menu_utama();
                 }
             }
@@ -59,20 +59,20 @@ public class Main {
                 Selection.option_invers();
                 String pilihan_input="";
                 pilihan_input=scanner.next();
-                while (pilihan_input!=Selection.submenu_1 && pilihan_input!=Selection.submenu_2 && pilihan_input!=Selection.submenu_3) {
+                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Input Pilihan : ");
                     pilihan_input=scanner.next();
                 }
-                if (pilihan_input==Selection.submenu_1) {
+                if (pilihan_input.equals(Selection.submenu_1)) {
                     System.out.println("MANTAP INVERS");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_2) {
+                else if (pilihan_input.equals(Selection.submenu_2)) {
                     System.out.println("MANTAP INVERS 2");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_3) {
+                else if (pilihan_input.equals(Selection.submenu_3)) {
                     Selection.menu_utama();
                 }
             }
@@ -81,20 +81,20 @@ public class Main {
                 Selection.option_interpolasi();
                 String pilihan_input="";
                 pilihan_input=scanner.next();
-                while (pilihan_input!=Selection.submenu_1 && pilihan_input!=Selection.submenu_2 && pilihan_input!=Selection.submenu_3) {
+                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Input Pilihan : ");
                     pilihan_input=scanner.next();
                 }
-                if (pilihan_input==Selection.submenu_1) {
+                if (pilihan_input.equals(Selection.submenu_1)) {
                     System.out.println("MANTAP INTERPOLASI");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_2) {
+                else if (pilihan_input.equals(Selection.submenu_2)) {
                     System.out.println("MANTAP INTERPOLASI 2");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_3) {
+                else if (pilihan_input.equals(Selection.submenu_3)) {
                     Selection.menu_utama();
                 }
             }
@@ -103,20 +103,20 @@ public class Main {
                 Selection.option_interpolasi_bicubic();
                 String pilihan_input="";
                 pilihan_input=scanner.next();
-                while (pilihan_input!=Selection.submenu_1 && pilihan_input!=Selection.submenu_2 && pilihan_input!=Selection.submenu_3) {
+                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Input Pilihan : ");
                     pilihan_input=scanner.next();
                 }
-                if (pilihan_input==Selection.submenu_1) {
+                if (pilihan_input.equals(Selection.submenu_1)) {
                     System.out.println("MANTAP INTERPOLASI BICUBIC");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_2) {
+                else if (pilihan_input.equals(Selection.submenu_2)) {
                     System.out.println("MANTAP INTERPOLASI BICUBIC 2");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_3) {
+                else if (pilihan_input.equals(Selection.submenu_3)) {
                     Selection.menu_utama();
                 }
             }
@@ -125,20 +125,20 @@ public class Main {
                 Selection.option_regresi();
                 String pilihan_input="";
                 pilihan_input=scanner.next();
-                while (pilihan_input!=Selection.submenu_1 && pilihan_input!=Selection.submenu_2 && pilihan_input!=Selection.submenu_3) {
+                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Input Pilihan : ");
                     pilihan_input=scanner.next();
                 }
-                if (pilihan_input==Selection.submenu_1) {
+                if (pilihan_input.equals(Selection.submenu_1)) {
                     System.out.println("MANTAP REGRESI");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_2) {
+                else if (pilihan_input.equals(Selection.submenu_2)) {
                     System.out.println("MANTAP REGRESI 2");
                     pilihan=Selection.kembali(scanner);
                 }
-                else if (pilihan_input==Selection.submenu_3) {
+                else if (pilihan_input.equals(Selection.submenu_3)) {
                     Selection.menu_utama();
                 }
             }
@@ -150,9 +150,6 @@ public class Main {
             else{
                 System.out.println("Opsi Menu tidak tersedia");
             }
-
-            System.out.print(pilihan);
-            System.out.println(Selection.menu_exit);
         }
         scanner.close();
     }
