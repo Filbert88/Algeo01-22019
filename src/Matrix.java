@@ -170,75 +170,70 @@ public class Matrix {
         }
     }
 
-    public static void OBE(Matrix M){
-        if (M.columns==1) {
-            System.out.println("Tidak ada penyelesaian");
-        }
-        else{
-            int now=0;
-            while (now<M.rows) {
-                if (M.getElmt(now,now)==0) {
-                    for (int i = now+1; i < M.rows; i++) {
-                        if (M.getElmt(i, now)!=0) {
-                            Matrix temp = new Matrix(1, M.columns);
-                            for (int j = 0; j < M.columns; j++) {
-                                temp.setELmt(0, j, M.getElmt(i,j));
-                                M.setELmt(i, j, M.getElmt(now,j));
-                                M.setELmt(now, j, temp.getElmt(0,j));
-                            }
-                            if (i!=M.rows) {
-                                System.out.println();
-                                System.out.print("Matriks : ");
-                                System.out.println("(R"+(now+1)+" ditukar dengan R"+(i+1)+")");
-                                M.printMatrix(M.matrix);
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                if (M.getElmt(now,now)!=0) {
-                    if (M.getElmt(now,now)!=1) {
-                        double pembagi=M.getElmt(now,now);
+    public static Matrix OBE(Matrix M){
+        int now=0;
+        while (now<M.rows) {
+            if (M.getElmt(now,now)==0) {
+                for (int i = now+1; i < M.rows; i++) {
+                    if (M.getElmt(i, now)!=0) {
+                        Matrix temp = new Matrix(1, M.columns);
                         for (int j = 0; j < M.columns; j++) {
-                            if (M.getElmt(now,j)!=0) {
-                                M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
-                            }
+                            temp.setELmt(0, j, M.getElmt(i,j));
+                            M.setELmt(i, j, M.getElmt(now,j));
+                            M.setELmt(now, j, temp.getElmt(0,j));
                         }
-                        System.out.println();
-                        System.out.print("Matriks : ");
-                        System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
-                        M.printMatrix(M.matrix);
-                    }
-
-                    System.out.println();
-                    System.out.print("Matriks : (");
-                    int count=0;
-                    for (int i = now+1; i < M.rows; i++) {
-                        if (M.getElmt(i,now)!=0) {
-                            double pengali=M.getElmt(i,now);
-                            for (int j = 0; j < M.columns; j++) {
-                                M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
-                            }
-                            if (count!=0) {
-                                System.out.print(", ");
-                            }
-                            count++;
-                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
+                        if (i!=M.rows) {
+                            System.out.println();
+                            System.out.print("Matriks : ");
+                            System.out.println("(R"+(now+1)+" ditukar dengan R"+(i+1)+")");
+                            M.printMatrix(M.matrix);
                         }
-                    }
-                    if (count==0) {
-                        System.out.println("Tidak ada perubahan)");
-                        M.printMatrix(M.matrix);
-                    }
-                    else{
-                        System.out.println(")");
-                        M.printMatrix(M.matrix);
+                        break;
                     }
                 }
-                now++;
             }
-        }
 
+            if (M.getElmt(now,now)!=0) {
+                if (M.getElmt(now,now)!=1) {
+                    double pembagi=M.getElmt(now,now);
+                    for (int j = 0; j < M.columns; j++) {
+                        if (M.getElmt(now,j)!=0) {
+                            M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
+                        }
+                    }
+                    System.out.println();
+                    System.out.print("Matriks : ");
+                    System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
+                    M.printMatrix(M.matrix);
+                }
+
+                System.out.println();
+                System.out.print("Matriks : (");
+                int count=0;
+                for (int i = now+1; i < M.rows; i++) {
+                    if (M.getElmt(i,now)!=0) {
+                        double pengali=M.getElmt(i,now);
+                        for (int j = 0; j < M.columns; j++) {
+                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                        }
+                        if (count!=0) {
+                            System.out.print(", ");
+                        }
+                        count++;
+                        System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
+                    }
+                }
+                if (count==0) {
+                    System.out.println("Tidak ada perubahan)");
+                    M.printMatrix(M.matrix);
+                }
+                else{
+                    System.out.println(")");
+                    M.printMatrix(M.matrix);
+                }
+            }
+            now++;
+        }
+        return M;
     }
 }

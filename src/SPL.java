@@ -58,6 +58,6 @@ public class SPL {
         System.out.println("Matriks :");
         M.printMatrix(M.matrix);
 
-        Matrix.OBE(M);
+        M=Matrix.OBE(M);
     }
 }
