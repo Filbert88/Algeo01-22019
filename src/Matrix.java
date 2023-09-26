@@ -16,12 +16,15 @@ public class Matrix {
         return this.matrix[i][j];
     }
 
-    public int getRow(){
-        return this.rows;
+    public int getRow(double[][]matrix){
+        return matrix.length;
     }
 
     public int getColumn(){
-        return this.columns;
+        if (matrix.length == 0) {
+            return 0;
+        }
+        return matrix[0].length;
     }
 
     public void setELmt(int row, int col, double val){
@@ -37,7 +40,6 @@ public class Matrix {
         int i,j;
         int rows = matrix.length;
         int columns = matrix[0].length;
-        System.out.println("Matriks: ");
         for(i=0; i< rows; i++) {
             for(j = 0; j < columns; j++){
                 if (matrix[i][j] == -0){
@@ -83,7 +85,7 @@ public class Matrix {
         column = row;
         this.columns = column;
         this.matrix = new double[row][column];
-        if(isSquare()){
+        if(isSquare(matrix)){
             System.out.println("Masukkan Matriks: ");
             for(i=0;i<row;i++){
                 for(j=0;j<column;j++){
@@ -109,12 +111,19 @@ public class Matrix {
         return newMatrix;
     }
     
-    public int Msize(){
-        return (this.rows * this.columns);
+    public int Msize(double[][]matrix){
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        return (rows*columns);
     }
 
-    public boolean isSquare(){
-        return this.rows == this.columns;
+    public boolean isSquare(double[][]matrix){
+        if (matrix.length == 0) {
+            return false;
+        }
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        return rows==columns;
     }
 
     public void readMatrixFromFile(Scanner scanner) {
@@ -161,4 +170,4 @@ public class Matrix {
             return false;
         }
     }
-    }
+}
