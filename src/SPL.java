@@ -33,6 +33,7 @@ public class SPL {
         }
         else if (pilih.equals("2")){
             System.out.println();
+            GaussJordan(scanner);
             return true;
         }
         else if (pilih.equals("3")){
@@ -59,5 +60,16 @@ public class SPL {
         M.printMatrix(M.matrix);
 
         M=Matrix.OBE(M);
+    }
+
+    public static void GaussJordan(Scanner scanner){
+        Matrix M = new Matrix(0, 0);
+        M.readMatrixFromTerminal(scanner);
+
+        System.out.println();
+        System.out.println("Matriks :");
+        M.printMatrix(M.matrix);
+
+        M=Matrix.OBE_red(M);
     }
 }

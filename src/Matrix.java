@@ -220,7 +220,12 @@ public class Matrix {
                             System.out.print(", ");
                         }
                         count++;
-                        System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
+                        if (pengali>=0) {
+                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
+                        }
+                        else{
+                            System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                        }
                     }
                 }
                 if (count==0) {
@@ -233,6 +238,63 @@ public class Matrix {
                 }
             }
             now++;
+        }
+        return M;
+    }
+
+    public static Matrix OBE_red(Matrix M){
+        M=OBE(M);
+        if (M.columns-1!=M.rows && M.columns!=M.rows && M.columns!=M.rows*2) {
+            System.out.println();
+            System.out.println("Tidak bisa menggunakan eselon baris tereduksi");
+        }
+        else{
+            boolean identitas=true;
+            for (int i = 0; i < M.rows; i++) {
+                if (M.getElmt(i,i)!=1) {
+                    System.out.println(M.getElmt(i, i));
+                    identitas=false;
+                }
+            }
+            if (identitas) {
+                int now=M.rows-1;
+                while (now>=0) {
+                    System.out.println();
+                    System.out.print("Matriks : (");
+                    int count=0;
+                    for (int i = now-1; i >= 0; i--) {
+                        if (M.getElmt(i,now)!=0) {
+                            double pengali=M.getElmt(i,now);
+                            for (int j = 0; j < M.columns; j++) {
+                                M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                            }
+                            if (count!=0) {
+                                System.out.print(", ");
+                            }
+                            count++;
+                            if (pengali>=0) {
+                                System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
+                            }
+                            else{
+                                System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                            }
+                        }
+                    }
+                    if (count==0) {
+                        System.out.println("Tidak ada perubahan)");
+                        M.printMatrix(M.matrix);
+                    }
+                    else{
+                        System.out.println(")");
+                        M.printMatrix(M.matrix);
+                    }
+                    now--;
+                }
+            }
+            else{
+                System.out.println();
+                System.out.println("Tidak bisa menggunakan eselon baris tereduksi");
+            }
         }
         return M;
     }
