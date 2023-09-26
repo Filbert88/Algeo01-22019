@@ -32,6 +32,7 @@ public class Matrix {
         }
     }
 
+    // print all matrix
     public void printMatrix(double [][] matrix){
         int i,j;
         int rows = matrix.length;
