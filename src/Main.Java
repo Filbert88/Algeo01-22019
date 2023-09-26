@@ -7,7 +7,7 @@ public class Main {
 
         Selection.menu_utama();
 
-        while (pilihan != Selection.menu_exit){
+        while (!pilihan.equals(Selection.menu_exit)){
             System.out.print("Input Pilihan : ");
             pilihan=scanner.next();
 
@@ -143,7 +143,7 @@ public class Main {
                 }
             }
 
-            else if (pilihan==Selection.menu_exit) {
+            else if (pilihan.equals(Selection.menu_exit)) {
                 Selection.option_exit();
             }
 
