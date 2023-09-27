@@ -48,7 +48,7 @@ public class Main {
                     String pilihan_input="";
                     pilihan_input=scanner.next();
                     while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                        System.out.println("Inputan tidak valid");
+                        System.out.println("Inputan tidak valid. Program hanya menerima input dari angka 1 sampai 3");
                         System.out.print("Jenis Input : ");
                         pilihan_input=scanner.next();
                     }
@@ -164,7 +164,7 @@ public class Main {
             }
 
             else{
-                System.out.println("Opsi Menu tidak tersedia");
+                System.out.println("Opsi Menu tidak tersedia. Program hanya menerima input 1 sampai 7");
             }
         }
         scanner.close();
