@@ -384,6 +384,54 @@ public class Matrix {
         return det;
     }
 
+    public void swapRows(int i,int j) {
+    double[] temp = this.matrix[i];
+    this.matrix[i] = this.matrix[j];
+    this.matrix[j] = temp;
+    }
+
+    public double determinanOBE(){
+        int n = this.rows;
+        int i,j,k,l,changeRow = 0;
+        double det = 1.0;
+
+        System.out.println();
+        System.out.println("Matriks : ");
+        printMatrix();
+        System.out.println();
+        for(i=0;i<n;i++){
+            if(this.getElmt(i,i) == 0){
+                for(j=i+1;j<n;j++){
+                    if (this.getElmt(j,i) != 0){
+                        changeRow += 1;
+                        this.swapRows(i,j);
+                        System.out.println("Swap R" + (i + 1) + " dengan R" + (j + 1));
+                        printMatrix();
+                        System.out.println();
+                    }
+                }
+            }
+            // i = 0,k = 1 , l = 0
+            for(k=i+1;k<n;k++){
+                double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
+                for(l=0;l<n;l++){
+                    this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
+                }
+                System.out.println("R" + (k + 1) + " - (" + String.format("%.2f", pembuatnol) + " * R" + (i + 1) + ")");
+                printMatrix();
+                System.out.println();
+            }
+        }
+
+        double minus = Math.pow(-1, changeRow);
+        for(i=0;i<n;i++){
+            det *= this.getElmt(i,i);
+        }
+        double hasil = det*minus;
+
+        return hasil;
+    }
+
     public Matrix transpose(){
         int rows = this.rows;
         int cols = this.columns;
