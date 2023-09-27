@@ -355,8 +355,6 @@ public class Matrix {
                         rowcounter+=1;
                         colcounter = 0;
                     }
-                    System.out.println(colcounter+","+rowcounter);
-                    System.out.println(i+",untuk i dan j  "+j);
                     double value = this.getElmt(i, j);
                     newmatrix.setELmt(rowcounter, colcounter, value);
                     colcounter+=1;
@@ -384,5 +382,56 @@ public class Matrix {
             }
         }
         return det;
+    }
+
+    public Matrix transpose(){
+        int rows = this.rows;
+        int cols = this.columns;
+        Matrix transposeMatrix = new Matrix(rows,cols);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                double elmt = this.getElmt(i,j);
+                transposeMatrix.setELmt(j,i,elmt);
+            }
+        }
+        return transposeMatrix;
+    }
+
+    public Matrix adjoin(){
+        int sign=1;
+        int rows = this.rows;
+        int cols = this.columns;
+        Matrix adjoin = new Matrix(rows,cols);
+        Matrix minor = new Matrix(rows-1,cols-1);
+        for (int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if((i+j)%2 == 0){
+                    sign = 1;
+                }  
+                else{
+                    sign = -1;
+                }
+                minor = this.minor(i,j);
+                double det = minor.determinanCof();
+                adjoin.setELmt(i,j,(det*sign));
+                System.out.println(det);    
+            }
+        }
+        adjoin = adjoin.transpose();
+        return adjoin;
+    }
+
+    public Matrix inverseCofactor(){
+        int rows = this.rows;
+        int cols = this.columns;
+        Matrix inverse = new Matrix(rows,cols);
+        Matrix adjoin = this.adjoin();
+        double det = this.determinanCof();
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                inverse.setELmt(i,j,adjoin.getElmt(i,j)/det);
+            }
+        }
+        return inverse;
     }
 }
