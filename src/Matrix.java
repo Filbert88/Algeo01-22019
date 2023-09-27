@@ -236,6 +236,32 @@ public class Matrix {
                     M.printMatrix();
                 }
             }
+
+            else{
+                int leading=-1;
+                for (int i = 0; i < M.columns; i++) {
+                    if (M.getElmt(now, i)!=0) {
+                        leading=i;
+                        break;
+                    }
+                }
+                if (leading!=-1) {
+                    double pembagi=M.getElmt(now,leading);
+
+                    if (pembagi!=1) {
+                        for (int j = 0; j < M.columns; j++) {
+                            if (M.getElmt(now,j)!=0) {
+                                M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
+                            }
+                        }
+                        System.out.println();
+                        System.out.print("Matriks : ");
+                        System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
+                        M.printMatrix();   
+                    }
+                }
+            }
+
             now++;
         }
         return M;
