@@ -19,7 +19,7 @@ public class Determinan {
         String pilih = scanner.next();
 
         while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
-            System.out.println("Inputan tidak valid");
+            System.out.println("Inputan tidak valid. Program hanya menerima input 1 sampai 3");
             System.out.print("Pilih metode : ");
             pilih=scanner.next();
         }
@@ -51,17 +51,10 @@ public class Determinan {
         Selection.ui();
         System.out.println("|               METODE KOFAKTOR                 |");
         Selection.ui();        
+
         Matrix M = new Matrix(0, 0);
         M.readSquareMatrix(scanner);
-
-        System.out.println();
-        System.out.println("Matriks :");
-        M.printMatrix();
-        System.out.println();
-        
-        double det = M.determinanCof();
-        System.out.println("Determinan :");
-        System.out.println(det);
+        M.determinanCofExp();
     }
 
     public static void DetOBE(Scanner scanner){
@@ -74,16 +67,13 @@ public class Determinan {
         Selection.ui();
         System.out.println("|                   METODE OBE                  |");
         Selection.ui();
+        
         Matrix M = new Matrix(0, 0);
         M.readMatrixFromTerminal(scanner);
-
-        System.out.println();
-        System.out.println("Matriks :");
-        M.printMatrix();
         
-
-        // double det = M.determinanOBE();
-        // System.out.println(det);
+        double det = M.determinanOBE();
+        System.out.print("Determinan : ");
+        System.out.println(String.format("%.2f", det));
     }
  
 }
