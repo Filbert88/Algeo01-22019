@@ -296,4 +296,29 @@ public class Matrix {
         }
         return M;
     }
+    public Matrix minor(int row,int col){
+        int newRows = this.rows-1;
+        int newCols = this.columns-1;
+        int rowcounter = 0;
+        int colcounter = 0;
+        Matrix newmatrix = new Matrix(newRows,newCols);
+        for(int i=0;i<this.rows;i++){
+            for(int j=0;j<this.columns;j++){
+                if(i!=row && j!=col){   
+                    if(colcounter == newCols){
+                        rowcounter+=1;
+                        colcounter = 0;
+                    }
+                    System.out.println(colcounter+","+rowcounter);
+                    System.out.println(i+",untuk i dan j  "+j);
+                    double value = this.getElmt(i, j);
+                    newmatrix.setELmt(rowcounter, colcounter, value);
+                    colcounter+=1;
+                }
+                
+            }
+        }
+        return newmatrix;
+    }
+
 }
