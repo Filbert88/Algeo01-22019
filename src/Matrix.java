@@ -367,4 +367,22 @@ public class Matrix {
         return newmatrix;
     }
 
+    public double determinanCof() {
+        int n = this.rows;
+        int sign;
+        double det = 0;
+        double detMinor;
+
+        if (n == 1) {
+            det = this.getElmt(0, 0);
+        } else {
+            for (int i = 0; i < n; i++) {
+                sign = ((i%2)==0) ? 1 : -1;
+                Matrix minor = this.minor(0,i);
+                detMinor = minor.determinanCof();
+                det += sign * this.matrix[0][i] * detMinor;
+            }
+        }
+        return det;
+    }
 }

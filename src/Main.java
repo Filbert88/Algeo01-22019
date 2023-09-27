@@ -42,24 +42,32 @@ public class Main {
             }
 
             else if (pilihan.equals(Selection.menu_determinan)) {
-                Selection.option_determinan();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Jenis Input : ");
+                boolean selesai = false;
+                while (!selesai){
+                    Selection.option_determinan();
+                    String pilihan_input="";
                     pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP DETERMINAN");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP DETERMINAN 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
+                    while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+                        System.out.println("Inputan tidak valid");
+                        System.out.print("Jenis Input : ");
+                        pilihan_input=scanner.next();
+                    }
+                    if (pilihan_input.equals(Selection.submenu_1)) {
+                        selesai = Determinan.Page(scanner);
+                        if(selesai){
+                            pilihan=Selection.kembali(scanner);
+                        }
+                    }
+                    else if (pilihan_input.equals(Selection.submenu_2)) {
+                        selesai = Determinan.Page(scanner);
+                        if(selesai){
+                            pilihan=Selection.kembali(scanner);
+                        }
+                    }
+                    else if (pilihan_input.equals(Selection.submenu_3)) {
+                        Selection.menu_utama();
+                        selesai = true;
+                    }
                 }
             }
 
