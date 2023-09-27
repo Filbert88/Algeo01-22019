@@ -15,15 +15,15 @@ public class Matrix {
         return this.matrix[i][j];
     }
 
-    public int getRow(double[][]matrix){
-        return matrix.length;
+    public int getRow(){
+        return this.rows;
     }
 
     public int getColumn(){
-        if (matrix.length == 0) {
+        if (this.rows == 0) {
             return 0;
         }
-        return matrix[0].length;
+        return this.columns;
     }
 
     public void setELmt(int row, int col, double val){
@@ -35,14 +35,14 @@ public class Matrix {
     }
 
     // print all matrix
-    public void printMatrix(double [][] matrix){
+    public void printMatrix(){
         int i,j;
-        int rows = matrix.length;
-        int columns = matrix[0].length;
+        int rows = this.rows;
+        int columns = this.columns;
         for(i=0; i< rows; i++) {
             for(j = 0; j < columns; j++){
-                if (matrix[i][j] == -0){
-                    matrix[i][j] = 0;
+                if (this.matrix[i][j] == -0){
+                    this.matrix[i][j] = 0;
                 }
                 if(j != (columns -1)){
                     System.out.printf("%.2f ",matrix[i][j]);
