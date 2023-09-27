@@ -260,6 +260,34 @@ public class Matrix {
                         M.printMatrix();   
                     }
                 }
+                int count=0;
+                for (int i = now+1; i < M.rows; i++) {
+                    if (M.getElmt(i,leading)!=0) {
+                        double pengali=M.getElmt(i,leading);
+                        for (int j = 0; j < M.columns; j++) {
+                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                        }
+                        if (count!=0) {
+                            System.out.print(", ");
+                        }
+                        else{
+                            System.out.println();
+                            System.out.print("Matriks : ");
+                            System.out.print("(");
+                        }
+                        count++;
+                        if (pengali>=0) {
+                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
+                        }
+                        else{
+                            System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                        }
+                    }
+                }
+                if (count!=0) {
+                    System.out.println(")");
+                    M.printMatrix();
+                }
             }
 
             now++;
