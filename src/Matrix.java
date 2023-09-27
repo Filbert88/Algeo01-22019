@@ -365,6 +365,57 @@ public class Matrix {
         return newmatrix;
     }
 
+    public Matrix cofactor(){
+        int sign=1;
+        int rows = this.rows;
+        int cols = this.columns;
+        Matrix cofacMatrix = new Matrix(rows,cols);
+        Matrix minor = new Matrix(rows-1,cols-1);
+        for (int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if((i+j)%2 == 0){
+                    sign = 1;
+                }  
+                else{
+                    sign = -1;
+                }
+                minor = this.minor(i,j);
+                double det = minor.determinanCof();
+                cofacMatrix.setELmt(i,j,(det*sign));    
+            }
+        }
+        return cofacMatrix;
+    }
+    
+    public void determinanCofExp(){
+        int i;
+        int n = this.rows;
+        double det;
+        Matrix cofactorMat = this.cofactor();
+
+        System.out.println();
+        System.out.println("Matriks : ");
+        printMatrix();
+        System.out.println();
+        System.out.println("Matriks Kofaktor : ");
+        cofactorMat.printMatrix();
+
+        if (this.rows == 1){
+            det = this.getElmt(0, 0);
+            System.out.println(String.format("Determinant Matriks adalah %.2f", det));
+        }
+        System.out.println();
+        System.out.println("Determinan : ");
+        System.out.print(String.format("%.2f x %.2f", this.getElmt(0,0) , cofactorMat.getElmt(0,0)));
+        det = this.getElmt(0,0) * cofactorMat.getElmt(0,0);
+        for(i=1;i<n;i++){
+            System.out.print(String.format(" + %.2f x %.2f", this.getElmt(0, i), cofactorMat.getElmt(0, i)));
+            det += this.matrix[0][i] * cofactorMat.matrix[0][i];
+        }
+        System.out.print(String.format(" = %.2f", det));
+        System.out.println();
+    }
+
     public double determinanCof() {
         int n = this.rows;
         int sign;
@@ -390,6 +441,11 @@ public class Matrix {
     this.matrix[j] = temp;
     }
 
+    public static double round(double number,int decimal){
+        double factor = Math.pow(10, decimal);
+        return Math.round(number * factor) / factor;
+    }
+
     public double determinanOBE(){
         int n = this.rows;
         int i,j,k,l,changeRow = 0;
@@ -411,7 +467,6 @@ public class Matrix {
                     }
                 }
             }
-            // i = 0,k = 1 , l = 0
             for(k=i+1;k<n;k++){
                 double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
                 for(l=0;l<n;l++){
@@ -428,8 +483,9 @@ public class Matrix {
             det *= this.getElmt(i,i);
         }
         double hasil = det*minus;
+        double hasillast = round(hasil,8);
 
-        return hasil;
+        return hasillast;
     }
 
     public Matrix transpose(){
