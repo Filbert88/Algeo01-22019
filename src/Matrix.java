@@ -461,11 +461,18 @@ public class Matrix {
                 }
                 minor = this.minor(i,j);
                 double det = minor.determinanCof();
-                adjoin.setELmt(i,j,(det*sign));
-                System.out.println(det);    
+                adjoin.setELmt(i,j,(det*sign));    
             }
         }
+        System.out.println("Tampilkan hasil ekspansi kofaktor");
+        adjoin.printMatrix();
+        System.out.println();
+        System.out.println("Dari kofaktor di transpose untuk diubah menjadi adjoin.");
+        System.out.println();
         adjoin = adjoin.transpose();
+        System.out.println("Adjoin:");
+        adjoin.printMatrix();
+        System.out.println();
         return adjoin;
     }
 
@@ -480,6 +487,8 @@ public class Matrix {
                 inverse.setELmt(i,j,adjoin.getElmt(i,j)/det);
             }
         }
+        System.out.println("Di cari Matriks Balikan dengan membagi setiap elemen dengan determinan");
+        System.out.println("Determinan:"+det);
         return inverse;
     }
 }
