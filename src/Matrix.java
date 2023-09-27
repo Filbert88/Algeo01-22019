@@ -172,23 +172,44 @@ public class Matrix {
 
     public Matrix OBE(Matrix M){
         int now=0;
-        while (now<M.rows) {
+        while (now<M.rows && now<M.columns) {
             if (M.getElmt(now,now)==0) {
-                for (int i = now+1; i < M.rows; i++) {
-                    if (M.getElmt(i, now)!=0) {
-                        Matrix temp = new Matrix(1, M.columns);
-                        for (int j = 0; j < M.columns; j++) {
-                            temp.setELmt(0, j, M.getElmt(i,j));
-                            M.setELmt(i, j, M.getElmt(now,j));
-                            M.setELmt(now, j, temp.getElmt(0,j));
-                        }
-                        if (i!=M.rows) {
-                            System.out.println();
-                            System.out.print("Matriks : ");
-                            System.out.println("(R"+(now+1)+" ditukar dengan R"+(i+1)+")");
-                            M.printMatrix();
-                        }
+
+                int tukar=-1;
+                int leading=Integer.MAX_VALUE;
+                for (int i = 0; i < M.columns; i++) {
+                    if (M.getElmt(now,i)!=0) {
+                        leading=i;
                         break;
+                    }
+                }
+
+                for (int i = now+1; i < M.rows; i++) {
+                    int leading_temp=Integer.MAX_VALUE;
+                    for (int j = 0; j < M.columns; j++) {
+                        if (M.getElmt(i, j)!=0) {
+                            leading_temp=j;
+                            break;
+                        }
+                    }
+                    if (leading_temp<leading) {
+                        leading=leading_temp;
+                        tukar=i;
+                    }
+                }
+
+                if (tukar!=-1) {
+                    Matrix temp = new Matrix(1, M.columns);
+                    for (int j = 0; j < M.columns; j++) {
+                        temp.setELmt(0, j, M.getElmt(tukar,j));
+                        M.setELmt(tukar, j, M.getElmt(now,j));
+                        M.setELmt(now, j, temp.getElmt(0,j));
+                    }
+                    if (tukar!=M.rows) {
+                        System.out.println();
+                        System.out.print("Matriks : ");
+                        System.out.println("(R"+(now+1)+" ditukar dengan R"+(tukar+1)+")");
+                        M.printMatrix();
                     }
                 }
             }
@@ -259,34 +280,34 @@ public class Matrix {
                         System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
                         M.printMatrix();   
                     }
-                }
-                int count=0;
-                for (int i = now+1; i < M.rows; i++) {
-                    if (M.getElmt(i,leading)!=0) {
-                        double pengali=M.getElmt(i,leading);
-                        for (int j = 0; j < M.columns; j++) {
-                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
-                        }
-                        if (count!=0) {
-                            System.out.print(", ");
-                        }
-                        else{
-                            System.out.println();
-                            System.out.print("Matriks : ");
-                            System.out.print("(");
-                        }
-                        count++;
-                        if (pengali>=0) {
-                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
-                        }
-                        else{
-                            System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                    int count=0;
+                    for (int i = now+1; i < M.rows; i++) {
+                        if (M.getElmt(i,leading)!=0) {
+                            double pengali=M.getElmt(i,leading);
+                            for (int j = 0; j < M.columns; j++) {
+                                M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                            }
+                            if (count!=0) {
+                                System.out.print(", ");
+                            }
+                            else{
+                                System.out.println();
+                                System.out.print("Matriks : ");
+                                System.out.print("(");
+                            }
+                            count++;
+                            if (pengali>=0) {
+                                System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
+                            }
+                            else{
+                                System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                            }
                         }
                     }
-                }
-                if (count!=0) {
-                    System.out.println(")");
-                    M.printMatrix();
+                    if (count!=0) {
+                        System.out.println(")");
+                        M.printMatrix();
+                    }
                 }
             }
 
@@ -301,7 +322,7 @@ public class Matrix {
         while (now>=0) {
             int leading=-1;
             for (int i = 0; i < M.columns; i++) {
-                if (M.getElmt(now, i)==1) {
+                if (M.getElmt(now, i)==1 ) {
                     leading=i;
                     break;
                 }

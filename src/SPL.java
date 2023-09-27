@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class SPL {
-    public static boolean page(Scanner scanner){
+    public static boolean page(Scanner scanner,String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -28,12 +28,12 @@ public class SPL {
 
         if (pilih.equals("1")){
             System.out.println();
-            Gauss(scanner);
+            Gauss(scanner,pilihan_input);
             return true;
         }
         else if (pilih.equals("2")){
             System.out.println();
-            GaussJordan(scanner);
+            GaussJordan(scanner,pilihan_input);
             return true;
         }
         else if (pilih.equals("3")){
@@ -51,7 +51,7 @@ public class SPL {
         return false;
     }
 
-    public static void Gauss(Scanner scanner){
+    public static void Gauss(Scanner scanner,String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -62,16 +62,149 @@ public class SPL {
         System.out.println("|                 METODE GAUSS                  |");
         Selection.ui();        
         Matrix M = new Matrix(0, 0);
-        M.readMatrixFromTerminal(scanner);
+        
+        if (pilihan_input.equals(Selection.submenu_1)) {
+            M.readMatrixFromTerminal(scanner);   
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)) {
+            M.readMatrixFromFile(scanner);
+        }
 
         System.out.println();
         System.out.println("Matriks :");
         M.printMatrix();
 
         M.OBE(M);
+
+        boolean valid=true;
+        for (int i = 0; i < M.rows; i++) {
+            boolean temp=false;
+            for (int j = 0; j < M.columns-1; j++) {
+                if (M.getElmt(i, j)!=0) {
+                    temp=true;
+                }
+                if (M.getElmt(i, M.columns-1)==0) {
+                    temp=true;
+                }
+            }
+            if (!temp) {
+                valid=false;
+            }
+        }
+
+        if (valid) {
+            int now=M.rows-1;
+            while (now>=0) {
+                int leading=-1;
+                for (int i = 0; i < M.columns; i++) {
+                    if (M.getElmt(now, i)==1) {
+                        leading=i;
+                        break;
+                    }
+                }
+                if (leading!=-1) {
+                    for (int i = now-1; i >= 0; i--) {
+                        if (M.getElmt(i,leading)!=0) {
+                            double pengali=M.getElmt(i,leading);
+                            for (int j = 0; j < M.columns; j++) {
+                                M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                            }
+                        }
+                    }               
+                }
+                now--;
+            }
+
+            Matrix solusi=new Matrix(M.columns-1, M.columns);
+
+            double mark=-1.294162401283;
+            for (int i = 0; i < solusi.rows; i++) {
+                solusi.setELmt(i, M.columns-1, mark);
+            }
+
+            for (int i = 0; i < M.rows; i++) {
+                boolean leading=false;
+                int base=-1;
+                for (int j = 0; j < M.columns-1; j++) {
+                    if (M.getElmt(i, j)==1 && !leading) {
+                        base=j;
+                        leading=true;
+                    }
+                    else if(base!=-1 && leading){
+                        solusi.setELmt(base,j,M.getElmt(i, j));   
+                    }
+                    if (base!=-1 && leading) {
+                        solusi.setELmt(base, M.columns-1,M.getElmt(i, M.columns-1));
+                    }
+                }
+            }
+
+            System.out.println();
+
+            for (int i = 0; i < solusi.rows; i++) {
+                String var = "a";
+                System.out.print(var+String.valueOf(i+1)+" = ");
+                boolean all0=true;
+                for (int j = 0; j < solusi.columns-1; j++) {
+                    if (solusi.getElmt(i, j)!=0) {
+                        all0=false;
+                    }
+                }
+
+                if (all0) {
+                    if (solusi.getElmt(i, solusi.columns-1)!=mark) {
+                        System.out.println(String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
+                    }
+                    else{
+                        System.out.println(var+String.valueOf(i+1)+" (sembarang bilangan real)");
+                    }
+                }
+                else{
+                    int count=0;
+                    for (int j = 0; j < solusi.columns-1; j++) {
+                        if (solusi.getElmt(i, j)!=0) {
+                            if (solusi.getElmt(i, j)>0) {
+                                if (count>0) {
+                                    System.out.print(" - ("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));                                    
+                                }
+                                else{
+                                    System.out.print("-("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
+                                }
+                            }
+                            else{
+                                if (count>0) {
+                                    System.out.print(" + ("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
+                                }
+                                else{
+                                    System.out.print("("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
+
+                                }
+                            }
+                            count++;
+                        }
+                    }
+                    if (solusi.getElmt(i, solusi.columns-1)==0) {
+                        System.out.println();
+                    }
+                    else{
+                        if (solusi.getElmt(i, solusi.columns-1)>0) {
+                            System.out.println(" + "+String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
+                        }
+                        else{
+                            System.out.println(" - "+String.format("%.2f",(-1)*solusi.getElmt(i, solusi.columns-1)));
+                        }
+                    }
+                }
+
+            }
+        }
+        else{
+            System.out.println();
+            System.out.println("Tidak memiliki penyelesaian.");
+        }
     }
 
-    public static void GaussJordan(Scanner scanner){
+    public static void GaussJordan(Scanner scanner,String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -89,5 +222,111 @@ public class SPL {
         M.printMatrix();
 
         M.OBE_red(M);
+
+        boolean valid=true;
+        for (int i = 0; i < M.rows; i++) {
+            boolean temp=false;
+            for (int j = 0; j < M.columns-1; j++) {
+                if (M.getElmt(i, j)!=0) {
+                    temp=true;
+                }
+                if (M.getElmt(i, M.columns-1)==0) {
+                    temp=true;
+                }
+            }
+            if (!temp) {
+                valid=false;
+            }
+        }
+
+        if (valid) {
+            Matrix solusi=new Matrix(M.columns-1, M.columns);
+
+            double mark=-1.294162401283;
+            for (int i = 0; i < solusi.rows; i++) {
+                solusi.setELmt(i, M.columns-1, mark);
+            }
+
+            for (int i = 0; i < M.rows; i++) {
+                boolean leading=false;
+                int base=-1;
+                for (int j = 0; j < M.columns-1; j++) {
+                    if (M.getElmt(i, j)==1 && !leading) {
+                        base=j;
+                        leading=true;
+                    }
+                    else if(base!=-1 && leading){
+                        solusi.setELmt(base,j,M.getElmt(i, j));   
+                    }
+                    if (base!=-1 && leading) {
+                        solusi.setELmt(base, M.columns-1,M.getElmt(i, M.columns-1));
+                    }
+                }
+            }
+
+            System.out.println();
+
+            for (int i = 0; i < solusi.rows; i++) {
+                String var = "a";
+                System.out.print(var+String.valueOf(i+1)+" = ");
+                boolean all0=true;
+                for (int j = 0; j < solusi.columns-1; j++) {
+                    if (solusi.getElmt(i, j)!=0) {
+                        all0=false;
+                    }
+                }
+
+                if (all0) {
+                    if (solusi.getElmt(i, solusi.columns-1)!=mark) {
+                        System.out.println(String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
+                    }
+                    else{
+                        System.out.println(var+String.valueOf(i+1)+" (sembarang bilangan real)");
+                    }
+                }
+                else{
+                    int count=0;
+                    for (int j = 0; j < solusi.columns-1; j++) {
+                        if (solusi.getElmt(i, j)!=0) {
+                            if (solusi.getElmt(i, j)>0) {
+                                if (count>0) {
+                                    System.out.print(" - ("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));                                    
+                                }
+                                else{
+                                    System.out.print("-("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
+                                }
+                            }
+                            else{
+                                if (count>0) {
+                                    System.out.print(" + ("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
+                                }
+                                else{
+                                    System.out.print("("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
+
+                                }
+                            }
+                            count++;
+                        }
+                    }
+                    if (solusi.getElmt(i, solusi.columns-1)==0) {
+                        System.out.println();
+                    }
+                    else{
+                        if (solusi.getElmt(i, solusi.columns-1)>0) {
+                            System.out.println(" + "+String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
+                        }
+                        else{
+                            System.out.println(" - "+String.format("%.2f",(-1)*solusi.getElmt(i, solusi.columns-1)));
+                        }
+                    }
+                }
+
+            }
+        }
+        else{
+            System.out.println();
+            System.out.println("Tidak memiliki penyelesaian.");
+        }
     }
 }
+

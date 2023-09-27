@@ -23,13 +23,13 @@ public class Main {
                         pilihan_input=scanner.next();
                     }
                     if (pilihan_input.equals(Selection.submenu_1)) {
-                        selesai=SPL.page(scanner);
+                        selesai=SPL.page(scanner,pilihan_input);
                         if (selesai) {
                             pilihan=Selection.kembali(scanner);   
                         }
                     }
                     else if (pilihan_input.equals(Selection.submenu_2)) {
-                        selesai=SPL.page(scanner);
+                        selesai=SPL.page(scanner,pilihan_input);
                         if (selesai) {
                             pilihan=Selection.kembali(scanner);   
                         }
