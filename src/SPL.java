@@ -66,9 +66,9 @@ public class SPL {
 
         System.out.println();
         System.out.println("Matriks :");
-        M.printMatrix(M.matrix);
+        M.printMatrix();
 
-        M=Matrix.OBE(M);
+        M.OBE(M);
     }
 
     public static void GaussJordan(Scanner scanner){
@@ -86,8 +86,8 @@ public class SPL {
 
         System.out.println();
         System.out.println("Matriks :");
-        M.printMatrix(M.matrix);
+        M.printMatrix();
 
-        M=Matrix.OBE_red(M);
+        M.OBE_red(M);
     }
 }
