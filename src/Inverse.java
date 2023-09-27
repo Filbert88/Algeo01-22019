@@ -1,0 +1,66 @@
+import java.util.*;
+import java.io.*;
+
+public class Inverse{
+    public static boolean page(Scanner scanner){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|                 Matriks Balikan               |");
+        Selection.ui();
+        System.out.println("|                 Select Method                 |");
+        Selection.ui();
+        System.out.println("|           (1) Metode Eliminasi Gauss          |");
+        System.out.println("|                  (2) Adjoin                   |");
+        System.out.println("|                  (3) Kembali                  |");
+        Selection.ui();
+        System.out.print("Pilih metode : ");
+        String pilih=scanner.next();
+
+        while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
+                    System.out.println("Inputan tidak valid");
+                    System.out.print("Pilih metode : ");
+                    pilih=scanner.next();
+                }
+
+        if (pilih.equals("1")){
+            System.out.println("HALO");
+            return true;
+        }
+        else if (pilih.equals("2")){
+            System.out.println();
+            inversAdjoin(scanner);
+            return true;
+
+        }
+        else if (pilih.equals("3")){
+            Selection.option_invers();
+            return false;
+        }
+        return false;
+    }
+
+    public static void inversAdjoin(Scanner scanner){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|               MATRIKS BALIKAN                 |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|               METODE ADJOIN                   |");
+        Selection.ui();        
+        Matrix M = new Matrix(0, 0);
+        M.readSquareMatrix(scanner);
+        System.out.println();
+        System.out.println("Matriks :");
+        M.printMatrix();
+        System.out.println();
+        
+        Matrix Inverse = M.inverseCofactor();
+        System.out.println("Hasil Inverse :");
+        Inverse.printMatrix();
+    }
+    }
