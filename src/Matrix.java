@@ -665,4 +665,229 @@ public class Matrix {
             
         }
     }
+    public Matrix createIdentitas(int rows){
+        Matrix identity = new Matrix(rows,rows);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<rows;j++){
+                if(i==j){
+                    identity.setELmt(i,j,1);
+                }
+            }
+        }
+        return identity;
+    }
+    public Matrix OBE_Identitas(Matrix M){
+        Matrix identitas = M.createIdentitas(M.rows);
+        identitas.printMatrix();
+        int now=0;
+        while (now<M.rows && now<M.columns) {
+            if (M.getElmt(now,now)==0) {
+
+                int tukar=-1;
+                int leading=Integer.MAX_VALUE;
+                for (int i = 0; i < M.columns; i++) {
+                    if (M.getElmt(now,i)!=0) {
+                        leading=i;
+                        break;
+                    }
+                }
+
+                for (int i = now+1; i < M.rows; i++) {
+                    int leading_temp=Integer.MAX_VALUE;
+                    for (int j = 0; j < M.columns; j++) {
+                        if (M.getElmt(i, j)!=0) {
+                            leading_temp=j;
+                            break;
+                        }
+                    }
+                    if (leading_temp<leading) {
+                        leading=leading_temp;
+                        tukar=i;
+                    }
+                }
+
+                if (tukar!=-1) {
+                    Matrix temp = new Matrix(1, M.columns);
+                    Matrix temp1 = new Matrix(1, M.columns);
+                    for (int j = 0; j < M.columns; j++) {
+                        temp.setELmt(0, j, M.getElmt(tukar,j));
+                        M.setELmt(tukar, j, M.getElmt(now,j));
+                        M.setELmt(now, j, temp.getElmt(0,j));
+                        temp1.setELmt(0, j, identitas.getElmt(tukar,j));
+                        identitas.setELmt(tukar, j, identitas.getElmt(now,j));
+                        identitas.setELmt(now, j, temp1.getElmt(0,j));
+                    }
+                    if (tukar!=M.rows) {
+                        System.out.println();
+                        System.out.print("Matriks : ");
+                        System.out.println("(R"+(now+1)+" ditukar dengan R"+(tukar+1)+")");
+                        M.printMatrix();
+                        System.out.println("=========================Hasil Identitas Matrix =====================");
+                        identitas.printMatrix();
+                    }
+                }
+            }
+
+            if (M.getElmt(now,now)!=0) {
+                if (M.getElmt(now,now)!=1) {
+                    double pembagi=M.getElmt(now,now);
+                    for (int j = 0; j < M.columns; j++) {
+                        if (M.getElmt(now,j)!=0) {
+                            M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
+                        }
+                        identitas.setELmt(now, j, (identitas.getElmt(now,j)/pembagi));   
+                    }
+                    System.out.println();
+                    System.out.print("Matriks : ");
+                    System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
+                    M.printMatrix();
+                    System.out.println("=========================Hasil Identitas Matrix =====================");
+                    identitas.printMatrix();
+                }
+
+                int count=0;
+                for (int i = now+1; i < M.rows; i++) {
+                    if (M.getElmt(i,now)!=0) {
+                        double pengali=M.getElmt(i,now);
+                        for (int j = 0; j < M.columns; j++) {
+                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                            identitas.setELmt(i, j, identitas.getElmt(i,j)-pengali*identitas.getElmt(now,j));
+                        }
+                        if (count!=0) {
+                            System.out.print(", ");
+                        }
+                        else{
+                            System.out.println();
+                            System.out.print("Matriks : ");
+                            System.out.print("(");
+                        }
+                        count++;
+                        if (pengali>=0) {
+                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
+                        }
+                        else{
+                            System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                        }
+                    }
+                }
+                if (count!=0) {
+                    System.out.println(")");
+                    M.printMatrix();
+                    System.out.println("=========================Hasil Identitas Matrix =====================");
+                    identitas.printMatrix();
+                }
+            }
+
+            else{
+                int leading=-1;
+                for (int i = 0; i < M.columns; i++) {
+                    if (M.getElmt(now, i)!=0) {
+                        leading=i;
+                        break;
+                    }
+                }
+                if (leading!=-1) {
+                    double pembagi=M.getElmt(now,leading);
+
+                    if (pembagi!=1) {
+                        for (int j = 0; j < M.columns; j++) {
+                            if (M.getElmt(now,j)!=0) {
+                                M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
+                                identitas.setELmt(now, j, (identitas.getElmt(now,j)/pembagi));   
+                            }
+                        }
+                        System.out.println();
+                        System.out.print("Matriks : ");
+                        System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
+                        M.printMatrix();   
+                        System.out.println("=========================Hasil Identitas Matrix =====================");
+                        identitas.printMatrix();   
+                    }
+                    int count=0;
+                    for (int i = now+1; i < M.rows; i++) {
+                        if (M.getElmt(i,leading)!=0) {
+                            double pengali=M.getElmt(i,leading);
+                            for (int j = 0; j < M.columns; j++) {
+                                M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                                identitas.setELmt(i, j, identitas.getElmt(i,j)-pengali*identitas.getElmt(now,j));
+                            }
+                            if (count!=0) {
+                                System.out.print(", ");
+                            }
+                            else{
+                                System.out.println();
+                                System.out.print("Matriks : ");
+                                System.out.print("(");
+                            }
+                            count++;
+                            if (pengali>=0) {
+                                System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
+                            }
+                            else{
+                                System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                            }
+                        }
+                    }
+                    if (count!=0) {
+                        System.out.println(")");
+                        M.printMatrix();
+                        System.out.println("=========================Hasil Identitas Matrix =====================");
+                        identitas.printMatrix();
+                    }
+                }
+            }
+
+            now++;
+        }
+        return identitas;
+    }
+    public Matrix OBE_IdentitasRed(Matrix M){
+        Matrix identitas = M.OBE_Identitas(M);
+        M.OBE(M);
+        int now=M.rows-1;
+        while (now>=0) {
+            int leading=-1;
+            for (int i = 0; i < M.columns; i++) {
+                if (M.getElmt(now, i)==1 ) {
+                    leading=i;
+                    break;
+                }
+            }
+            if (leading!=-1) {
+                int count=0;
+                for (int i = now-1; i >= 0; i--) {
+                    if (M.getElmt(i,leading)!=0) {
+                        double pengali=M.getElmt(i,leading);
+                        for (int j = 0; j < M.columns; j++) {
+                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
+                            identitas.setELmt(i, j, identitas.getElmt(i,j)-pengali*identitas.getElmt(now,j));
+                        }
+                        if (count!=0) {
+                            System.out.print(", ");
+                        }
+                        else{
+                            System.out.println();
+                            System.out.print("Matriks : ");                                
+                            System.out.print("(");
+                        }
+                        count++;
+                        if (pengali>=0) {
+                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
+                        }
+                        else{
+                            System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
+                        }
+                    }
+                }
+                if (count!=0) {
+                    System.out.println(")");
+                    M.printMatrix();
+                    System.out.println("=========================Hasil Identitas Matrix =====================");
+                    identitas.printMatrix();
+                }                    
+            }
+            now--;
+        }
+        return identitas;
+    }
 }

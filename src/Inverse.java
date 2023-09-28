@@ -25,7 +25,8 @@ public class Inverse{
                 }
 
         if (pilih.equals("1")){
-            System.out.println("HALO");
+            System.out.println("");
+            inverseIdentitas(scanner,pilihan_input);
             return true;
         }
         else if (pilih.equals("2")){
@@ -71,4 +72,34 @@ public class Inverse{
         Inverse.printMatrix();
         }
     }
+    public static void inverseIdentitas(Scanner scanner,String pilihan_input){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|               MATRIKS BALIKAN                 |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|           METODE ELIMINASI GAUSS-JORDAN       |");
+        Selection.ui();        
+        Matrix M = new Matrix(0, 0);
+        if(pilihan_input.equals(Selection.submenu_1)){
+            M.readSquareMatrix(scanner);
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)){
+            M.readMatrixFromFile(scanner);
+        }
+        System.out.println();
+        System.out.println("Matriks :");
+        M.printMatrix();
+        System.out.println();
+        if (M.determinanCof() == 0){
+            System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
+        }
+        else{
+        Matrix Inverse = M.OBE_IdentitasRed(M);
+        System.out.println("Matriks Inverse :");
+        Inverse.printMatrix();
+        }
     }
+}
