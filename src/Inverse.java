@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 
 public class Inverse{
     public static boolean Page(Scanner scanner,String pilihan_input){
@@ -68,7 +67,7 @@ public class Inverse{
         }
         else{
         Matrix Inverse = M.inverseAdjoinFunc();
-        System.out.println("Hasil Inverse :");
+        System.out.println("Matriks Inverse :");
         Inverse.printMatrix();
         }
     }

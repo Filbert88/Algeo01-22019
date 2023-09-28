@@ -38,6 +38,7 @@ public class SPL {
         }
         else if (pilih.equals("3")){
             System.out.println();
+            SPLInverse(scanner, pilihan_input);
             return true;
         }
         else if (pilih.equals("4")){
@@ -140,6 +141,7 @@ public class SPL {
             }
 
             System.out.println();
+            System.out.println("Solusi Persamaan Linear :");
 
             for (int i = 0; i < solusi.rows; i++) {
                 String var = "a";
@@ -265,6 +267,7 @@ public class SPL {
             }
 
             System.out.println();
+            System.out.println("Solusi Persamaan Linear :");
 
             for (int i = 0; i < solusi.rows; i++) {
                 String var = "a";
@@ -327,6 +330,141 @@ public class SPL {
             System.out.println();
             System.out.println("Tidak memiliki penyelesaian.");
         }
+    }
+
+    public static void SPLInverse(Scanner scanner,String pilihan_input){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|        METODE MATRIKS BALIKAN / INVERS        |");
+        Selection.ui();
+
+        Matrix M = new Matrix(0, 0);
+        M.readMatrixFromTerminal(scanner);
+
+        System.out.println();
+        System.out.println("Matriks :");
+        M.printMatrix();
+
+        if (M.columns-1!=M.rows) {
+            System.out.println("Ukuran matriks salah. Contoh : n x (n-1)");
+            System.out.println();
+            System.out.println("Tidak memiliki penyelesaian.");
+        }
+
+        else{
+
+            Matrix Mcopy=new Matrix(M.rows, M.columns-1);
+            for (int i = 0; i < Mcopy.rows; i++) {
+                for (int j = 0; j < Mcopy.columns; j++) {
+                    Mcopy.setELmt(i, j, M.getElmt(i, j));
+                }
+            }
+
+            System.out.println();
+            if (Mcopy.determinanCof() == 0){
+                System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
+                System.out.println();
+                System.out.println("Tidak memiliki penyelesaian.");
+            }
+            else{
+                Matrix Inverse = Mcopy.inverseAdjoinFunc();
+                System.out.println();
+                System.out.println("Matriks Inverse A^(-1) :");
+                Inverse.printMatrix();
+
+                Matrix Mpengali= new Matrix(M.rows, 1);
+                for (int i = 0; i < Mpengali.rows; i++) {
+                    Mpengali.setELmt(i, 0, M.getElmt(i, M.columns-1));
+                }
+
+                System.out.println();
+                System.out.println("Matriks pengali B : ");
+                Mpengali.printMatrix();
+
+                Matrix Mhasil = Mpengali.copyMatrix();
+                for (int i = 0; i < Inverse.rows; i++) {
+                    double hasil=0;
+                    for (int j = 0; j < Inverse.columns; j++) {
+                        hasil+=Inverse.getElmt(i, j)*Mpengali.getElmt(j, 0);
+                    }
+                    Mhasil.setELmt(i,0, hasil);
+                }
+
+                System.out.println();
+                System.out.println("(A * x = B) ==> (x = A^(-1) * B)");
+
+                System.out.println();
+                System.out.println("Matriks x : ");
+                Mhasil.printMatrix();
+
+                System.out.println();
+                System.out.println("Solusi Persamaan Linear :");
+                String var="a";
+                for (int i = 0; i < Mhasil.rows; i++) {
+                    System.out.println(var+String.valueOf(i+1)+" = "+String.valueOf(Mhasil.getElmt(i, 0)));
+                }
+            }
+        }
+    }
+
+    public static void Cramer(Scanner scanner,String pilihan_input){
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|                 METODE CRAMER                 |");
+        Selection.ui();
+
+        Matrix M = new Matrix(0, 0);
+        M.readMatrixFromTerminal(scanner);
+
+        System.out.println();
+        System.out.println("Matriks :");
+        M.printMatrix();
+
+        if (M.columns-1!=M.rows) {
+            System.out.println("Ukuran matriks salah. Contoh : n x (n-1)");
+            System.out.println();
+            System.out.println("Tidak memiliki penyelesaian.");
+        }
+
+        else{
+
+            Matrix Mcopy=new Matrix(M.rows, M.columns-1);
+            for (int i = 0; i < Mcopy.rows; i++) {
+                for (int j = 0; j < Mcopy.columns; j++) {
+                    Mcopy.setELmt(i, j, M.getElmt(i, j));
+                }
+            }
+
+            System.out.println();
+            if (Mcopy.determinanCof() == 0){
+                System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
+                System.out.println();
+                System.out.println("Tidak memiliki penyelesaian.");
+            }
+            else{
+                Matrix Mhasil= new Matrix(M.rows, 1);
+                for (int i = 0; i < Mhasil.rows; i++) {
+                    Mhasil.setELmt(i, 0, M.getElmt(i, M.columns-1));
+                }
+
+                System.out.println();
+                System.out.println("Matriks B : ");
+                Mhasil.printMatrix();
+
+            }
+
+        }
+
     }
 }
 
