@@ -566,7 +566,7 @@ public class Matrix {
                 double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
                 if (this.getElmt(i, i) != 0){
                     for(l=0;l<n;l++){
-                    this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
+                        this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
                     }
                 }
             }
