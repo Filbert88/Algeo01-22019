@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Determinan {
-    public static boolean Page(Scanner scanner){
+    public static boolean Page(Scanner scanner, String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -26,22 +26,22 @@ public class Determinan {
 
         if (pilih.equals("1")){
             System.out.println();
-            Detkofaktor(scanner);
+            Detkofaktor(scanner, pilihan_input);
             return true;
         }
         else if (pilih.equals("2")){
             System.out.println();
-            DetOBE(scanner);
+            DetOBE(scanner,pilihan_input);
             return true;
         }
         else if (pilih.equals("3")){
-            Selection.option_spl();
+            Selection.option_determinan();
             return false;
         }
         return false;
     }
     
-    public static void Detkofaktor(Scanner scanner){
+    public static void Detkofaktor(Scanner scanner,String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -53,11 +53,16 @@ public class Determinan {
         Selection.ui();        
 
         Matrix M = new Matrix(0, 0);
-        M.readSquareMatrix(scanner);
+        if(pilihan_input.equals(Selection.submenu_1)){
+            M.readSquareMatrix(scanner);
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)){
+            M.readMatrixFromFile(scanner);
+        }
         M.determinanCofExp();
     }
 
-    public static void DetOBE(Scanner scanner){
+    public static void DetOBE(Scanner scanner,String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -69,7 +74,12 @@ public class Determinan {
         Selection.ui();
         
         Matrix M = new Matrix(0, 0);
-        M.readSquareMatrix(scanner);
+        if(pilihan_input.equals(Selection.submenu_1)){
+            M.readSquareMatrix(scanner);
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)){
+            M.readMatrixFromFile(scanner);
+        }
         M.determinanOBE();
         
     }
