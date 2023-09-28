@@ -409,8 +409,8 @@ public class Matrix {
         return cofacMatrix;
     }
     
-    // untuk menampilkan cara menentukan determinan dengan menggunakan ekspansi kofaktor
     public void determinanCofExp(){
+        // untuk menampilkan cara menentukan determinan dengan menggunakan ekspansi kofaktor
         int i;
         int n = this.rows;
         double det;
@@ -446,6 +446,7 @@ public class Matrix {
     }
 
     public double determinanCof() {
+        // mengembalikan nilai determinan
         int n = this.rows;
         int sign;
         double det = 0;
@@ -476,6 +477,7 @@ public class Matrix {
     }
 
     public double determinanOBE(){
+        // menentukan determinan dengan menggunakan reduksi baris
         int n = this.rows;
         int i,j,k,l,changeRow = 0;
         int count = 1;
@@ -501,14 +503,16 @@ public class Matrix {
             }
             for(k=i+1;k<n;k++){
                 double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
-                for(l=0;l<n;l++){
+                if (this.getElmt(i, i) != 0){
+                    for(l=0;l<n;l++){
                     this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
-                }
-                if (pembuatnol != 0){
-                    System.out.println("Matriks " + count + " : (R" + (k + 1) + " dikurang dengan " + String.format("%.2f", pembuatnol) + " kali R" + (i + 1) + ")");
-                    printMatrix();
-                    System.out.println();
-                    count ++;
+                    }
+                    if (pembuatnol != 0){
+                        System.out.println("Matriks " + count + " : (R" + (k + 1) + " dikurang dengan " + String.format("%.2f", pembuatnol) + " kali R" + (i + 1) + ")");
+                        printMatrix();
+                        System.out.println();
+                        count ++;
+                    }
                 }
             }
         }
@@ -523,8 +527,10 @@ public class Matrix {
         System.out.println("Lalu,Kalikan Peubah (Berapa kali jumlah baris yang ditukar) dengan semua elemen diagonal dari Matriks tersebut.");
         System.out.println();
 
+        System.out.format("Total Pertukaran Baris Yang terjadi : %d", changeRow);
+        System.out.println();
         System.out.print("Determinan : ");
-        System.out.print(String.format("((%.2f)^%d)", minus, changeRow)); // Display the minus factor and changeRow
+        System.out.print(String.format("((%d)^%d)", -1,changeRow)); // Display the minus factor and changeRow
         System.out.print(" * ");
         for (int m = 0; m < n; m++) {
             double diagonalElement = this.getElmt(m, m);
