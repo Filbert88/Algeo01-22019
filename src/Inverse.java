@@ -22,7 +22,7 @@ public class Inverse{
         while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Pilih metode : ");
-                    pilih=scanner.nextL();
+                    pilih=scanner.next();
                 }
 
         if (pilih.equals("1")){
