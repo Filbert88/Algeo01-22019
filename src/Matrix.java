@@ -78,13 +78,14 @@ public class Matrix {
     public void readSquareMatrix(Scanner scanner){
         double elmt;
         int row,column,i,j;
-        System.out.print("Masukkan Jumlah Ukuran Matriz yang diinginkan: ");
+        System.out.print("Masukkan Jumlah Ukuran Matriks yang diinginkan: ");
         row = scanner.nextInt();
-        this.rows = row;
         column = row;
+        this.rows = row;
         this.columns = column;
         this.matrix = new double[row][column];
         if(isSquare(matrix)){
+            System.out.println();
             System.out.println("Masukkan Matriks: ");
             for(i=0;i<row;i++){
                 for(j=0;j<column;j++){
@@ -408,6 +409,7 @@ public class Matrix {
         return cofacMatrix;
     }
     
+    // untuk menampilkan cara menentukan determinan dengan menggunakan ekspansi kofaktor
     public void determinanCofExp(){
         int i;
         int n = this.rows;
@@ -421,16 +423,20 @@ public class Matrix {
         System.out.println("Matriks Kofaktor : ");
         cofactorMat.printMatrix();
 
+        System.out.println();
+        System.out.print("Cara : ");
+        System.out.println("Lakukan perhitungan dengan menggunakan baris pertama.");
+
         if (this.rows == 1){
             det = this.getElmt(0, 0);
             System.out.println(String.format("Determinant Matriks adalah %.2f", det));
         }
         System.out.println();
-        System.out.println("Determinan : ");
-        System.out.print(String.format("%.2f x %.2f", this.getElmt(0,0) , cofactorMat.getElmt(0,0)));
+        System.out.print("Determinan : ");
+        System.out.print(String.format( "(%.2f x %.2f)", this.getElmt(0,0) , cofactorMat.getElmt(0,0)));
         det = this.getElmt(0,0) * cofactorMat.getElmt(0,0);
         for(i=1;i<n;i++){
-            System.out.print(String.format(" + %.2f x %.2f", this.getElmt(0, i), cofactorMat.getElmt(0, i)));
+            System.out.print(String.format( " + (%.2f x %.2f)", this.getElmt(0, i), cofactorMat.getElmt(0, i)));
             det += this.matrix[0][i] * cofactorMat.matrix[0][i];
         }
         System.out.print(String.format(" = %.2f", det));
@@ -470,6 +476,7 @@ public class Matrix {
     public double determinanOBE(){
         int n = this.rows;
         int i,j,k,l,changeRow = 0;
+        int count = 1;
         double det = 1.0;
 
         System.out.println();
@@ -482,9 +489,11 @@ public class Matrix {
                     if (this.getElmt(j,i) != 0){
                         changeRow += 1;
                         this.swapRows(i,j);
-                        System.out.println("Swap R" + (i + 1) + " dengan R" + (j + 1));
+                        System.out.println("Langkah " + count + " : Tukar R" + (i + 1) + " dengan R" + (j + 1));
+                        count ++;
                         printMatrix();
                         System.out.println();
+                        break;
                     }
                 }
             }
@@ -493,9 +502,12 @@ public class Matrix {
                 for(l=0;l<n;l++){
                     this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
                 }
-                System.out.println("R" + (k + 1) + " - (" + String.format("%.2f", pembuatnol) + " * R" + (i + 1) + ")");
-                printMatrix();
-                System.out.println();
+                if (pembuatnol != 0){
+                    System.out.println("Langkah " + count + " : R" + (k + 1) + " - (" + String.format("%.2f", pembuatnol) + " * R" + (i + 1) + ")");
+                    printMatrix();
+                    System.out.println();
+                    count ++;
+                }
             }
         }
 

@@ -69,7 +69,7 @@ public class Determinan {
         Selection.ui();
         
         Matrix M = new Matrix(0, 0);
-        M.readMatrixFromTerminal(scanner);
+        M.readSquareMatrix(scanner);
         
         double det = M.determinanOBE();
         System.out.print("Determinan : ");
