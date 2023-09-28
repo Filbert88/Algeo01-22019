@@ -43,6 +43,7 @@ public class SPL {
         }
         else if (pilih.equals("4")){
             System.out.println();
+            Cramer(scanner, pilihan_input);
             return true;
         }
         else if (pilih.equals("5")){
@@ -406,7 +407,7 @@ public class SPL {
                 System.out.println("Solusi Persamaan Linear :");
                 String var="a";
                 for (int i = 0; i < Mhasil.rows; i++) {
-                    System.out.println(var+String.valueOf(i+1)+" = "+String.valueOf(Mhasil.getElmt(i, 0)));
+                    System.out.println(var+String.valueOf(i+1)+" = "+String.format("%.2f",Mhasil.getElmt(i, 0)));
                 }
             }
         }
@@ -446,10 +447,14 @@ public class SPL {
             }
 
             System.out.println();
+            System.out.println("Matriks persamaan linear a :");
+            Mcopy.printMatrix();
+            double det=Mcopy.determinanCof();
+            System.out.println("Determinan a : "+String.format("%.2f",det));
+
             if (Mcopy.determinanCof() == 0){
-                System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
                 System.out.println();
-                System.out.println("Tidak memiliki penyelesaian.");
+                System.out.println("Matriks tidak memiliki penyelesaian karena determinan = 0");
             }
             else{
                 Matrix Mhasil= new Matrix(M.rows, 1);
@@ -457,10 +462,27 @@ public class SPL {
                     Mhasil.setELmt(i, 0, M.getElmt(i, M.columns-1));
                 }
 
-                System.out.println();
-                System.out.println("Matriks B : ");
-                Mhasil.printMatrix();
+                Matrix Mdet = Mhasil.copyMatrix();
 
+                String var="a";
+                for (int i = 0; i < Mcopy.columns; i++) {
+                    Matrix Mtemp = Mcopy.copyMatrix();
+                    for (int j = 0; j < Mcopy.rows; j++) {
+                        Mtemp.setELmt(j, i, Mhasil.getElmt(j, 0));
+                    }
+                    System.out.println();
+                    System.out.println("Matriks "+var+String.valueOf(i+1)+" : "+"(Tukar kolom "+(i+1)+" matriks a dengan hasil SPL)");
+                    Mtemp.printMatrix();
+                    System.out.println("Determinan "+var+String.valueOf(i+1)+" : "+String.format("%.2f",Mtemp.determinanCof()));
+
+                    Mdet.setELmt(i, 0, Mtemp.determinanCof());
+                }
+
+                System.out.println();
+                System.out.println("Solusi Persamaan Linear : ");
+                for (int i = 0; i < Mhasil.rows; i++) {
+                    System.out.println(var+String.valueOf(i+1)+" = "+"det("+var+String.valueOf(i+1)+") / det("+var+") = "+String.format("%.2f", Mdet.getElmt(i, 0)/det));
+                }
             }
 
         }
