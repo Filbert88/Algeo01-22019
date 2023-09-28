@@ -367,7 +367,7 @@ public class SPL {
             }
 
             System.out.println();
-            if (Mcopy.determinanCof() == 0){
+            if (Mcopy.determinanOBEtanpaPrint() == 0){
                 System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
                 System.out.println();
                 System.out.println("Tidak memiliki penyelesaian.");
@@ -449,10 +449,10 @@ public class SPL {
             System.out.println();
             System.out.println("Matriks persamaan linear a :");
             Mcopy.printMatrix();
-            double det=Mcopy.determinanCof();
+            double det=Mcopy.determinanOBEtanpaPrint();
             System.out.println("Determinan a : "+String.format("%.2f",det));
 
-            if (Mcopy.determinanCof() == 0){
+            if (Mcopy.determinanOBEtanpaPrint() == 0){
                 System.out.println();
                 System.out.println("Matriks tidak memiliki penyelesaian karena determinan = 0");
             }
@@ -473,9 +473,9 @@ public class SPL {
                     System.out.println();
                     System.out.println("Matriks "+var+String.valueOf(i+1)+" : "+"(Tukar kolom "+(i+1)+" matriks a dengan hasil SPL)");
                     Mtemp.printMatrix();
-                    System.out.println("Determinan "+var+String.valueOf(i+1)+" : "+String.format("%.2f",Mtemp.determinanCof()));
+                    System.out.println("Determinan "+var+String.valueOf(i+1)+" : "+String.format("%.2f",Mtemp.determinanOBEtanpaPrint()));
 
-                    Mdet.setELmt(i, 0, Mtemp.determinanCof());
+                    Mdet.setELmt(i, 0, Mtemp.determinanOBEtanpaPrint());
                 }
 
                 System.out.println();

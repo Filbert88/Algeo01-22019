@@ -890,4 +890,49 @@ public class Matrix {
         }
         return identitas;
     }
+
+    public Matrix hasilSPL(){
+
+        Matrix Mdup=this.copyMatrix();
+
+        if (Mdup.columns-1!=Mdup.rows) {
+            return (new Matrix(0, 0));
+        }
+
+        else{
+
+            Matrix Mcopy=new Matrix(Mdup.rows, Mdup.columns-1);
+            for (int i = 0; i < Mcopy.rows; i++) {
+                for (int j = 0; j < Mcopy.columns; j++) {
+                    Mcopy.setELmt(i, j, Mdup.getElmt(i, j));
+                }
+            }
+            double det=Mcopy.determinanOBEtanpaPrint();
+
+            if (Mcopy.determinanOBEtanpaPrint() == 0){
+                return (new Matrix(0, 0));
+            }
+            else{
+                Matrix Mhasil= new Matrix(Mdup.rows, 1);
+                for (int i = 0; i < Mhasil.rows; i++) {
+                    Mhasil.setELmt(i, 0, Mdup.getElmt(i, Mdup.columns-1));
+                }
+
+                Matrix Mdet = Mhasil.copyMatrix();
+                for (int i = 0; i < Mcopy.columns; i++) {
+                    Matrix Mtemp = Mcopy.copyMatrix();
+                    for (int j = 0; j < Mcopy.rows; j++) {
+                        Mtemp.setELmt(j, i, Mhasil.getElmt(j, 0));
+                    }
+                    Mdet.setELmt(i, 0, Mtemp.determinanOBEtanpaPrint());
+                }
+
+                for (int i = 0; i < Mhasil.rows; i++) {
+                    Mdet.setELmt(i, 0, Mdet.getElmt(i, 0)/det);
+                }
+                return Mdet;
+            }
+
+        }
+    }
 }
