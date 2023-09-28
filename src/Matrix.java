@@ -547,6 +547,41 @@ public class Matrix {
         return hasillast;
     }
 
+    public double determinanOBEtanpaPrint(){
+        int n = this.rows;
+        int i,j,k,l,changeRow = 0;
+        double det = 1.0;
+
+        for(i=0;i<n;i++){
+            if(this.getElmt(i,i) == 0){
+                for(j=i+1;j<n;j++){
+                    if (this.getElmt(j,i) != 0){
+                        changeRow += 1;
+                        this.swapRows(i,j);
+                        break;
+                    }
+                }
+            }
+            for(k=i+1;k<n;k++){
+                double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
+                if (this.getElmt(i, i) != 0){
+                    for(l=0;l<n;l++){
+                    this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
+                    }
+                }
+            }
+        }
+
+        double minus = Math.pow(-1, changeRow);
+        for(i=0;i<n;i++){
+            det *= this.getElmt(i,i);
+        }
+        double hasil = det*minus;
+        double hasillast = round(hasil,8);
+
+        return hasillast;
+    }
+
     public Matrix transpose(){
         int rows = this.rows;
         int cols = this.columns;
@@ -604,5 +639,27 @@ public class Matrix {
         System.out.println("Di cari Matriks Balikan dengan membagi setiap elemen dengan determinan.");
         System.out.println("Determinan:"+det);
         return inverse;
+    }
+
+    public void interPolim(Scanner scanner){
+        System.out.println("Masukin berapa titik yang Anda mau : ");
+        int n = scanner.nextInt();
+        Matrix m = new Matrix(n,n+1);
+        for(int i = 0;i<n;i++){
+            System.out.print(String.format("Masukkan X : %d",i));
+            double x = scanner.nextDouble();
+
+            int j = 0;
+            while (j< m.getColumn() - 1){
+                m.matrix[i][j] = Math.pow(x,j);
+                j++;
+            }
+            double y = scanner.nextDouble();
+            m.matrix[i][j] = y;
+            
+
+            System.out.print(String.format("Masukkan Y : %d",i));
+            
+        }
     }
 }
