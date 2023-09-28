@@ -70,10 +70,8 @@ public class Determinan {
         
         Matrix M = new Matrix(0, 0);
         M.readSquareMatrix(scanner);
+        M.determinanOBE();
         
-        double det = M.determinanOBE();
-        System.out.print("Determinan : ");
-        System.out.println(String.format("%.2f", det));
     }
  
 }
