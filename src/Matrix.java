@@ -549,24 +549,25 @@ public class Matrix {
 
     public double determinanOBEtanpaPrint(){
         int n = this.rows;
+        Matrix mOut = this.copyMatrix();
         int i,j,k,l,changeRow = 0;
         double det = 1.0;
 
         for(i=0;i<n;i++){
-            if(this.getElmt(i,i) == 0){
+            if(mOut.getElmt(i,i) == 0){
                 for(j=i+1;j<n;j++){
-                    if (this.getElmt(j,i) != 0){
+                    if (mOut.getElmt(j,i) != 0){
                         changeRow += 1;
-                        this.swapRows(i,j);
+                        mOut.swapRows(i,j);
                         break;
                     }
                 }
             }
             for(k=i+1;k<n;k++){
-                double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
-                if (this.getElmt(i, i) != 0){
+                double pembuatnol = mOut.getElmt(k, i)/mOut.getElmt(i,i);
+                if (mOut.getElmt(i, i) != 0){
                     for(l=0;l<n;l++){
-                        this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
+                        mOut.setELmt(k, l, mOut.getElmt(k,l) - (pembuatnol*(mOut.getElmt(i,l))));
                     }
                 }
             }
@@ -574,7 +575,7 @@ public class Matrix {
 
         double minus = Math.pow(-1, changeRow);
         for(i=0;i<n;i++){
-            det *= this.getElmt(i,i);
+            det *= mOut.getElmt(i,i);
         }
         double hasil = det*minus;
         double hasillast = round(hasil,8);
