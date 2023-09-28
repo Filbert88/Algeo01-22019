@@ -665,6 +665,7 @@ public class Matrix {
             
         }
     }
+    
     public Matrix createIdentitas(int rows){
         Matrix identity = new Matrix(rows,rows);
         for(int i=0;i<rows;i++){
@@ -676,6 +677,7 @@ public class Matrix {
         }
         return identity;
     }
+    
     public Matrix OBE_Identitas(Matrix M){
         Matrix identitas = M.createIdentitas(M.rows);
         identitas.printMatrix();
@@ -841,6 +843,7 @@ public class Matrix {
         }
         return identitas;
     }
+    
     public Matrix OBE_IdentitasRed(Matrix M){
         Matrix identitas = M.OBE_Identitas(M);
         M.OBE(M);
