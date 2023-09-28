@@ -130,7 +130,7 @@ public class Matrix {
         int row=0;
         int col=0;
         int counter=0;
-        String fileName = scanner.nextLine();
+        String fileName = scanner.next();
         if(isTxtFile(fileName)){
             String filePath = "../test/"+fileName;
             try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
@@ -424,9 +424,11 @@ public class Matrix {
         cofactorMat.printMatrix();
 
         System.out.println();
-        System.out.print("Cara : ");
-        System.out.println("Lakukan perhitungan dengan menggunakan baris pertama.");
-
+        System.out.println("Cara : ");
+        System.out.println("1. Lakukan perhitungan dengan menggunakan baris pertama.");
+        System.out.println("2. Kalikan elemen baris pertama dari Matriks dengan elemen baris pertama dari Matriks Kofaktor.");
+        System.out.println("3. Lalu, tambahkan semua elemennya.");
+        
         if (this.rows == 1){
             det = this.getElmt(0, 0);
             System.out.println(String.format("Determinant Matriks adalah %.2f", det));
@@ -489,7 +491,7 @@ public class Matrix {
                     if (this.getElmt(j,i) != 0){
                         changeRow += 1;
                         this.swapRows(i,j);
-                        System.out.println("Langkah " + count + " : Tukar R" + (i + 1) + " dengan R" + (j + 1));
+                        System.out.println("Matriks " + count + " : (Tukar R" + (i + 1) + " dengan R" + (j + 1) + ")");
                         count ++;
                         printMatrix();
                         System.out.println();
@@ -503,7 +505,7 @@ public class Matrix {
                     this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
                 }
                 if (pembuatnol != 0){
-                    System.out.println("Langkah " + count + " : R" + (k + 1) + " - (" + String.format("%.2f", pembuatnol) + " * R" + (i + 1) + ")");
+                    System.out.println("Matriks " + count + " : (R" + (k + 1) + " dikurang dengan " + String.format("%.2f", pembuatnol) + " kali R" + (i + 1) + ")");
                     printMatrix();
                     System.out.println();
                     count ++;
@@ -517,6 +519,24 @@ public class Matrix {
         }
         double hasil = det*minus;
         double hasillast = round(hasil,8);
+
+        System.out.println("Lalu,Kalikan Peubah (Berapa kali jumlah baris yang ditukar) dengan semua elemen diagonal dari Matriks tersebut.");
+        System.out.println();
+
+        System.out.print("Determinan : ");
+        System.out.print(String.format("((%.2f)^%d)", minus, changeRow)); // Display the minus factor and changeRow
+        System.out.print(" * ");
+        for (int m = 0; m < n; m++) {
+            double diagonalElement = this.getElmt(m, m);
+            det *= diagonalElement;
+            System.out.print(String.format("%.2f", diagonalElement));
+    
+            if (m < n - 1) {
+                System.out.print(" * ");
+            }
+        }
+    
+        System.out.println(" = " + String.format("%.2f", hasillast));
 
         return hasillast;
     }
