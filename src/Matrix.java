@@ -553,11 +553,10 @@ public class Matrix {
                 adjoin.setELmt(i,j,(det*sign));    
             }
         }
-        System.out.println("Tampilkan hasil ekspansi kofaktor");
+        System.out.println("Matrix hasil ekspansi kofaktor:");
         adjoin.printMatrix();
         System.out.println();
         System.out.println("Dari kofaktor di transpose untuk diubah menjadi adjoin.");
-        System.out.println();
         adjoin = adjoin.transpose();
         System.out.println("Adjoin:");
         adjoin.printMatrix();
@@ -565,7 +564,7 @@ public class Matrix {
         return adjoin;
     }
 
-    public Matrix inverseCofactor(){
+    public Matrix inverseAdjoinFunc(){
         int rows = this.rows;
         int cols = this.columns;
         Matrix inverse = new Matrix(rows,cols);
@@ -576,7 +575,7 @@ public class Matrix {
                 inverse.setELmt(i,j,adjoin.getElmt(i,j)/det);
             }
         }
-        System.out.println("Di cari Matriks Balikan dengan membagi setiap elemen dengan determinan");
+        System.out.println("Di cari Matriks Balikan dengan membagi setiap elemen dengan determinan.");
         System.out.println("Determinan:"+det);
         return inverse;
     }

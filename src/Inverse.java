@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Inverse{
-    public static boolean page(Scanner scanner){
+    public static boolean Page(Scanner scanner){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -58,9 +58,13 @@ public class Inverse{
         System.out.println("Matriks :");
         M.printMatrix();
         System.out.println();
-        
-        Matrix Inverse = M.inverseCofactor();
+        if (M.determinanCof() == 0){
+            System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
+        }
+        else{
+        Matrix Inverse = M.inverseAdjoinFunc();
         System.out.println("Hasil Inverse :");
         Inverse.printMatrix();
+        }
     }
     }

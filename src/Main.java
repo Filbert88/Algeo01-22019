@@ -72,24 +72,32 @@ public class Main {
             }
 
             else if (pilihan.equals(Selection.menu_invers)) {
-                Selection.option_invers();
-                String pilihan_input="";
-                pilihan_input=scanner.next();
-                while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Jenis Input : ");
+                boolean selesai = false;
+                while (!selesai){
+                    Selection.option_invers();
+                    String pilihan_input="";
                     pilihan_input=scanner.next();
-                }
-                if (pilihan_input.equals(Selection.submenu_1)) {
-                    System.out.println("MANTAP INVERS");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_2)) {
-                    System.out.println("MANTAP INVERS 2");
-                    pilihan=Selection.kembali(scanner);
-                }
-                else if (pilihan_input.equals(Selection.submenu_3)) {
-                    Selection.menu_utama();
+                    while (!pilihan_input.equals(Selection.submenu_1) && !pilihan_input.equals(Selection.submenu_2) && !pilihan_input.equals(Selection.submenu_3)) {
+                        System.out.println("Inputan tidak valid. Program hanya menerima input dari angka 1 sampai 3");
+                        System.out.print("Jenis Input : ");
+                        pilihan_input=scanner.next();
+                    }
+                    if (pilihan_input.equals(Selection.submenu_1)) {
+                        selesai = Inverse.Page(scanner);
+                        if(selesai){
+                            pilihan=Selection.kembali(scanner);
+                        }
+                    }
+                    else if (pilihan_input.equals(Selection.submenu_2)) {
+                        selesai = Inverse.Page(scanner);
+                        if(selesai){
+                            pilihan=Selection.kembali(scanner);
+                        }
+                    }
+                    else if (pilihan_input.equals(Selection.submenu_3)) {
+                        Selection.menu_utama();
+                        selesai = true;
+                    }
                 }
             }
 
