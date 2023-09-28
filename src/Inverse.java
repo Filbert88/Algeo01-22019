@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Inverse{
-    public static boolean Page(Scanner scanner){
+    public static boolean Page(Scanner scanner,String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -22,7 +22,7 @@ public class Inverse{
         while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
                     System.out.println("Inputan tidak valid");
                     System.out.print("Pilih metode : ");
-                    pilih=scanner.next();
+                    pilih=scanner.nextL();
                 }
 
         if (pilih.equals("1")){
@@ -31,7 +31,7 @@ public class Inverse{
         }
         else if (pilih.equals("2")){
             System.out.println();
-            inversAdjoin(scanner);
+            inversAdjoin(scanner,pilihan_input);
             return true;
 
         }
@@ -42,7 +42,7 @@ public class Inverse{
         return false;
     }
 
-    public static void inversAdjoin(Scanner scanner){
+    public static void inversAdjoin(Scanner scanner,String pilihan_input){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -53,7 +53,12 @@ public class Inverse{
         System.out.println("|               METODE ADJOIN                   |");
         Selection.ui();        
         Matrix M = new Matrix(0, 0);
-        M.readSquareMatrix(scanner);
+        if(pilihan_input.equals(Selection.submenu_1)){
+            M.readSquareMatrix(scanner);
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)){
+            M.readMatrixFromFile(scanner);
+        }
         System.out.println();
         System.out.println("Matriks :");
         M.printMatrix();
