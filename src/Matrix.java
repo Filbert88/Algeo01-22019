@@ -54,13 +54,23 @@ public class Matrix {
         }
     }
 
+    int ValidateIntInput(String message,Scanner scanner) {
+        while (true) {
+            try {
+                System.out.print(message);
+                return scanner.nextInt();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid Input. Tolong masukin input sesuai format.");
+                scanner.nextLine(); 
+            }
+        }
+    }
+
     public void readMatrixFromTerminal(Scanner scanner){
         double elmt;
         int row,column,i,j;
-        System.out.print("Masukkan Jumlah Baris: ");
-        row = scanner.nextInt();
-        System.out.print("Masukkan Jumlah Kolom: ");
-        column = scanner.nextInt();
+        row = ValidateIntInput("Masukkan Jumlah Baris: ",scanner);
+        column = ValidateIntInput("Masukkan Jumlah Kolom: ",scanner);
 
         this.rows = row;
         this.columns = column;
@@ -78,8 +88,7 @@ public class Matrix {
     public void readSquareMatrix(Scanner scanner){
         double elmt;
         int row,column,i,j;
-        System.out.print("Masukkan Jumlah Ukuran Matriks yang diinginkan: ");
-        row = scanner.nextInt();
+        row = ValidateIntInput("Masukkan Jumlah Ukuran Matriks yang diinginkan: ",scanner);
         column = row;
         this.rows = row;
         this.columns = column;
@@ -644,26 +653,63 @@ public class Matrix {
         return inverse;
     }
 
-    public void interPolim(Scanner scanner){
-        System.out.println("Masukin berapa titik yang Anda mau : ");
+    public static void interPolim(Scanner scanner){
+        System.out.print("Masukin berapa titik yang Anda mau : ");
         int n = scanner.nextInt();
         Matrix m = new Matrix(n,n+1);
+        Matrix hasilspl = new Matrix(n,0);
+         
         for(int i = 0;i<n;i++){
-            System.out.print(String.format("Masukkan X : %d",i));
+            System.out.print(String.format("Masukkan x%d : ",i));
             double x = scanner.nextDouble();
-
+            
             int j = 0;
             while (j< m.getColumn() - 1){
                 m.matrix[i][j] = Math.pow(x,j);
                 j++;
             }
+            System.out.print(String.format("Masukkan Y%d : ",i));
             double y = scanner.nextDouble();
             m.matrix[i][j] = y;
-            
-
-            System.out.print(String.format("Masukkan Y : %d",i));
-            
         }
+
+        System.out.println(String.format("Masukkan nilai x%d yang mau ditaksir y nya  : ",n));
+        double soal = scanner.nextDouble();
+
+        m.printMatrix();
+        hasilspl = m.hasilSPL();
+        hasilspl.printMatrix();
+
+        System.out.println("hasilspl rows: " + hasilspl.getRow());
+        System.out.println("hasilspl columns: " + hasilspl.getColumn());
+
+        System.out.print(String.format("Polynomial Function: P(%.1f) = ",soal));
+        for (int i = 0; i < n; i++) {
+            double coefficient = hasilspl.matrix[i][0];
+            if (Math.abs(coefficient) < 1e-4) {
+                continue;
+            }
+
+            if (i > 0) {
+                System.out.print(coefficient > 0 ? " + " : " - ");
+            } else if (coefficient < 0) {
+                System.out.print("-");
+            }
+
+            if (i == 0) {
+                System.out.print(String.format("%.4f", Math.abs(coefficient)));
+            } else if (i == 1) {
+                System.out.print(String.format("%.4f", Math.abs(coefficient))+" x");
+            } else {
+                System.out.print(String.format("%.4f", Math.abs(coefficient)) + " x^" + i);
+            }
+        }
+        double result = 0.0;
+        for (int i = 0; i < n; i++) {
+            double coefficient = hasilspl.matrix[i][0];
+            result += coefficient * Math.pow(soal, i);
+        }
+        System.out.println(String.format(" = %.4f", result));
     }
     
     public Matrix createIdentitas(int rows){
@@ -726,9 +772,13 @@ public class Matrix {
     public Matrix hasilSPL(){
 
         Matrix Mdup=this.copyMatrix();
+        // Matrix Mkontol= new Matrix(Mdup.columns-1, 1);
+        // for (int i = 0; i < Mkontol.rows; i++) {
+            
+        // }
 
         if (Mdup.columns-1!=Mdup.rows) {
-            return (new Matrix(0, 0));
+            return (new Matrix(Mdup.columns-1, 1));
         }
 
         else{
@@ -742,7 +792,7 @@ public class Matrix {
             double det=Mcopy.determinanOBEtanpaPrint();
 
             if (Mcopy.determinanOBEtanpaPrint() == 0){
-                return (new Matrix(0, 0));
+                return (new Matrix(Mdup.columns-1, 1));
             }
             else{
                 Matrix Mhasil= new Matrix(Mdup.rows, 1);
