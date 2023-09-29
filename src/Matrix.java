@@ -384,7 +384,6 @@ public class Matrix {
         return M;
     }
 
-
     public Matrix minor(int row,int col){
         int newRows = this.rows-1;
         int newCols = this.columns-1;
@@ -749,8 +748,6 @@ public class Matrix {
         
     }
     
-
-
     public Matrix createIdentitas(int rows){
         Matrix identity = new Matrix(rows,rows);
         for(int i=0;i<rows;i++){
@@ -762,6 +759,7 @@ public class Matrix {
         }
         return identity;
     }
+    
     public Matrix gabung(){
         Matrix m2 = this.createIdentitas(this.rows);
         int rows = this.rows;
@@ -856,7 +854,131 @@ public class Matrix {
 
         }
     }
-public int checkPositionX(int cols){
+
+    public Matrix hasilOBE_tanpaprint(){
+        int now=0;
+        while (now<this.rows && now<this.columns) {
+            if (this.getElmt(now,now)==0) {
+
+                int tukar=-1;
+                int leading=Integer.MAX_VALUE;
+                for (int i = 0; i < this.columns; i++) {
+                    if (this.getElmt(now,i)!=0) {
+                        leading=i;
+                        break;
+                    }
+                }
+
+                for (int i = now+1; i < this.rows; i++) {
+                    int leading_temp=Integer.MAX_VALUE;
+                    for (int j = 0; j < this.columns; j++) {
+                        if (this.getElmt(i, j)!=0) {
+                            leading_temp=j;
+                            break;
+                        }
+                    }
+                    if (leading_temp<leading) {
+                        leading=leading_temp;
+                        tukar=i;
+                    }
+                }
+
+                if (tukar!=-1) {
+                    Matrix temp = new Matrix(1, this.columns);
+                    for (int j = 0; j < this.columns; j++) {
+                        temp.setELmt(0, j, this.getElmt(tukar,j));
+                        this.setELmt(tukar, j, this.getElmt(now,j));
+                        this.setELmt(now, j, temp.getElmt(0,j));
+                    }
+                }
+            }
+
+            if (this.getElmt(now,now)!=0) {
+                if (this.getElmt(now,now)!=1) {
+                    double pembagi=this.getElmt(now,now);
+                    for (int j = 0; j < this.columns; j++) {
+                        if (this.getElmt(now,j)!=0) {
+                            this.setELmt(now, j, (this.getElmt(now,j)/pembagi));   
+                        }
+                    }
+                }
+
+                int count=0;
+                for (int i = now+1; i < this.rows; i++) {
+                    if (this.getElmt(i,now)!=0) {
+                        double pengali=this.getElmt(i,now);
+                        for (int j = 0; j < this.columns; j++) {
+                            this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                        }
+                    }
+                }
+            }
+
+            else{
+                int leading=-1;
+                for (int i = 0; i < this.columns; i++) {
+                    if (this.getElmt(now, i)!=0) {
+                        leading=i;
+                        break;
+                    }
+                }
+                if (leading!=-1) {
+                    double pembagi=this.getElmt(now,leading);
+
+                    if (pembagi!=1) {
+                        for (int j = 0; j < this.columns; j++) {
+                            if (this.getElmt(now,j)!=0) {
+                                this.setELmt(now, j, (this.getElmt(now,j)/pembagi));   
+                            }
+                        }
+                    }
+                    int count=0;
+                    for (int i = now+1; i < this.rows; i++) {
+                        if (this.getElmt(i,leading)!=0) {
+                            double pengali=this.getElmt(i,leading);
+                            for (int j = 0; j < this.columns; j++) {
+                                this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                            }
+                        }
+                    }
+                }
+            }
+
+            now++;
+            
+        }
+        now=this.rows-1;
+        while (now>=0) {
+            int leading=-1;
+            for (int i = 0; i < this.columns; i++) {
+                if (this.getElmt(now, i)==1 ) {
+                    leading=i;
+                    break;
+                }
+            }
+            if (leading!=-1) {
+                int count=0;
+                for (int i = now-1; i >= 0; i--) {
+                    if (this.getElmt(i,leading)!=0) {
+                        double pengali=this.getElmt(i,leading);
+                        for (int j = 0; j < this.columns; j++) {
+                            this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                        }
+                    }
+                }             
+            }
+            now--;
+        }
+
+        Matrix Mjawab= new Matrix(this.columns-1, 1);
+        for (int i = 0; i < Mjawab.rows; i++) {
+            Mjawab.setELmt(i, 0, this.getElmt(i, this.columns-1));
+        }
+
+        return Mjawab;
+    }
+
+    public int checkPositionX(int cols){
         if(cols==0 || cols == 2){
             return 0;
         }
@@ -872,7 +994,8 @@ public int checkPositionX(int cols){
             return 1;
         }
     }
-//     public Matrix expansionMatrix(){
+
+    //     public Matrix expansionMatrix(){
 //         int col = this.columns;
 //         int row = this.rows;
 //         int checkrow = 0;  //checkcol dan checkrow berupa penanda pada matrix hasil inputan
