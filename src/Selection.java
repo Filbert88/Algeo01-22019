@@ -8,7 +8,7 @@ public class Selection {
         Selection.ui();
         System.out.println("|     Welcome to Apau & Apin SPL Calculator     |");
         Selection.ui();
-        Selection.option(); 
+        Selection.option();
     }
 
     public static void ui(){
@@ -57,20 +57,12 @@ public class Selection {
     }
 
     public static void option_spl(){
-        Selection.clear();
-        System.out.println();
-        Selection.ui();
-        System.out.println("|           Apau & Apin SPL Calculator          |");
-        Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
-        Selection.ui();
         System.out.println("|                 Please Select                 |");
         Selection.ui();
         System.out.println("|               (1) Input Manual                |");
         System.out.println("|                (2) Input File                 |");
-        System.out.println("|                (3) Menu Utama                 |");
+        System.out.println("|                  (3) Kembali                 |");
         Selection.ui();
-        System.out.print("Jenis input : ");
     }
 
     public static void option_determinan(){
@@ -102,7 +94,7 @@ public class Selection {
         Selection.ui();
         System.out.println("|               (1) Input Manual                |");
         System.out.println("|                (2) Input File                 |");
-        System.out.println("|                (3) Menu Utama                 |");
+        System.out.println("|                (3) Kembali                 |");
         Selection.ui();
         System.out.print("Jenis input : ");
     }

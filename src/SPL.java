@@ -1,7 +1,8 @@
 import java.util.*;
 
 public class SPL {
-    public static boolean page(Scanner scanner,String pilihan_input){
+
+    public static void landingpage(){
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -15,45 +16,14 @@ public class SPL {
         System.out.println("|        (2) Metode Eliminasi Gauss-Jordan      |");
         System.out.println("|           (3) Metode Matriks Balikan          |");
         System.out.println("|               (4) Metode Cramer               |");
-        System.out.println("|                  (5) Kembali                  |");
+        System.out.println("|                 (5) Menu Utama                |");
         Selection.ui();
         System.out.print("Pilih metode : ");
-        String pilih=scanner.next();
-
-        while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")&&!pilih.equals("4")&&!pilih.equals("5")) {
-            System.out.println("Inputan tidak valid");
-            System.out.print("Pilih metode : ");
-            pilih=scanner.next();
-        }
-
-        if (pilih.equals("1")){
-            System.out.println();
-            Gauss(scanner,pilihan_input);
-            return true;
-        }
-        else if (pilih.equals("2")){
-            System.out.println();
-            GaussJordan(scanner,pilihan_input);
-            return true;
-        }
-        else if (pilih.equals("3")){
-            System.out.println();
-            SPLInverse(scanner, pilihan_input);
-            return true;
-        }
-        else if (pilih.equals("4")){
-            System.out.println();
-            Cramer(scanner, pilihan_input);
-            return true;
-        }
-        else if (pilih.equals("5")){
-            Selection.option_spl();
-            return false;
-        }
-        return false;
     }
 
-    public static void Gauss(Scanner scanner,String pilihan_input){
+    //TAMPILAN DEPAN METODE SPL
+    public static void gausspage(){
+        System.out.println();
         Selection.clear();
         System.out.println();
         Selection.ui();
@@ -62,7 +32,51 @@ public class SPL {
         System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
         Selection.ui();
         System.out.println("|                 METODE GAUSS                  |");
-        Selection.ui();        
+        Selection.ui();
+    }
+
+    public static void gaussjordanpage(){
+        System.out.println();
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|              METODE GAUSS JORDAN              |");
+        Selection.ui();
+    }
+
+    public static void balikanpage(){
+        System.out.println();
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|        METODE MATRIKS BALIKAN / INVERS        |");
+        Selection.ui();
+    }
+
+    public static void cramerpage(){
+        System.out.println();
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|                 METODE CRAMER                 |");
+        Selection.ui();
+    }
+
+    //PERHITUNGAN MENGGUNAKAN METODE SPL
+    public static void Gauss(Scanner scanner,String pilihan_input){
+        gausspage();
         Matrix M = new Matrix(0, 0);
         
         if (pilihan_input.equals(Selection.submenu_1)) {
@@ -208,17 +222,14 @@ public class SPL {
     }
 
     public static void GaussJordan(Scanner scanner,String pilihan_input){
-        Selection.clear();
-        System.out.println();
-        Selection.ui();
-        System.out.println("|           Apau & Apin SPL Calculator          |");
-        Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
-        Selection.ui();
-        System.out.println("|              METODE GAUSS JORDAN              |");
-        Selection.ui();
+        gaussjordanpage();
         Matrix M = new Matrix(0, 0);
-        M.readMatrixFromTerminal(scanner);
+        if (pilihan_input.equals(Selection.submenu_1)) {
+            M.readMatrixFromTerminal(scanner);   
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)) {
+            M.readMatrixFromFile(scanner);
+        }
 
         System.out.println();
         System.out.println("Matriks :");
@@ -334,18 +345,14 @@ public class SPL {
     }
 
     public static void SPLInverse(Scanner scanner,String pilihan_input){
-        Selection.clear();
-        System.out.println();
-        Selection.ui();
-        System.out.println("|           Apau & Apin SPL Calculator          |");
-        Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
-        Selection.ui();
-        System.out.println("|        METODE MATRIKS BALIKAN / INVERS        |");
-        Selection.ui();
-
+        balikanpage();
         Matrix M = new Matrix(0, 0);
-        M.readMatrixFromTerminal(scanner);
+        if (pilihan_input.equals(Selection.submenu_1)) {
+            M.readMatrixFromTerminal(scanner);   
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)) {
+            M.readMatrixFromFile(scanner);
+        }
 
         System.out.println();
         System.out.println("Matriks :");
@@ -354,7 +361,7 @@ public class SPL {
         if (M.columns-1!=M.rows) {
             System.out.println("Ukuran matriks salah. Contoh : n x (n-1)");
             System.out.println();
-            System.out.println("Tidak memiliki penyelesaian.");
+            System.out.println("Tidak berlaku matriks inverse.");
         }
 
         else{
@@ -370,7 +377,7 @@ public class SPL {
             if (Mcopy.determinanOBEtanpaPrint() == 0){
                 System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
                 System.out.println();
-                System.out.println("Tidak memiliki penyelesaian.");
+                System.out.println("Tidak berlaku matriks inverse.");
             }
             else{
                 Matrix Inverse = Mcopy.inverseAdjoinFunc();
@@ -414,18 +421,14 @@ public class SPL {
     }
 
     public static void Cramer(Scanner scanner,String pilihan_input){
-        Selection.clear();
-        System.out.println();
-        Selection.ui();
-        System.out.println("|           Apau & Apin SPL Calculator          |");
-        Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
-        Selection.ui();
-        System.out.println("|                 METODE CRAMER                 |");
-        Selection.ui();
-
+        cramerpage();
         Matrix M = new Matrix(0, 0);
-        M.readMatrixFromTerminal(scanner);
+        if (pilihan_input.equals(Selection.submenu_1)) {
+            M.readMatrixFromTerminal(scanner);   
+        }
+        else if (pilihan_input.equals(Selection.submenu_2)) {
+            M.readMatrixFromFile(scanner);
+        }
 
         System.out.println();
         System.out.println("Matriks :");
@@ -434,7 +437,7 @@ public class SPL {
         if (M.columns-1!=M.rows) {
             System.out.println("Ukuran matriks salah. Contoh : n x (n-1)");
             System.out.println();
-            System.out.println("Tidak memiliki penyelesaian.");
+            System.out.println("Tidak berlaku metode cramer.");
         }
 
         else{
@@ -454,7 +457,7 @@ public class SPL {
 
             if (Mcopy.determinanOBEtanpaPrint() == 0){
                 System.out.println();
-                System.out.println("Matriks tidak memiliki penyelesaian karena determinan = 0");
+                System.out.println("Tidak berlaku metode cramer karena determinan = 0");
             }
             else{
                 Matrix Mhasil= new Matrix(M.rows, 1);
