@@ -66,6 +66,18 @@ public class Matrix {
         }
     }
 
+    double getValidDoubleInput(String message, Scanner scanner) {
+        while (true) {
+            try {
+                System.out.print(message);
+                return scanner.nextDouble();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid Input. Tolong masukin input sesuai format.");
+                scanner.nextLine();
+            }
+        }
+    }
+
     public void readMatrixFromTerminal(Scanner scanner){
         double elmt;
         int row,column,i,j;
@@ -660,58 +672,85 @@ public class Matrix {
         Matrix hasilspl = new Matrix(n,0);
          
         for(int i = 0;i<n;i++){
-            System.out.print(String.format("Masukkan x%d : ",i));
-            double x = scanner.nextDouble();
-            
+            double x = m.getValidDoubleInput(String.format("Masukkan x%d : ", i), scanner);
+
             int j = 0;
             while (j< m.getColumn() - 1){
                 m.matrix[i][j] = Math.pow(x,j);
                 j++;
             }
-            System.out.print(String.format("Masukkan Y%d : ",i));
-            double y = scanner.nextDouble();
+            double y = m.getValidDoubleInput(String.format("Masukkan y%d : ", i), scanner);
             m.matrix[i][j] = y;
         }
 
-        System.out.println(String.format("Masukkan nilai x%d yang mau ditaksir y nya  : ",n));
-        double soal = scanner.nextDouble();
+        System.out.println();
+        double soal = m.getValidDoubleInput(String.format("Masukkan nilai x%d yang mau ditaksir y nya  : ", n), scanner);
 
+        System.out.println();
+        System.out.println("Matriks Augmented : ");
         m.printMatrix();
         hasilspl = m.hasilSPL();
-        hasilspl.printMatrix();
 
-        System.out.println("hasilspl rows: " + hasilspl.getRow());
-        System.out.println("hasilspl columns: " + hasilspl.getColumn());
-
-        System.out.print(String.format("Polynomial Function: P(%.1f) = ",soal));
-        for (int i = 0; i < n; i++) {
-            double coefficient = hasilspl.matrix[i][0];
-            if (Math.abs(coefficient) < 1e-4) {
-                continue;
+        if(hasilspl.matrix[0][0] != 0){
+            System.out.println();
+            System.out.print("Polynomial Function : ");
+            System.out.println();
+            System.out.print("f(x) = ");
+            for (int i = 0; i < n; i++) {
+                double coefficient = hasilspl.matrix[i][0];
+                if (Math.abs(coefficient) < 1e-4) {
+                    continue;
+                }
+                if (i > 0) {
+                    System.out.print(coefficient > 0 ? " + " : " - ");
+                } else if (coefficient < 0) {
+                    System.out.print("-");
+                }
+                if (i == 0) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
+                } else if (i == 1) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient))+" x");
+                } else {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " x^" + i);
+                }
             }
 
-            if (i > 0) {
-                System.out.print(coefficient > 0 ? " + " : " - ");
-            } else if (coefficient < 0) {
-                System.out.print("-");
+            double result = 0.0;
+            for (int i = 0; i < n; i++) {
+                double coefficient = hasilspl.matrix[i][0];
+                result += coefficient * Math.pow(soal, i);
             }
 
-            if (i == 0) {
-                System.out.print(String.format("%.4f", Math.abs(coefficient)));
-            } else if (i == 1) {
-                System.out.print(String.format("%.4f", Math.abs(coefficient))+" x");
-            } else {
-                System.out.print(String.format("%.4f", Math.abs(coefficient)) + " x^" + i);
+            System.out.println();
+            System.out.print(String.format("f(%.1f) = ",soal));
+            for (int i = 0; i < n; i++) {
+                double coefficient = hasilspl.matrix[i][0];
+                if (Math.abs(coefficient) < 1e-4) {
+                    continue;
+                }
+                if (i > 0) {
+                    System.out.print(coefficient > 0 ? " + " : " - ");
+                } else if (coefficient < 0) {
+                    System.out.print("-");
+                }
+                if (i == 0) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
+                } else if (i == 1) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")");
+                } else {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")");
+                }
             }
+            System.out.println(String.format(" = %.4f", result));
+        }else{
+            System.out.println();
+            System.out.println("Tidak ada fungsi Polynomial");
         }
-        double result = 0.0;
-        for (int i = 0; i < n; i++) {
-            double coefficient = hasilspl.matrix[i][0];
-            result += coefficient * Math.pow(soal, i);
-        }
-        System.out.println(String.format(" = %.4f", result));
+        
     }
     
+
+
     public Matrix createIdentitas(int rows){
         Matrix identity = new Matrix(rows,rows);
         for(int i=0;i<rows;i++){
