@@ -611,7 +611,7 @@ public class Matrix {
                     sign = -1;
                 }
                 minor = this.minor(i,j);
-                double det = minor.determinanCof();
+                double det = minor.determinanOBE();
                 adjoin.setELmt(i,j,(det*sign));    
             }
         }
@@ -632,7 +632,7 @@ public class Matrix {
         int cols = this.columns;
         Matrix inverse = new Matrix(rows,cols);
         Matrix adjoin = this.adjoin();
-        double det = this.determinanCof();
+        double det = this.determinanOBE();
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
                 inverse.setELmt(i,j,adjoin.getElmt(i,j)/det);
@@ -677,221 +677,50 @@ public class Matrix {
         }
         return identity;
     }
-    
-    public Matrix OBE_Identitas(Matrix M){
-        Matrix identitas = M.createIdentitas(M.rows);
-        identitas.printMatrix();
-        int now=0;
-        while (now<M.rows && now<M.columns) {
-            if (M.getElmt(now,now)==0) {
+    public Matrix gabung(){
+        Matrix m2 = this.createIdentitas(this.rows);
+        int rows = this.rows;
+        int columns = this.columns + m2.columns; 
+        Matrix newMatrix = new Matrix(rows, columns);
 
-                int tukar=-1;
-                int leading=Integer.MAX_VALUE;
-                for (int i = 0; i < M.columns; i++) {
-                    if (M.getElmt(now,i)!=0) {
-                        leading=i;
-                        break;
-                    }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                double val;
+                if (j < this.columns) {
+                    val = this.getElmt(i, j);
+                } else {
+                    val = m2.getElmt(i, j - this.columns);
                 }
-
-                for (int i = now+1; i < M.rows; i++) {
-                    int leading_temp=Integer.MAX_VALUE;
-                    for (int j = 0; j < M.columns; j++) {
-                        if (M.getElmt(i, j)!=0) {
-                            leading_temp=j;
-                            break;
-                        }
-                    }
-                    if (leading_temp<leading) {
-                        leading=leading_temp;
-                        tukar=i;
-                    }
-                }
-
-                if (tukar!=-1) {
-                    Matrix temp = new Matrix(1, M.columns);
-                    Matrix temp1 = new Matrix(1, M.columns);
-                    for (int j = 0; j < M.columns; j++) {
-                        temp.setELmt(0, j, M.getElmt(tukar,j));
-                        M.setELmt(tukar, j, M.getElmt(now,j));
-                        M.setELmt(now, j, temp.getElmt(0,j));
-                        temp1.setELmt(0, j, identitas.getElmt(tukar,j));
-                        identitas.setELmt(tukar, j, identitas.getElmt(now,j));
-                        identitas.setELmt(now, j, temp1.getElmt(0,j));
-                    }
-                    if (tukar!=M.rows) {
-                        System.out.println();
-                        System.out.print("Matriks : ");
-                        System.out.println("(R"+(now+1)+" ditukar dengan R"+(tukar+1)+")");
-                        M.printMatrix();
-                        System.out.println("=========================Hasil Identitas Matrix =====================");
-                        identitas.printMatrix();
-                    }
-                }
+                newMatrix.setELmt(i, j, val);
             }
-
-            if (M.getElmt(now,now)!=0) {
-                if (M.getElmt(now,now)!=1) {
-                    double pembagi=M.getElmt(now,now);
-                    for (int j = 0; j < M.columns; j++) {
-                        if (M.getElmt(now,j)!=0) {
-                            M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
-                        }
-                        identitas.setELmt(now, j, (identitas.getElmt(now,j)/pembagi));   
-                    }
-                    System.out.println();
-                    System.out.print("Matriks : ");
-                    System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
-                    M.printMatrix();
-                    System.out.println("=========================Hasil Identitas Matrix =====================");
-                    identitas.printMatrix();
-                }
-
-                int count=0;
-                for (int i = now+1; i < M.rows; i++) {
-                    if (M.getElmt(i,now)!=0) {
-                        double pengali=M.getElmt(i,now);
-                        for (int j = 0; j < M.columns; j++) {
-                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
-                            identitas.setELmt(i, j, identitas.getElmt(i,j)-pengali*identitas.getElmt(now,j));
-                        }
-                        if (count!=0) {
-                            System.out.print(", ");
-                        }
-                        else{
-                            System.out.println();
-                            System.out.print("Matriks : ");
-                            System.out.print("(");
-                        }
-                        count++;
-                        if (pengali>=0) {
-                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
-                        }
-                        else{
-                            System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
-                        }
-                    }
-                }
-                if (count!=0) {
-                    System.out.println(")");
-                    M.printMatrix();
-                    System.out.println("=========================Hasil Identitas Matrix =====================");
-                    identitas.printMatrix();
-                }
-            }
-
-            else{
-                int leading=-1;
-                for (int i = 0; i < M.columns; i++) {
-                    if (M.getElmt(now, i)!=0) {
-                        leading=i;
-                        break;
-                    }
-                }
-                if (leading!=-1) {
-                    double pembagi=M.getElmt(now,leading);
-
-                    if (pembagi!=1) {
-                        for (int j = 0; j < M.columns; j++) {
-                            if (M.getElmt(now,j)!=0) {
-                                M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
-                                identitas.setELmt(now, j, (identitas.getElmt(now,j)/pembagi));   
-                            }
-                        }
-                        System.out.println();
-                        System.out.print("Matriks : ");
-                        System.out.println("(R" + (now + 1) + " dibagi dengan " + String.format("%.2f", pembagi) + ")");
-                        M.printMatrix();   
-                        System.out.println("=========================Hasil Identitas Matrix =====================");
-                        identitas.printMatrix();   
-                    }
-                    int count=0;
-                    for (int i = now+1; i < M.rows; i++) {
-                        if (M.getElmt(i,leading)!=0) {
-                            double pengali=M.getElmt(i,leading);
-                            for (int j = 0; j < M.columns; j++) {
-                                M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
-                                identitas.setELmt(i, j, identitas.getElmt(i,j)-pengali*identitas.getElmt(now,j));
-                            }
-                            if (count!=0) {
-                                System.out.print(", ");
-                            }
-                            else{
-                                System.out.println();
-                                System.out.print("Matriks : ");
-                                System.out.print("(");
-                            }
-                            count++;
-                            if (pengali>=0) {
-                                System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));
-                            }
-                            else{
-                                System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
-                            }
-                        }
-                    }
-                    if (count!=0) {
-                        System.out.println(")");
-                        M.printMatrix();
-                        System.out.println("=========================Hasil Identitas Matrix =====================");
-                        identitas.printMatrix();
-                    }
-                }
-            }
-
-            now++;
         }
-        return identitas;
+
+        return newMatrix;
     }
-    
-    public Matrix OBE_IdentitasRed(Matrix M){
-        Matrix identitas = M.OBE_Identitas(M);
-        M.OBE(M);
-        int now=M.rows-1;
-        while (now>=0) {
-            int leading=-1;
-            for (int i = 0; i < M.columns; i++) {
-                if (M.getElmt(now, i)==1 ) {
-                    leading=i;
-                    break;
-                }
+
+    public Matrix Identitas(){
+        int a=0;
+        Matrix input = this.gabung();
+        input = input.OBE_red(input);
+        Matrix inverse = new Matrix(this.rows,this.rows);
+        int b= (input.columns)/2;
+        for (int i=0;i<(input.columns/2);i++){
+            if(input.getElmt(i,i) !=1){
+                return this;
             }
-            if (leading!=-1) {
-                int count=0;
-                for (int i = now-1; i >= 0; i--) {
-                    if (M.getElmt(i,leading)!=0) {
-                        double pengali=M.getElmt(i,leading);
-                        for (int j = 0; j < M.columns; j++) {
-                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
-                            identitas.setELmt(i, j, identitas.getElmt(i,j)-pengali*identitas.getElmt(now,j));
-                        }
-                        if (count!=0) {
-                            System.out.print(", ");
-                        }
-                        else{
-                            System.out.println();
-                            System.out.print("Matriks : ");                                
-                            System.out.print("(");
-                        }
-                        count++;
-                        if (pengali>=0) {
-                            System.out.print("R"+(i+1)+" dikurang dengan "+String.format("%.2f", pengali)+" kali R"+(now+1));   
-                        }
-                        else{
-                            System.out.print("R"+(i+1)+" ditambah dengan "+String.format("%.2f", (-1)*pengali)+" kali R"+(now+1));
-                        }
-                    }
-                }
-                if (count!=0) {
-                    System.out.println(")");
-                    M.printMatrix();
-                    System.out.println("=========================Hasil Identitas Matrix =====================");
-                    identitas.printMatrix();
-                }                    
-            }
-            now--;
         }
-        return identitas;
+        for (int i=0;i<this.rows;i++){
+            for(int j=0;j<this.rows;j++){
+                double val = input.getElmt(a,b);
+                inverse.setELmt(i,j,val);
+                b+=1;
+                if(b==(input.columns)){
+                    b=(input.columns)/2;
+                    a+=1;
+                }
+            }
+        }
+        return inverse;
     }
 
     public Matrix hasilSPL(){
@@ -938,4 +767,132 @@ public class Matrix {
 
         }
     }
+public int checkPositionX(int cols){
+        if(cols==0 || cols == 2){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+    }
+    public int checkPositionY(int cols){
+        if(cols==0 || cols == 1){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+    }
+//     public Matrix expansionMatrix(){
+//         int col = this.columns;
+//         int row = this.rows;
+//         int checkrow = 0;  //checkcol dan checkrow berupa penanda pada matrix hasil inputan
+//         int checkcol = 0;
+//         int expansionX = 0;
+//         int expansionY = 0;
+//         double val = 0;
+//         int turunan = 0;
+//         Matrix A = new Matrix(16,16);
+//         for(int a=0;a<16;a++){
+//             for(int b=0;b<16;b++){
+//                 int x =this.checkPositionX(checkcol);
+//                 int y =this.checkPositionY(checkcol);
+//                 int j=expansionY;
+//                 int i =expansionX;
+//                 if (turunan ==0){
+//                     val = (Math.pow(x,i))*(Math.pow(y,j));
+//                 }
+//                 else if (turunan == 1){
+//                     if (i==0){
+//                         val = 0;
+//                     }
+//                     else{
+//                     val = i*(Math.pow(x,(i-1))*(Math.pow(y,j)));
+//                     }
+//                 }
+//                 else if (turunan == 2){
+//                     if (j==0){
+//                         val = 0;
+//                     }
+//                     else{
+//                     val = j*(Math.pow(x,i))*(Math.pow(y,(j-1)));
+//                     }
+//                 }
+//                 else{
+//                     if (j==0 || i ==0){
+//                         val =0;
+//                     }
+//                     else{
+//                     val = i*j*(Math.pow(x,(i-1)))*(Math.pow(y,(j-1)));
+//                     }
+//                 }
+//                 if(expansionX == col-1){
+//                     expansionY +=1;
+//                     expansionX = -1;
+//                 }
+//                 expansionX +=1;
+//                 A.setELmt(a,b,val);
+//             }
+//             expansionY=0;
+//             if (checkcol == col-1){ //Setiap 1 baris sudah terisi pada matrix ekspansi, maka penanda bergeser
+//                 checkrow +=1;
+//                 checkcol =-1;
+//                 turunan +=1;
+//             }
+//             checkcol+=1;
+//         }
+//         return A;
+//     }
+
+//     public Matrix multiply(Matrix m1,Matrix m2){
+//         int row = m1.rows;
+//         int cols = m2.columns;
+//         int cols1 = m1.columns;
+//         double m1value;
+//         double m2value;
+//         Matrix m3 = new Matrix(row,cols);
+//         for (int i = 0; i < rows; i++) {
+//             for (int j = 0; j < cols; j++) {
+//                 double sum=0.0;
+//                 for (int k = 0; k < cols1; k++) {
+//                     m1value = getElmt(i,k);
+//                     m2value = getElmt(k,j);
+//                     sum += m1value * m2value;
+//                 }
+//                 m3.setELmt(i, j, sum);
+//             }
+//         }
+//         return m3;
+//     }
+
+//     public double bicubicSplineInterpolation(){
+//         Matrix expansion = this.expansionMatrix();
+//         expansion = expansion.OBE_IdentitasRed(expansion);
+//         int newX;
+//         double val =1;
+//         int newY;
+//         Matrix newMatrixX = new Matrix(1,4);
+//         Matrix newMatrixY = new Matrix(4,1);
+//         double x =0.5;
+//         double y = 0.5;
+//         for (int i=0;i<1;i++){
+//             for (int j=0;j<4;j++){
+//                 newMatrixX.setELmt(i,j,val);
+//                 val = val*x;
+//             }
+//         }
+//         val = 1;
+//         for (int a=0;a<4;a++){
+//             for (int b=0;b<1;b++){
+//                 newMatrixY.setELmt(a,b,val);
+//                 val = val*y;
+//             }
+//         }
+//         newMatrixX.printMatrix();
+//         System.out.println();
+//         newMatrixY.printMatrix();
+
+//         return x;
+
+//     }
 }
