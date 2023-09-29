@@ -688,7 +688,7 @@ public class Matrix {
         System.out.println();
         System.out.println("Matriks Augmented : ");
         m.printMatrix();
-        hasilspl = m.hasilOBE_tanpaprint();
+        hasilspl = m.OBETanpaCara(m);
 
         if(hasilspl.matrix[0][0] != 0){
             System.out.println();
@@ -855,24 +855,24 @@ public class Matrix {
         }
     }
 
-    public Matrix hasilOBE_tanpaprint(){
+    public Matrix OBETanpaCara(Matrix M){
         int now=0;
-        while (now<this.rows && now<this.columns) {
-            if (this.getElmt(now,now)==0) {
+        while (now<M.rows && now<M.columns) {
+            if (M.getElmt(now,now)==0) {
 
                 int tukar=-1;
                 int leading=Integer.MAX_VALUE;
-                for (int i = 0; i < this.columns; i++) {
-                    if (this.getElmt(now,i)!=0) {
+                for (int i = 0; i < M.columns; i++) {
+                    if (M.getElmt(now,i)!=0) {
                         leading=i;
                         break;
                     }
                 }
 
-                for (int i = now+1; i < this.rows; i++) {
+                for (int i = now+1; i < M.rows; i++) {
                     int leading_temp=Integer.MAX_VALUE;
-                    for (int j = 0; j < this.columns; j++) {
-                        if (this.getElmt(i, j)!=0) {
+                    for (int j = 0; j < M.columns; j++) {
+                        if (M.getElmt(i, j)!=0) {
                             leading_temp=j;
                             break;
                         }
@@ -884,97 +884,126 @@ public class Matrix {
                 }
 
                 if (tukar!=-1) {
-                    Matrix temp = new Matrix(1, this.columns);
-                    for (int j = 0; j < this.columns; j++) {
-                        temp.setELmt(0, j, this.getElmt(tukar,j));
-                        this.setELmt(tukar, j, this.getElmt(now,j));
-                        this.setELmt(now, j, temp.getElmt(0,j));
+                    Matrix temp = new Matrix(1, M.columns);
+                    for (int j = 0; j < M.columns; j++) {
+                        temp.setELmt(0, j, M.getElmt(tukar,j));
+                        M.setELmt(tukar, j, M.getElmt(now,j));
+                        M.setELmt(now, j, temp.getElmt(0,j));
                     }
                 }
             }
 
-            if (this.getElmt(now,now)!=0) {
-                if (this.getElmt(now,now)!=1) {
-                    double pembagi=this.getElmt(now,now);
-                    for (int j = 0; j < this.columns; j++) {
-                        if (this.getElmt(now,j)!=0) {
-                            this.setELmt(now, j, (this.getElmt(now,j)/pembagi));   
+            if (M.getElmt(now,now)!=0) {
+                if (M.getElmt(now,now)!=1) {
+                    double pembagi=M.getElmt(now,now);
+                    for (int j = 0; j < M.columns; j++) {
+                        if (M.getElmt(now,j)!=0) {
+                            M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
                         }
                     }
                 }
 
-                for (int i = now+1; i < this.rows; i++) {
-                    if (this.getElmt(i,now)!=0) {
-                        double pengali=this.getElmt(i,now);
-                        for (int j = 0; j < this.columns; j++) {
-                            this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                int count=0;
+                for (int i = now+1; i < M.rows; i++) {
+                    if (M.getElmt(i,now)!=0) {
+                        double pengali=M.getElmt(i,now);
+                        for (int j = 0; j < M.columns; j++) {
+                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
                         }
+                        count++;
                     }
                 }
             }
 
             else{
                 int leading=-1;
-                for (int i = 0; i < this.columns; i++) {
-                    if (this.getElmt(now, i)!=0) {
+                for (int i = 0; i < M.columns; i++) {
+                    if (M.getElmt(now, i)!=0) {
                         leading=i;
                         break;
                     }
                 }
                 if (leading!=-1) {
-                    double pembagi=this.getElmt(now,leading);
+                    double pembagi=M.getElmt(now,leading);
 
                     if (pembagi!=1) {
-                        for (int j = 0; j < this.columns; j++) {
-                            if (this.getElmt(now,j)!=0) {
-                                this.setELmt(now, j, (this.getElmt(now,j)/pembagi));   
+                        for (int j = 0; j < M.columns; j++) {
+                            if (M.getElmt(now,j)!=0) {
+                                M.setELmt(now, j, (M.getElmt(now,j)/pembagi));   
                             }
                         }
                     }
-                    for (int i = now+1; i < this.rows; i++) {
-                        if (this.getElmt(i,leading)!=0) {
-                            double pengali=this.getElmt(i,leading);
-                            for (int j = 0; j < this.columns; j++) {
-                                this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                    int count=0;
+                    for (int i = now+1; i < M.rows; i++) {
+                        if (M.getElmt(i,leading)!=0) {
+                            double pengali=M.getElmt(i,leading);
+                            for (int j = 0; j < M.columns; j++) {
+                                M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
                             }
+                            count++;
                         }
                     }
                 }
             }
 
             now++;
-            
         }
-        now=this.rows-1;
+        return M;
+    }
+
+    public Matrix OBE_redTanpaCara(Matrix M){
+        M.OBETanpaCara(M);
+        int now=M.rows-1;
         while (now>=0) {
             int leading=-1;
-            for (int i = 0; i < this.columns; i++) {
-                if (this.getElmt(now, i)==1 ) {
+            for (int i = 0; i < M.columns; i++) {
+                if (M.getElmt(now, i)==1 ) {
                     leading=i;
                     break;
                 }
             }
             if (leading!=-1) {
+                int count=0;
                 for (int i = now-1; i >= 0; i--) {
-                    if (this.getElmt(i,leading)!=0) {
-                        double pengali=this.getElmt(i,leading);
-                        for (int j = 0; j < this.columns; j++) {
-                            this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                    if (M.getElmt(i,leading)!=0) {
+                        double pengali=M.getElmt(i,leading);
+                        for (int j = 0; j < M.columns; j++) {
+                            M.setELmt(i, j, M.getElmt(i,j)-pengali*M.getElmt(now,j));
                         }
+                        count++;
                     }
-                }             
+                }                   
             }
             now--;
         }
-
-        Matrix Mjawab= new Matrix(this.columns-1, 1);
-        for (int i = 0; i < Mjawab.rows; i++) {
-            Mjawab.setELmt(i, 0, this.getElmt(i, this.columns-1));
+        return M;
+    }
+    public Matrix IdentitasTanpaCara(){
+        int a=0;
+        Matrix input = this.gabung();
+        input = input.OBE_redTanpaCara(input);
+        Matrix inverse = new Matrix(this.rows,this.rows);
+        int b= (input.columns)/2;
+        for (int i=0;i<(input.columns/2);i++){
+            if(input.getElmt(i,i) !=1){
+                return this;
+            }
         }
-
-        return Mjawab;
+        for (int i=0;i<this.rows;i++){
+            for(int j=0;j<this.rows;j++){
+                double val = input.getElmt(a,b);
+                inverse.setELmt(i,j,val);
+                b+=1;
+                if(b==(input.columns)){
+                    b=(input.columns)/2;
+                    a+=1;
+                }
+            }
+        }
+        return inverse;
     }
 
+    // Dari sini mulai bicubic
     public int checkPositionX(int cols){
         if(cols==0 || cols == 2){
             return 0;
@@ -991,117 +1020,165 @@ public class Matrix {
             return 1;
         }
     }
+    public Matrix expansionMatrix(){
+        int col = this.columns;
+        int row = this.rows;
+        int checkrow = 0;  //checkcol dan checkrow berupa penanda pada matrix hasil inputan
+        int checkcol = 0;
+        int expansionX = 0;
+        int expansionY = 0;
+        double val = 0;
+        int turunan = 0;
+        Matrix A = new Matrix(16,16);
+        for(int a=0;a<16;a++){
+            for(int b=0;b<16;b++){
+                int x =this.checkPositionX(checkcol);
+                int y =this.checkPositionY(checkcol);
+                int j=expansionY;
+                int i =expansionX;
+                if (turunan ==0){
+                    val = (Math.pow(x,i))*(Math.pow(y,j));
+                }
+                else if (turunan == 1){
+                    if (i==0){
+                        val = 0;
+                    }
+                    else{
+                    val = i*(Math.pow(x,(i-1))*(Math.pow(y,j)));
+                    }
+                }
+                else if (turunan == 2){
+                    if (j==0){
+                        val = 0;
+                    }
+                    else{
+                    val = j*(Math.pow(x,i))*(Math.pow(y,(j-1)));
+                    }
+                }
+                else{
+                    if (j==0 || i ==0){
+                        val =0;
+                    }
+                    else{
+                    val = i*j*(Math.pow(x,(i-1)))*(Math.pow(y,(j-1)));
+                    }
+                }
+                if(expansionX == col-1){
+                    expansionY +=1;
+                    expansionX = -1;
+                }
+                expansionX +=1;
+                A.setELmt(a,b,val);
+            }
+            expansionY=0;
+            if (checkcol == col-1){ //Setiap 1 baris sudah terisi pada matrix ekspansi, maka penanda bergeser
+                checkrow +=1;
+                checkcol =-1;
+                turunan +=1;
+            }
+            checkcol+=1;
+        }
+        System.out.println("Didapat nilai hasil ekspansi atau A yaitu:");
+        A.printMatrix();
+        System.out.println();
+        return A;
+    }
+    
+    public Matrix multiply(Matrix m1,Matrix m2){
+        int row = m1.rows;
+        int cols = m2.columns;
+        int cols1 = m1.columns;
+        double m1value;
+        double m2value;
+        Matrix m3 = new Matrix(row,cols);
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < cols; j++) {
+                double sum=0.0;
+                for (int k = 0; k < cols1; k++) {
+                    m1value = m1.getElmt(i,k);
+                    m2value = m2.getElmt(k,j);
+                    sum += m1value * m2value;
+                }
+                m3.setELmt(i, j, sum);
+            }
+        }
+        return m3;
+    }
 
-    //     public Matrix expansionMatrix(){
-//         int col = this.columns;
-//         int row = this.rows;
-//         int checkrow = 0;  //checkcol dan checkrow berupa penanda pada matrix hasil inputan
-//         int checkcol = 0;
-//         int expansionX = 0;
-//         int expansionY = 0;
-//         double val = 0;
-//         int turunan = 0;
-//         Matrix A = new Matrix(16,16);
-//         for(int a=0;a<16;a++){
-//             for(int b=0;b<16;b++){
-//                 int x =this.checkPositionX(checkcol);
-//                 int y =this.checkPositionY(checkcol);
-//                 int j=expansionY;
-//                 int i =expansionX;
-//                 if (turunan ==0){
-//                     val = (Math.pow(x,i))*(Math.pow(y,j));
-//                 }
-//                 else if (turunan == 1){
-//                     if (i==0){
-//                         val = 0;
-//                     }
-//                     else{
-//                     val = i*(Math.pow(x,(i-1))*(Math.pow(y,j)));
-//                     }
-//                 }
-//                 else if (turunan == 2){
-//                     if (j==0){
-//                         val = 0;
-//                     }
-//                     else{
-//                     val = j*(Math.pow(x,i))*(Math.pow(y,(j-1)));
-//                     }
-//                 }
-//                 else{
-//                     if (j==0 || i ==0){
-//                         val =0;
-//                     }
-//                     else{
-//                     val = i*j*(Math.pow(x,(i-1)))*(Math.pow(y,(j-1)));
-//                     }
-//                 }
-//                 if(expansionX == col-1){
-//                     expansionY +=1;
-//                     expansionX = -1;
-//                 }
-//                 expansionX +=1;
-//                 A.setELmt(a,b,val);
-//             }
-//             expansionY=0;
-//             if (checkcol == col-1){ //Setiap 1 baris sudah terisi pada matrix ekspansi, maka penanda bergeser
-//                 checkrow +=1;
-//                 checkcol =-1;
-//                 turunan +=1;
-//             }
-//             checkcol+=1;
-//         }
-//         return A;
-//     }
+    public Matrix MatrixTurunan(){
+        Matrix turunan = new Matrix (16,1);
+        double Nilaiturunan;
+        int p=0;
+        int q=0;
+        for(int i=0;i<16;i++){
+            for (int j=0;j<1;j++){
+                turunan.setELmt(i,j,getElmt(q,p));
+                p+=1;
+                if(p==4){
+                    p=0;
+                    q+=1;
+                }
+            }
+        }
+        System.out.println();
+        System.out.println("Matrix Inputan:");
+        turunan.printMatrix();
+        System.out.println();
+        return turunan;
+    }
 
-//     public Matrix multiply(Matrix m1,Matrix m2){
-//         int row = m1.rows;
-//         int cols = m2.columns;
-//         int cols1 = m1.columns;
-//         double m1value;
-//         double m2value;
-//         Matrix m3 = new Matrix(row,cols);
-//         for (int i = 0; i < rows; i++) {
-//             for (int j = 0; j < cols; j++) {
-//                 double sum=0.0;
-//                 for (int k = 0; k < cols1; k++) {
-//                     m1value = getElmt(i,k);
-//                     m2value = getElmt(k,j);
-//                     sum += m1value * m2value;
-//                 }
-//                 m3.setELmt(i, j, sum);
-//             }
-//         }
-//         return m3;
-//     }
+    public Matrix InverseExpansion(){
+        Matrix expansion = this.expansionMatrix();
+        expansion = expansion.IdentitasTanpaCara();
+        System.out.println("Matrix A invers :");
+        expansion.printMatrix();
+        return expansion;
+    }
+    public double bicubicSplineInterpolation(){
+        Matrix turunan = MatrixTurunan();
+        Matrix expansion = InverseExpansion();
+        Matrix alpha = this.multiply(expansion,turunan);
+        System.out.println();
+        System.out.println("Menghitung nilai alpha dengan rumus y=A.alpha");
+        Matrix alphaconvert = new Matrix(4,4);
+        int u=0;
+        for (int i=0;i<4;i++){
+            for(int j=0;j<4;j++){
+                alphaconvert.setELmt(j,i,alpha.getElmt(u,0));
+                u++;
+            }
+        }
+        alphaconvert.printMatrix();
+        int newX;
+        double val =1;
+        int newY;
+        Matrix newMatrixX = new Matrix(1,4);
+        Matrix newMatrixY = new Matrix(4,1);
+        double x =0.1;
+        double y = 0.9;
+        for (int i=0;i<1;i++){ // Deply the X elements
+            for (int j=0;j<4;j++){
+                newMatrixX.setELmt(i,j,val);
+                val = val*x;
+            }
+        }
+        val = 1;
+        for (int a=0;a<4;a++){ //Deploy Y elements
+            for (int b=0;b<1;b++){
+                newMatrixY.setELmt(a,b,val);
+                val = val*y;
+            }
+        }
+        System.out.println();
+        System.out.println("Matrix X:");
+        newMatrixX.printMatrix();
+        System.out.println();
+        System.out.println("Matrix Y:");
+        newMatrixY.printMatrix();
+        System.out.println();
+        Matrix hasil = multiply(multiply(newMatrixX,alphaconvert),newMatrixY);
+        System.out.println("Nilai f("+x+","+y+") adalah "+hasil.getElmt(0,0));
+        return hasil.getElmt(0,0);
 
-//     public double bicubicSplineInterpolation(){
-//         Matrix expansion = this.expansionMatrix();
-//         expansion = expansion.OBE_IdentitasRed(expansion);
-//         int newX;
-//         double val =1;
-//         int newY;
-//         Matrix newMatrixX = new Matrix(1,4);
-//         Matrix newMatrixY = new Matrix(4,1);
-//         double x =0.5;
-//         double y = 0.5;
-//         for (int i=0;i<1;i++){
-//             for (int j=0;j<4;j++){
-//                 newMatrixX.setELmt(i,j,val);
-//                 val = val*x;
-//             }
-//         }
-//         val = 1;
-//         for (int a=0;a<4;a++){
-//             for (int b=0;b<1;b++){
-//                 newMatrixY.setELmt(a,b,val);
-//                 val = val*y;
-//             }
-//         }
-//         newMatrixX.printMatrix();
-//         System.out.println();
-//         newMatrixY.printMatrix();
-
-//         return x;
-
-//     }
+    }
 }
