@@ -97,7 +97,7 @@ public class Inverse{
             System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
         }
         else{
-            Matrix Inverse = M.Identitas();
+            Matrix Inverse = M.InverseIdentitas();
             System.out.println("Matriks Inverse :");
             Inverse.printMatrix();
         }
