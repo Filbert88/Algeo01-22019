@@ -688,7 +688,7 @@ public class Matrix {
         System.out.println();
         System.out.println("Matriks Augmented : ");
         m.printMatrix();
-        hasilspl = m.hasilSPL();
+        hasilspl = m.hasilOBE_tanpaprint();
 
         if(hasilspl.matrix[0][0] != 0){
             System.out.println();
@@ -903,7 +903,6 @@ public class Matrix {
                     }
                 }
 
-                int count=0;
                 for (int i = now+1; i < this.rows; i++) {
                     if (this.getElmt(i,now)!=0) {
                         double pengali=this.getElmt(i,now);
@@ -932,7 +931,6 @@ public class Matrix {
                             }
                         }
                     }
-                    int count=0;
                     for (int i = now+1; i < this.rows; i++) {
                         if (this.getElmt(i,leading)!=0) {
                             double pengali=this.getElmt(i,leading);
@@ -957,7 +955,6 @@ public class Matrix {
                 }
             }
             if (leading!=-1) {
-                int count=0;
                 for (int i = now-1; i >= 0; i--) {
                     if (this.getElmt(i,leading)!=0) {
                         double pengali=this.getElmt(i,leading);
