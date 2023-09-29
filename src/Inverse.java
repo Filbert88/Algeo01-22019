@@ -63,7 +63,7 @@ public class Inverse{
         System.out.println("Matriks :");
         M.printMatrix();
         System.out.println();
-        if (M.determinanCof() == 0){
+        if (M.determinanOBEtanpaPrint() == 0){
             System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
         }
         else{
@@ -93,13 +93,13 @@ public class Inverse{
         System.out.println("Matriks :");
         M.printMatrix();
         System.out.println();
-        if (M.determinanCof() == 0){
+        if (M.determinanOBEtanpaPrint() == 0){
             System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
         }
         else{
-        Matrix Inverse = M.OBE_IdentitasRed(M);
-        System.out.println("Matriks Inverse :");
-        Inverse.printMatrix();
+            Matrix Inverse = M.Identitas();
+            System.out.println("Matriks Inverse :");
+            Inverse.printMatrix();
         }
     }
 }
