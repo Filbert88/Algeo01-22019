@@ -669,7 +669,8 @@ public class Matrix {
         int n = scanner.nextInt();
         Matrix m = new Matrix(n,n+1);
         Matrix hasilspl = new Matrix(n,0);
-         
+        int count = 0;
+
         for(int i = 0;i<n;i++){
             double x = m.getValidDoubleInput(String.format("Masukkan x%d : ", i), scanner);
 
@@ -688,22 +689,34 @@ public class Matrix {
         System.out.println();
         System.out.println("Matriks Augmented : ");
         m.printMatrix();
-        hasilspl = m.OBETanpaCara(m);
+        hasilspl = m.hasilOBEGauss();
+        hasilspl.printMatrix();
 
-        if(hasilspl.matrix[0][0] != 0){
+        for(int i=0;i<n;i++){
+            if(hasilspl.matrix[i][0]!=0){
+                count ++;
+            }
+        }
+        if (count != 0){
             System.out.println();
             System.out.print("Polynomial Function : ");
             System.out.println();
             System.out.print("f(x) = ");
+            boolean isZero = true;
+            boolean isZero2 = true;
+
             for (int i = 0; i < n; i++) {
                 double coefficient = hasilspl.matrix[i][0];
                 if (Math.abs(coefficient) < 1e-4) {
                     continue;
                 }
-                if (i > 0) {
+                if (!isZero) {
                     System.out.print(coefficient > 0 ? " + " : " - ");
-                } else if (coefficient < 0) {
-                    System.out.print("-");
+                } else {
+                    isZero = false;
+                    if (coefficient < 0) {
+                        System.out.print("-");
+                    }
                 }
                 if (i == 0) {
                     System.out.print(String.format("%.4f", Math.abs(coefficient)));
@@ -727,11 +740,16 @@ public class Matrix {
                 if (Math.abs(coefficient) < 1e-4) {
                     continue;
                 }
-                if (i > 0) {
+
+                if (!isZero2) {
                     System.out.print(coefficient > 0 ? " + " : " - ");
-                } else if (coefficient < 0) {
-                    System.out.print("-");
+                } else {
+                    isZero2 = false;
+                    if (coefficient < 0) {
+                        System.out.print("-");
+                    }
                 }
+
                 if (i == 0) {
                     System.out.print(String.format("%.4f", Math.abs(coefficient)));
                 } else if (i == 1) {
@@ -741,13 +759,135 @@ public class Matrix {
                 }
             }
             System.out.println(String.format(" = %.4f", result));
-        }else{
+        } else{
             System.out.println();
             System.out.println("Tidak ada fungsi Polynomial");
-        }
-        
+        } 
     }
     
+    // untuk interpolasi
+    public Matrix hasilOBEGauss(){
+        int now=0;
+        while (now<this.rows && now<this.columns) {
+            if (this.getElmt(now,now)==0) {
+
+                int tukar=-1;
+                int leading=Integer.MAX_VALUE;
+                for (int i = 0; i < this.columns; i++) {
+                    if (this.getElmt(now,i)!=0) {
+                        leading=i;
+                        break;
+                    }
+                }
+
+                for (int i = now+1; i < this.rows; i++) {
+                    int leading_temp=Integer.MAX_VALUE;
+                    for (int j = 0; j < this.columns; j++) {
+                        if (this.getElmt(i, j)!=0) {
+                            leading_temp=j;
+                            break;
+                        }
+                    }
+                    if (leading_temp<leading) {
+                        leading=leading_temp;
+                        tukar=i;
+                    }
+                }
+
+                if (tukar!=-1) {
+                    Matrix temp = new Matrix(1, this.columns);
+                    for (int j = 0; j < this.columns; j++) {
+                        temp.setELmt(0, j, this.getElmt(tukar,j));
+                        this.setELmt(tukar, j, this.getElmt(now,j));
+                        this.setELmt(now, j, temp.getElmt(0,j));
+                    }
+                }
+            }
+
+            if (this.getElmt(now,now)!=0) {
+                if (this.getElmt(now,now)!=1) {
+                    double pembagi=this.getElmt(now,now);
+                    for (int j = 0; j < this.columns; j++) {
+                        if (this.getElmt(now,j)!=0) {
+                            this.setELmt(now, j, (this.getElmt(now,j)/pembagi));   
+                        }
+                    }
+                }
+
+                for (int i = now+1; i < this.rows; i++) {
+                    if (this.getElmt(i,now)!=0) {
+                        double pengali=this.getElmt(i,now);
+                        for (int j = 0; j < this.columns; j++) {
+                            this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                        }
+                    }
+                }
+            }
+
+            else{
+                int leading=-1;
+                for (int i = 0; i < this.columns; i++) {
+                    if (this.getElmt(now, i)!=0) {
+                        leading=i;
+                        break;
+                    }
+                }
+                if (leading!=-1) {
+                    double pembagi=this.getElmt(now,leading);
+
+                    if (pembagi!=1) {
+                        for (int j = 0; j < this.columns; j++) {
+                            if (this.getElmt(now,j)!=0) {
+                                this.setELmt(now, j, (this.getElmt(now,j)/pembagi));   
+                            }
+                        }
+                    }
+
+                    for (int i = now+1; i < this.rows; i++) {
+                        if (this.getElmt(i,leading)!=0) {
+                            double pengali=this.getElmt(i,leading);
+                            for (int j = 0; j < this.columns; j++) {
+                                this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                            }
+                        }
+                    }
+                }
+            }
+
+            now++;
+
+        }
+        now=this.rows-1;
+        while (now>=0) {
+            int leading=-1;
+            for (int i = 0; i < this.columns; i++) {
+                if (this.getElmt(now, i)==1 ) {
+                    leading=i;
+                    break;
+                }
+            }
+            if (leading!=-1) {
+                for (int i = now-1; i >= 0; i--) {
+                    if (this.getElmt(i,leading)!=0) {
+                        double pengali=this.getElmt(i,leading);
+                        for (int j = 0; j < this.columns; j++) {
+                            this.setELmt(i, j, this.getElmt(i,j)-pengali*this.getElmt(now,j));
+                        }
+                    }
+                }             
+            }
+            now--;
+        }
+
+        Matrix Mjawab= new Matrix(this.columns-1, 1);
+        for (int i = 0; i < Mjawab.rows; i++) {
+            Mjawab.setELmt(i, 0, this.getElmt(i, this.columns-1));
+        }
+
+        return Mjawab;
+    }
+    //tes dulu
+
     public Matrix createIdentitas(int rows){
         Matrix identity = new Matrix(rows,rows);
         for(int i=0;i<rows;i++){
@@ -807,19 +947,11 @@ public class Matrix {
     }
 
     public Matrix hasilSPL(){
-
         Matrix Mdup=this.copyMatrix();
-        // Matrix Mkontol= new Matrix(Mdup.columns-1, 1);
-        // for (int i = 0; i < Mkontol.rows; i++) {
-            
-        // }
 
         if (Mdup.columns-1!=Mdup.rows) {
             return (new Matrix(Mdup.columns-1, 1));
-        }
-
-        else{
-
+        }else{
             Matrix Mcopy=new Matrix(Mdup.rows, Mdup.columns-1);
             for (int i = 0; i < Mcopy.rows; i++) {
                 for (int j = 0; j < Mcopy.columns; j++) {
