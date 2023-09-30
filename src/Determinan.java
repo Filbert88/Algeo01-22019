@@ -7,7 +7,7 @@ public class Determinan {
         Selection.ui();
         System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        System.out.println("|                  DETERMINAN                   |");
         Selection.ui();
         System.out.println("|                 Select Method                 |");
         Selection.ui();
@@ -25,7 +25,7 @@ public class Determinan {
         Selection.ui();
         System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        System.out.println("|                   DETERMINAN                  |");
         Selection.ui();
         System.out.println("|              METODE REDUKSI BARIS             |");
         Selection.ui();
@@ -38,7 +38,7 @@ public class Determinan {
         Selection.ui();
         System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        System.out.println("|                   DETERMINAN                  |");
         Selection.ui();
         System.out.println("|            METODE EKSPANSI KOFAKTOR           |");
         Selection.ui();
