@@ -935,7 +935,7 @@ public class Matrix {
         return newMatrix;
     }
 
-    public Matrix Identitas(){
+    public Matrix inverseIdentitas(){
         int a=0;
         Matrix input = this.gabung();
         input = input.OBE_red(input);
@@ -1001,7 +1001,7 @@ public class Matrix {
         }
     }
 
-    public Matrix OBETanpaCara(Matrix M){
+        public Matrix OBETanpaCara(Matrix M){
         int now=0;
         while (now<M.rows && now<M.columns) {
             if (M.getElmt(now,now)==0) {
@@ -1124,7 +1124,7 @@ public class Matrix {
         }
         return M;
     }
-    public Matrix IdentitasTanpaCara(){
+    public Matrix InverseIdentitasTanpaCara(){
         int a=0;
         Matrix input = this.gabung();
         input = input.OBE_redTanpaCara(input);
@@ -1275,7 +1275,7 @@ public class Matrix {
 
     public Matrix InverseExpansion(){
         Matrix expansion = this.expansionMatrix();
-        expansion = expansion.IdentitasTanpaCara();
+        expansion = expansion.InverseIdentitasTanpaCara();
         System.out.println("Matrix A invers :");
         expansion.printMatrix();
         return expansion;
@@ -1326,5 +1326,59 @@ public class Matrix {
         System.out.println("Nilai f("+x+","+y+") adalah "+hasil.getElmt(0,0));
         return hasil.getElmt(0,0);
 
+    }
+
+    //Dari sini kebawah itu Regresi
+    public Matrix createXMatrix(){
+        int rows = this.rows;
+        int columns = this.columns;
+        double val;
+        int a=0;
+        int b=0;
+        Matrix newMatrix = new Matrix(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(j==0){
+                    newMatrix.setELmt(i,j,1);
+                }
+                else{
+                    val = this.getElmt(a,b);
+                    newMatrix.setELmt(i,j,val);
+                    b +=1;
+                    if (b == rows-1){
+                        b = 0;
+                        a +=1;
+                    }
+                }
+            }
+        }
+        return newMatrix;
+    }
+
+    public Matrix createYMatrix(){
+        int rows = this.rows;
+        int columns = this.columns;
+        int a=0;
+        Matrix newMatrix = new Matrix(rows,1);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(j==columns-1){
+                    newMatrix.setELmt(a,0,this.getElmt(i,j));
+                    a+=1;
+                }
+            }
+        }
+        return newMatrix;
+    }
+    public Matrix Beta(){
+        Matrix newY = this.createYMatrix();
+        Matrix newX = this.createXMatrix();
+        Matrix newXTranspose = newX.transpose();
+        Matrix newXInverse = newX.inverseIdentitas();
+        Matrix newX2 = multiply(newXInverse,newX);
+        Matrix newXInverse2 = newX2.inverseIdentitas();
+        Matrix Beta = multiply(multiply(newXInverse2,newXInverse),newY);
+        Beta.printMatrix();
+        return Beta;
     }
 }
