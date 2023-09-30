@@ -665,13 +665,20 @@ public class Matrix {
     }
 
     public static void interPolim(Scanner scanner){
-        System.out.print("Masukin berapa titik yang Anda mau : ");
-        int n = scanner.nextInt();
+        int n;
+        do {
+            System.out.print("Masukin berapa titik yang Anda mau Interpolasikan : ");
+            n = scanner.nextInt();
+            if (n <= 0) {
+                System.out.println("Titik harus lebih dari harus lebih dari 0 untuk melakukan Interpolasi.");
+            }
+        } while (n <= 0);
         Matrix m = new Matrix(n,n+1);
         Matrix hasilspl = new Matrix(n,0);
         int count = 0;
+        int ocurrence = 0;
 
-        for(int i = 0;i<n;i++){
+        for(int i=0;i<n;i++){
             double x = m.getValidDoubleInput(String.format("Masukkan x%d : ", i), scanner);
 
             int j = 0;
@@ -684,20 +691,27 @@ public class Matrix {
         }
 
         System.out.println();
-        double soal = m.getValidDoubleInput(String.format("Masukkan nilai x%d yang mau ditaksir y nya  : ", n), scanner);
+        double soal = m.getValidDoubleInput(String.format("Masukkan nilai x%d yang mau ditaksir y nya : ", n), scanner);
 
         System.out.println();
         System.out.println("Matriks Augmented : ");
         m.printMatrix();
+
+        double firstValue = m.matrix[0][1];
+        for(int i=1;i<n;i++){
+            if(m.matrix[i][1] == firstValue){
+                ocurrence++;
+            }
+        }
         hasilspl = m.hasilOBEGauss();
-        hasilspl.printMatrix();
 
         for(int i=0;i<n;i++){
             if(hasilspl.matrix[i][0]!=0){
                 count ++;
             }
         }
-        if (count != 0){
+
+        if (count != 0 && n>1 && ocurrence != n-1){
             System.out.println();
             System.out.print("Polynomial Function : ");
             System.out.println();
