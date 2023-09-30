@@ -1,57 +1,51 @@
 import java.util.*;
 
 public class Determinan {
-    public static boolean Page(Scanner scanner, String pilihan_input){
+    public static void landingpage(){
         Selection.clear();
         System.out.println();
         Selection.ui();
         System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|                  DETERMINAN                   |");
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
         Selection.ui();
         System.out.println("|                 Select Method                 |");
         Selection.ui();
-        System.out.println("|          (1) Metode Ekspansi Kofaktor         |");
-        System.out.println("|               (2) Metode OBE                  |");
-        System.out.println("|                 (3) Kembali                   |");
+        System.out.println("|           (1) Metode Reduksi Baris            |");
+        System.out.println("|         (2) Metode Ekspansi Kofaktor          |");
+        System.out.println("|                 (3) Menu Utama                |");
         Selection.ui();
-        System.out.print("Pilih Metode : ");
-        String pilih = scanner.next();
-
-        while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
-            System.out.println("Inputan tidak valid. Program hanya menerima input 1 sampai 3");
-            System.out.print("Pilih metode : ");
-            pilih=scanner.next();
-        }
-
-        if (pilih.equals("1")){
-            System.out.println();
-            Detkofaktor(scanner, pilihan_input);
-            return true;
-        }
-        else if (pilih.equals("2")){
-            System.out.println();
-            DetOBE(scanner,pilihan_input);
-            return true;
-        }
-        else if (pilih.equals("3")){
-            Selection.option_determinan();
-            return false;
-        }
-        return false;
+        System.out.print("Pilih metode : ");
     }
     
-    public static void Detkofaktor(Scanner scanner,String pilihan_input){
+    public static void DetOBEpage(){
+        System.out.println();
         Selection.clear();
         System.out.println();
         Selection.ui();
-        System.out.println("|                  DETERMINAN                   |");
+        System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
         System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
         Selection.ui();
-        System.out.println("|               METODE KOFAKTOR                 |");
-        Selection.ui();        
+        System.out.println("|              METODE REDUKSI BARIS             |");
+        Selection.ui();
+    }
 
+    public static void DetCofpage(){
+        System.out.println();
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        Selection.ui();
+        System.out.println("|            METODE EKSPANSI KOFAKTOR           |");
+        Selection.ui();
+    }
+
+    public static void Detkofaktor(Scanner scanner,String pilihan_input){
+        DetCofpage();
         Matrix M = new Matrix(0, 0);
         if(pilihan_input.equals(Selection.submenu_1)){
             M.readSquareMatrix(scanner);
@@ -63,16 +57,7 @@ public class Determinan {
     }
 
     public static void DetOBE(Scanner scanner,String pilihan_input){
-        Selection.clear();
-        System.out.println();
-        Selection.ui();
-        System.out.println("|           Apau & Apin SPL Calculator          |");
-        Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
-        Selection.ui();
-        System.out.println("|                   METODE OBE                  |");
-        Selection.ui();
-        
+        DetOBEpage();
         Matrix M = new Matrix(0, 0);
         if(pilihan_input.equals(Selection.submenu_1)){
             M.readSquareMatrix(scanner);
@@ -81,7 +66,5 @@ public class Determinan {
             M.readMatrixFromFile(scanner);
         }
         M.determinanOBE();
-        
     }
- 
 }

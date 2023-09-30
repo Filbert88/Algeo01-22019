@@ -107,16 +107,16 @@ public class Main {
             else if (pilihan.equals(Selection.menu_determinan)) {
                 boolean selesai=false;
                 while(!selesai){
-                    //GANTI INI
-                    String pilih=scanner.next();
+                    Determinan.landingpage();
+                    String pilih = scanner.next();
                     while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
                         System.out.println("Inputan tidak valid");
                         System.out.print("Pilih metode : ");
-                        pilih=scanner.next();
+                        pilih = scanner.next();
                     }
 
                     if (pilih.equals("1")){
-                        //GANTI INI
+                        Determinan.DetOBEpage();
                         Selection.option_spl();
                         System.out.print("Jenis input : ");
                         String jenis_input="";
@@ -129,16 +129,16 @@ public class Main {
                         }
 
                         if (!jenis_input.equals(Selection.submenu_3)) {
-                            //GANTI INI
+                            Determinan.DetOBE(scanner, jenis_input);
                             selesai=true;
                             pilihan=Selection.kembali(scanner);                            
                         }
                     }
                     else if (pilih.equals("2")){
-                        //GANTI INI
+                        Determinan.DetCofpage();
                         Selection.option_spl();
                         System.out.print("Jenis input : ");
-                        String jenis_input="";
+                        String jenis_input = "";
                         jenis_input=scanner.next();
 
                         while(!jenis_input.equals(Selection.submenu_1)&&!jenis_input.equals(Selection.submenu_2)&&!jenis_input.equals(Selection.submenu_3)){
@@ -148,7 +148,7 @@ public class Main {
                         }
 
                         if (!jenis_input.equals(Selection.submenu_3)) {
-                            //GANTI INI
+                            Determinan.Detkofaktor(scanner, jenis_input);
                             selesai=true;
                             pilihan=Selection.kembali(scanner);                            
                         }
