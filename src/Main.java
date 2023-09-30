@@ -163,8 +163,8 @@ public class Main {
             else if (pilihan.equals(Selection.menu_invers)) {
                 boolean selesai=false;
                 while(!selesai){
-                    //GANTI INI
-                    String pilih=scanner.next();
+                    Inverse.landingpage();
+                    String pilih = scanner.next();
                     while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
                         System.out.println("Inputan tidak valid");
                         System.out.print("Pilih metode : ");
@@ -172,7 +172,7 @@ public class Main {
                     }
 
                     if (pilih.equals("1")){
-                        //GANTI INI
+                        Inverse.inverseIdentitaspage();
                         Selection.option_spl();
                         System.out.print("Jenis input : ");
                         String jenis_input="";
@@ -185,13 +185,13 @@ public class Main {
                         }
 
                         if (!jenis_input.equals(Selection.submenu_3)) {
-                            //GANTI INI
+                            Inverse.inverseIdentitas(scanner, jenis_input);
                             selesai=true;
                             pilihan=Selection.kembali(scanner);                            
                         }
                     }
                     else if (pilih.equals("2")){
-                        //GANTI INI
+                        Inverse.adjoinpage();
                         Selection.option_spl();
                         System.out.print("Jenis input : ");
                         String jenis_input="";
@@ -204,7 +204,7 @@ public class Main {
                         }
 
                         if (!jenis_input.equals(Selection.submenu_3)) {
-                            //GANTI INI
+                            Inverse.inversAdjoin(scanner, jenis_input);
                             selesai=true;
                             pilihan=Selection.kembali(scanner);                            
                         }

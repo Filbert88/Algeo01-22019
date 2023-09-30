@@ -1,57 +1,50 @@
 import java.util.*;
 
 public class Inverse{
-    public static boolean Page(Scanner scanner,String pilihan_input){
+    public static void landingpage(){
         Selection.clear();
         System.out.println();
         Selection.ui();
         System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|                 Matriks Balikan               |");
+        System.out.println("|                MATRIKS BALIKAN                |");
         Selection.ui();
         System.out.println("|                 Select Method                 |");
         Selection.ui();
         System.out.println("|           (1) Metode Eliminasi Gauss          |");
-        System.out.println("|                  (2) Adjoin                   |");
-        System.out.println("|                  (3) Kembali                  |");
+        System.out.println("|                (2) Metode Adjoin              |");
+        System.out.println("|                  (3) Menu Utama               |");
         Selection.ui();
         System.out.print("Pilih metode : ");
-        String pilih=scanner.next();
-
-        while (!pilih.equals("1")&&!pilih.equals("2")&&!pilih.equals("3")) {
-                    System.out.println("Inputan tidak valid");
-                    System.out.print("Pilih metode : ");
-                    pilih=scanner.next();
-                }
-
-        if (pilih.equals("1")){
-            System.out.println("");
-            inverseIdentitas(scanner,pilihan_input);
-            return true;
-        }
-        else if (pilih.equals("2")){
-            System.out.println();
-            inversAdjoin(scanner,pilihan_input);
-            return true;
-
-        }
-        else if (pilih.equals("3")){
-            Selection.option_invers();
-            return false;
-        }
-        return false;
     }
-
-    public static void inversAdjoin(Scanner scanner,String pilihan_input){
+    
+    public static void inverseIdentitaspage(){
+        System.out.println();
         Selection.clear();
         System.out.println();
         Selection.ui();
-        System.out.println("|               MATRIKS BALIKAN                 |");
+        System.out.println("|           Apau & Apin SPL Calculator          |");
         Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
+        System.out.println("|                MATRIKS BALIKAN                |");
         Selection.ui();
-        System.out.println("|               METODE ADJOIN                   |");
-        Selection.ui();        
+        System.out.println("|             METODE ELIMINASI GAUSS            |");
+        Selection.ui();
+    }
+
+    public static void adjoinpage(){
+        System.out.println();
+        Selection.clear();
+        System.out.println();
+        Selection.ui();
+        System.out.println("|           Apau & Apin SPL Calculator          |");
+        Selection.ui();
+        System.out.println("|                MATRIKS BALIKAN                |");
+        Selection.ui();
+        System.out.println("|                 METODE ADJOIN                 |");
+        Selection.ui();
+    }
+
+    public static void inversAdjoin(Scanner scanner,String pilihan_input){     
         Matrix M = new Matrix(0, 0);
         if(pilihan_input.equals(Selection.submenu_1)){
             M.readSquareMatrix(scanner);
@@ -68,20 +61,12 @@ public class Inverse{
         }
         else{
         Matrix Inverse = M.inverseAdjoinFunc();
+        System.out.println();
         System.out.println("Matriks Inverse :");
         Inverse.printMatrix();
         }
     }
-    public static void inverseIdentitas(Scanner scanner,String pilihan_input){
-        Selection.clear();
-        System.out.println();
-        Selection.ui();
-        System.out.println("|               MATRIKS BALIKAN                 |");
-        Selection.ui();
-        System.out.println("|            SISTEM PERSAMAAN LINEAR            |");
-        Selection.ui();
-        System.out.println("|           METODE ELIMINASI GAUSS-JORDAN       |");
-        Selection.ui();        
+    public static void inverseIdentitas(Scanner scanner,String pilihan_input){    
         Matrix M = new Matrix(0, 0);
         if(pilihan_input.equals(Selection.submenu_1)){
             M.readSquareMatrix(scanner);
@@ -97,7 +82,8 @@ public class Inverse{
             System.out.println("Matriks tidak memiliki balikan karena determinan = 0");
         }
         else{
-            Matrix Inverse = M.InverseIdentitas();
+            Matrix Inverse = M.inverseIdentitas();
+            System.out.println();
             System.out.println("Matriks Inverse :");
             Inverse.printMatrix();
         }
