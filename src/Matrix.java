@@ -445,7 +445,7 @@ public class Matrix {
         }
         return cofacMatrix;
     }
-    
+
     public void determinanCofExp(){
         // untuk menampilkan cara menentukan determinan dengan menggunakan ekspansi kofaktor
         int i;
@@ -565,6 +565,7 @@ public class Matrix {
         System.out.println();
 
         System.out.format("Total Pertukaran Baris Yang terjadi : %d", changeRow);
+        System.out.println();
         System.out.println();
         System.out.print("Determinan : ");
         System.out.print(String.format("((%d)^%d)", -1,changeRow)); // Display the minus factor and changeRow
@@ -1385,6 +1386,7 @@ public class Matrix {
         }
         return newMatrix;
     }
+
     public Matrix Beta(){
         Matrix newY = this.createYMatrix();
         Matrix newX = this.createXMatrix();
@@ -1393,5 +1395,44 @@ public class Matrix {
         Matrix newXInverse2 = newX2.InverseIdentitasTanpaCara();
         Matrix Beta = multiply(multiply(newXInverse2,newXTranspose),newY);
         return Beta;
+    }
+
+    public static void OutputToFile (Scanner scanner,String result) throws IOException {
+        System.out.println();
+        System.out.print("Masukan Nama Output file yang Anda Inginkan (beserta .txt): ");
+        String fileName = scanner.next();
+
+        while (!fileName.toLowerCase().endsWith(".txt")){
+            if (!fileName.toLowerCase().endsWith(".txt")) {
+                System.out.println("File harus disertai extension '.txt'. Tolong masukan Nama file yang benar.");
+                System.out.println();
+            }
+            System.out.print("Masukan Nama Output file yang Anda Inginkan (beserta .txt): ");
+            fileName = scanner.next();
+        };
+
+        String outputFolderPath = "../test/output";
+        String filePath = outputFolderPath + File.separator + fileName;
+        File file = new File(filePath);
+
+
+        if (file.exists()) {
+            System.out.println("File '" + fileName + "' Sudah ada di folder Output.");
+            System.out.println("Tolong input nama file yang berbeda.");
+            OutputToFile(scanner,result); 
+        } else {
+            file.createNewFile();
+
+            if (file.exists()) {
+                try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+                    writer.println(result);
+                    System.out.println("Hasil telah disimpan ke " + fileName);
+                } catch (IOException e) {
+                    System.err.println("Error writing to file: " + e.getMessage());
+                }
+            } else {
+                System.out.println("File '" + fileName + "' tidak eda.");
+            }
+        }
     }
 }
