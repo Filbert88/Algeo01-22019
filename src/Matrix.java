@@ -69,10 +69,13 @@ public class Matrix {
         while (true) {
             try {
                 System.out.print(message);
-                return scanner.nextInt();
+                int input =  scanner.nextInt();
+                scanner.nextLine();
+                return input;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Invalid Input. Tolong masukin input sesuai format.");
                 scanner.nextLine(); 
+                System.out.println();
             }
         }
     }
@@ -137,24 +140,44 @@ public class Matrix {
     }
 
     public void readSquareMatrix(Scanner scanner){
-        double elmt;
         int row,column,i,j;
-        row = ValidateIntInput("Masukkan Jumlah Ukuran Matriks yang diinginkan: ",scanner);
-        column = row;
-        this.rows = row;
-        this.columns = column;
-        this.matrix = new double[row][column];
-        if(isSquare(matrix)){
+        boolean validMatrix;
+       
+        while (true){
+            validMatrix = true;
+            row = ValidateIntInput("Masukkan Jumlah Ukuran Matriks yang diinginkan: ",scanner);
+            column = row;
+            this.rows = row;
+            this.columns = column;
+            this.matrix = new double[row][column];
+
             System.out.println();
             System.out.println("Masukkan Matriks: ");
+
             for(i=0;i<row;i++){
-                for(j=0;j<column;j++){
-                    elmt = scanner.nextDouble();
-                    this.matrix[i][j] = elmt;
+                String[] temp = scanner.nextLine().split(" ");
+                if (temp.length != column) {
+                    System.out.println();
+                    System.out.println(String.format("Data dalam tiap baris hanya boleh sebanyak %d.", column));
+                    System.out.println("Tolong input Matriks ulang dari awal!\n");
+                    validMatrix = false;
+                    break;
+                }
+                for (j=0; j<column; j++) {
+                    try {
+                        this.matrix[i][j] = Double.parseDouble(temp[j]);
+                    } catch (NumberFormatException e) {
+                        validMatrix = false;
+                        System.out.println();
+                        System.out.println("Masukan matriks tidak boleh selain bilangan ril.");
+                        System.out.println("Tolong input Matriks ulang dari awal!\n");
+                        break;
+                    }
                 }
             }
-        }else{
-            System.out.println("Bukan Matriks persegi");
+            if (validMatrix) {
+                break;
+            } 
         }
     }
 
