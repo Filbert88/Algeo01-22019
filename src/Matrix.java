@@ -97,6 +97,23 @@ public class Matrix {
         }
     }
 
+    public void readMatrixFromTerminalRegresi(int rows,int cols,Scanner scanner){
+        double elmt;
+        int row,column,i,j;
+
+        this.rows = rows;
+        this.columns = cols+1;
+        this.matrix = new double[rows][cols+1];
+    
+        System.out.println("Masukkan Matriks: ");
+        for(i=0;i<rows;i++){
+            for(j=0;j<cols+1;j++){
+                elmt = scanner.nextDouble();
+                this.matrix[i][j] = elmt;
+            }
+        }
+    }
+
     public void readSquareMatrix(Scanner scanner){
         double elmt;
         int row,column,i,j;
@@ -606,7 +623,7 @@ public class Matrix {
     public Matrix transpose(){
         int rows = this.rows;
         int cols = this.columns;
-        Matrix transposeMatrix = new Matrix(rows,cols);
+        Matrix transposeMatrix = new Matrix(cols,rows);
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
                 double elmt = this.getElmt(i,j);
@@ -1343,7 +1360,7 @@ public class Matrix {
                     val = this.getElmt(a,b);
                     newMatrix.setELmt(i,j,val);
                     b +=1;
-                    if (b == rows-1){
+                    if (b == columns){
                         b = 0;
                         a +=1;
                     }
@@ -1372,11 +1389,9 @@ public class Matrix {
         Matrix newY = this.createYMatrix();
         Matrix newX = this.createXMatrix();
         Matrix newXTranspose = newX.transpose();
-        Matrix newXInverse = newX.inverseIdentitas();
-        Matrix newX2 = multiply(newXInverse,newX);
-        Matrix newXInverse2 = newX2.inverseIdentitas();
-        Matrix Beta = multiply(multiply(newXInverse2,newXInverse),newY);
-        Beta.printMatrix();
+        Matrix newX2 = multiply(newXTranspose,newX);
+        Matrix newXInverse2 = newX2.InverseIdentitasTanpaCara();
+        Matrix Beta = multiply(multiply(newXInverse2,newXTranspose),newY);
         return Beta;
     }
 }
