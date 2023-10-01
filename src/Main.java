@@ -219,7 +219,7 @@ public class Main {
             else if (pilihan.equals(Selection.menu_interpolasi)) {
                 boolean selesai=false;
                 while(!selesai){
-                    //GANTI INI
+                    Interpolasi.landingpage();
                     String pilih=scanner.next();
                     while (!pilih.equals("1")&&!pilih.equals("2")) {
                         System.out.println("Inputan tidak valid");
@@ -228,7 +228,7 @@ public class Main {
                     }
 
                     if (pilih.equals("1")){
-                        //GANTI INI
+                        Interpolasi.InterpolasiPage();
                         Selection.option_spl();
                         System.out.print("Jenis input : ");
                         String jenis_input="";
@@ -241,7 +241,7 @@ public class Main {
                         }
 
                         if (!jenis_input.equals(Selection.submenu_3)) {
-                            //GANTI INI
+                            Interpolasi.InterpolasiPolinom(scanner,jenis_input);
                             selesai=true;
                             pilihan=Selection.kembali(scanner);                            
                         }
