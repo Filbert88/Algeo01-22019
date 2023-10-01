@@ -285,6 +285,79 @@ public class Matrix {
         }
         return newMatrix;
     }
+    
+    public double readMatrixFromFileforInterpolation(Scanner scanner) {
+        while (true) {
+            int row = 0;
+            boolean XYvalidation = true;
+            boolean valid=true;
+            int col = 0;
+            int rowcounter = 0;
+            int counter = 0;
+            System.out.print("Enter the file name:");
+            String fileName = scanner.next();
+            if (isTxtFile(fileName)) {
+                String filePath = "../test/" + fileName;
+                try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
+                    String line;
+                    while ((line = rowcolReader.readLine()) != null) {
+                        row += 1;
+                        String[] temparray = line.split(" ");
+                        if (this.areStringsInside(temparray)) {
+                            valid = false;
+                        }
+                        col = temparray.length;
+                        if(col >2){
+                            XYvalidation = false;
+                        }
+                    }
+                    rowcolReader.close();
+                    if (valid && XYvalidation){
+                        BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
+                        this.rows = row-1;
+                        this.columns = 2;
+                        this.matrix = new double[row-1][2]; //col selalu 2 yakni x0 dan y0    
+                        while ((line = matrixReader.readLine()) != null) {
+                            rowcounter +=1;
+                            String[] temparray = line.split(" ");
+                            if (rowcounter <=row-1){
+                                if (temparray.length <2){
+                                    System.out.print("");
+                                }
+                                else{
+                                    for (int i = 0; i < 2; i++) { //Hanya 2 kolom dan sudah pasti
+                                        double value = Double.parseDouble(temparray[i]);
+                                        this.setELmt(counter, i, value);
+                                    }   
+                                    counter += 1;
+                                }
+                            }
+                            else{
+                                if (temparray.length > 1){
+                                    System.out.println("Row terakhir harap berisi nilai X yang akan ditaksir!");
+                                }
+                                else{
+                                return Double.parseDouble(temparray[0]);
+                                }
+                        }
+                    }
+                    }
+                    else if (!XYvalidation){
+                        System.out.println("Hanya menerima input matrix 2 kolom yaitu Xn dan Yn");
+                    }
+                    else{
+                        System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
+                    }
+                } catch (IOException e) {
+                    System.out.println("Pastikan File ada dan dapat dibaca.");
+                    System.out.println("Harap masukkan nama file yang valid");
+                }
+            } else {
+                System.out.println("File tidak dalam bentu .txt !");
+                System.out.println("Harap masukkan nama file yang valid");
+            }
+        }
+    }
 
     public static boolean isTxtFile(String fileName){
         if (fileName.endsWith(".txt")){
