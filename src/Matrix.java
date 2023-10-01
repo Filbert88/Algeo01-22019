@@ -11,6 +11,17 @@ public class Matrix {
         this.columns = col; 
         this.matrix = new double[row][col];
     }
+
+    public Matrix ErrorMatrix (){
+        Matrix Error = new Matrix(2,2);
+        for(int i=0;i<this.rows;i++){
+            for(int j=0;j<this.columns;j++){
+                this.setELmt(i,j,-9999999);
+            }
+        }
+        return Error;
+    }
+    
     public double getElmt(int i,int j){
         return this.matrix[i][j];
     }
@@ -165,8 +176,53 @@ public class Matrix {
     }
 
     public void readMatrixFromFile(Scanner scanner) {
+        while (true){
+            int row=0;
+            int col=0;
+            int counter=0;
+            System.out.print("Enter the file name:");
+            String fileName = scanner.next();
+            if(isTxtFile(fileName)){
+                String filePath = "../test/"+fileName;
+                try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
+                    String line;
+                    while ((line = rowcolReader.readLine()) != null) {
+                        row +=1;
+                        String[] temparray = line.split(" ");
+                        col = temparray.length;
+                    }
+                    rowcolReader.close();
+                    BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
+                    this.rows = row;
+                    this.columns = col;
+                    this.matrix = new double[row][col];
+                    while ((line = matrixReader.readLine()) != null) {
+                        String[] temparray = line.split(" ");
+                        for (int i = 0; i < col; i++) {
+                        double value = Double.parseDouble(temparray[i]);
+                        this.setELmt(counter,i,value);
+                        }
+                        counter +=1;
+                    }
+                    return;
+                } catch (IOException e) {
+                    System.out.println("Please make sure the file exist and readable.");
+                    System.out.println("Please enter a valid file name.");
+                }
+            }
+            else{
+                System.out.println("The file is not a txt file.");
+                System.out.println("Please enter a valid file name.");
+            }
+        }
+        
+    }
+
+    public Matrix readMatrixFromFileForBicubic(Scanner scanner) {
         int row=0;
+        int rowcounter = 0;
         int col=0;
+        Matrix newMatrix = new Matrix(1,2); //Array dengan 2 kolom dengan asumsi kolom 1 sebagai X dan kolom 2 sebagai Y
         int counter=0;
         String fileName = scanner.next();
         if(isTxtFile(fileName)){
@@ -180,17 +236,27 @@ public class Matrix {
                 }
                 rowcolReader.close();
                 BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
-                this.rows = row;
-                this.columns = col;
-                this.matrix = new double[row][col];
+                this.rows = row; //Karena input bicubic tetap yaitu 4x4 dan 1 baris x dan y
+                this.columns = col-1;
+                this.matrix = new double[row][col-1];
                 while ((line = matrixReader.readLine()) != null) {
+                    rowcounter +=1;
                     String[] temparray = line.split(" ");
-                    for (int i = 0; i < col; i++) {
-                    double value = Double.parseDouble(temparray[i]);
-                    this.setELmt(counter,i,value);
+                    if (rowcounter <5){
+                        for (int i = 0; i < col; i++) {
+                            double value = Double.parseDouble(temparray[i]);
+                            this.setELmt(counter,i,value);
+                        }
+                        counter +=1;
                     }
-                    counter +=1;
+                    else{
+                        for (int i = 0; i < col-2; i++) { //Karena hanya ada 2 input yaitu x dan y sedangkan umumnya ada 4 (untuk matriks)
+                            double value = Double.parseDouble(temparray[i]);
+                            newMatrix.setELmt(counter,i,value);
+                        }
+                    }
                 }
+
             } catch (IOException e) {
                 System.out.println("Please make sure the file exist and readable.");
             }
@@ -198,6 +264,7 @@ public class Matrix {
         else{
             System.out.println("The file is not a txt file.");
         }
+        return newMatrix;
     }
 
     public static boolean isTxtFile(String fileName){
