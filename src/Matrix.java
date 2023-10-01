@@ -446,7 +446,7 @@ public class Matrix {
         return cofacMatrix;
     }
 
-    public void determinanCofExp(){
+    public void     determinanCofExp(Scanner scanner){
         // untuk menampilkan cara menentukan determinan dengan menggunakan ekspansi kofaktor
         int i;
         int n = this.rows;
@@ -480,6 +480,13 @@ public class Matrix {
         }
         System.out.print(String.format(" = %.2f", det));
         System.out.println();
+
+        try {
+            String output = String.format("%.2f", det);
+            Matrix.OutputToFile(scanner,output);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
     }
 
     public double determinanCof() {
@@ -565,7 +572,6 @@ public class Matrix {
         System.out.println();
 
         System.out.format("Total Pertukaran Baris Yang terjadi : %d", changeRow);
-        System.out.println();
         System.out.println();
         System.out.print("Determinan : ");
         System.out.print(String.format("((%d)^%d)", -1,changeRow)); // Display the minus factor and changeRow

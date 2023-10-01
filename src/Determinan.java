@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class Determinan {
@@ -53,7 +54,7 @@ public class Determinan {
         else if (pilihan_input.equals(Selection.submenu_2)){
             M.readMatrixFromFile(scanner);
         }
-        M.determinanCofExp();
+        M.determinanCofExp(scanner);
     }
 
     public static void DetOBE(Scanner scanner,String pilihan_input){
@@ -65,6 +66,12 @@ public class Determinan {
         else if (pilihan_input.equals(Selection.submenu_2)){
             M.readMatrixFromFile(scanner);
         }
-        M.determinanOBE();
+ 
+        try {
+            String output = String.format("%.2f", M.determinanOBE());
+            Matrix.OutputToFile(scanner,output);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
     }
 }
