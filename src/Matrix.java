@@ -296,6 +296,7 @@ public class Matrix {
             int row = 0;
             int a=0;
             boolean XYvalidation = true;
+            int maxcol =0;
             boolean valid=true;
             int col = 0;
             int rowcounter = 0;
@@ -313,10 +314,12 @@ public class Matrix {
                             valid = false;
                         }
                         col = temparray.length;
-                        if(col != 4 || row !=5){
+                        maxcol = Math.max(col,maxcol);
+                        System.out.println("row"+row);
+                    }
+                        if(row !=5 || maxcol != 4){
                             XYvalidation = false;
                         }
-                    }
                     rowcolReader.close();
                     if (valid && XYvalidation){
                         BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));

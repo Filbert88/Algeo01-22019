@@ -42,7 +42,8 @@ public class Bicubic{
             M.bicubicSplineInterpolation(x,y);
         }
         else if (pilihan_input.equals(Selection.submenu_2)){
-            M.readMatrixFromFile(scanner);
+            Matrix taksiran = M.readMatrixFromFileForBicubic(scanner);
+            M.bicubicSplineInterpolation(taksiran.getElmt(0,0),taksiran.getElmt(0,1));
         }
     }
 }
