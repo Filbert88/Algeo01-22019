@@ -83,12 +83,16 @@ public class Matrix {
     public boolean areStringsInside(String[] array) {
         for (String element : array) {
             try {
-                Integer.parseInt(element); 
+                Double.parseDouble(element); 
             } catch (NumberFormatException e) {
-                return true;
+                try {
+                    Integer.parseInt(element); 
+                } catch (NumberFormatException ex) {
+                    return true; 
+                }
             }
         }
-        return false; 
+    return false; 
     }
 
     double getValidDoubleInput(String message, Scanner scanner) {
