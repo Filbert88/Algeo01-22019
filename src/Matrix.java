@@ -291,54 +291,78 @@ public class Matrix {
         }
 }
 
-
     public Matrix readMatrixFromFileForBicubic(Scanner scanner) {
-        int row=0;
-        int rowcounter = 0;
-        int col=0;
-        Matrix newMatrix = new Matrix(1,2); //Array dengan 2 kolom dengan asumsi kolom 1 sebagai X dan kolom 2 sebagai Y
-        int counter=0;
-        String fileName = scanner.next();
-        if(isTxtFile(fileName)){
-            String filePath = "../test/"+fileName;
-            try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = rowcolReader.readLine()) != null) {
-                    row +=1;
-                    String[] temparray = line.split(" ");
-                    col = temparray.length;
-                }
-                rowcolReader.close();
-                BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
-                this.rows = row; //Karena input bicubic tetap yaitu 4x4 dan 1 baris x dan y
-                this.columns = col-1;
-                this.matrix = new double[row][col-1];
-                while ((line = matrixReader.readLine()) != null) {
-                    rowcounter +=1;
-                    String[] temparray = line.split(" ");
-                    if (rowcounter <5){
-                        for (int i = 0; i < col; i++) {
-                            double value = Double.parseDouble(temparray[i]);
-                            this.setELmt(counter,i,value);
+        while (true) {
+            int row = 0;
+            int a=0;
+            boolean XYvalidation = true;
+            boolean valid=true;
+            int col = 0;
+            int rowcounter = 0;
+            int counter = 0;
+            System.out.print("Enter the file name:");
+            String fileName = scanner.next();
+            if (isTxtFile(fileName)) {
+                String filePath = "../test/" + fileName;
+                try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
+                    String line;
+                    while ((line = rowcolReader.readLine()) != null) {
+                        row += 1;
+                        String[] temparray = line.split(" ");
+                        if (this.areStringsInside(temparray)) {
+                            valid = false;
                         }
-                        counter +=1;
+                        col = temparray.length;
+                        if(col != 4 || row !=5){
+                            XYvalidation = false;
+                        }
+                    }
+                    rowcolReader.close();
+                    if (valid && XYvalidation){
+                        BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
+                        this.rows = row-1;
+                        this.columns = 4;
+                        this.matrix = new double[4][4]; //col selalu 4 dan row selalu 4    
+                        while ((line = matrixReader.readLine()) != null) {
+                            rowcounter +=1;
+                            String[] temparray = line.split(" ");
+                            if (rowcounter <=row-1){ //belum di row terakhir
+                                for (int i = 0; i < 4; i++) { //Hanya 4 kolom dan sudah pasti
+                                    double value = Double.parseDouble(temparray[i]);
+                                    this.setELmt(counter, i, value);
+                                    }   
+                                    counter += 1;
+                                }
+                            else{
+                                if (temparray.length !=2){
+                                    System.out.println("Row terakhir harap berisi titik X dan Y yang akan ditaksir!");
+                                }
+                                else{
+                                    Matrix taksiran = new Matrix(1,2);
+                                    for (int i = 0; i < 2; i++) {
+                                        double value = Double.parseDouble(temparray[i]);                                        taksiran.setELmt(0, a, value);
+                                        a+=1;
+                                    }
+                                    return taksiran;
+                                }
+                        }
+                    }
+                    }
+                    else if (!XYvalidation){
+                        System.out.println("Hanya menerima input matrix 4 baris dan 4 kolom");
                     }
                     else{
-                        for (int i = 0; i < col-2; i++) { //Karena hanya ada 2 input yaitu x dan y sedangkan umumnya ada 4 (untuk matriks)
-                            double value = Double.parseDouble(temparray[i]);
-                            newMatrix.setELmt(counter,i,value);
-                        }
+                        System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
                     }
+                } catch (IOException e) {
+                    System.out.println("Pastikan File ada dan dapat dibaca.");
+                    System.out.println("Harap masukkan nama file yang valid");
                 }
-
-            } catch (IOException e) {
-                System.out.println("Please make sure the file exist and readable.");
+            } else {
+                System.out.println("File tidak dalam bentuk .txt !");
+                System.out.println("Harap masukkan nama file yang valid");
             }
         }
-        else{
-            System.out.println("The file is not a txt file.");
-        }
-        return newMatrix;
     }
     
     public double readMatrixFromFileforInterpolation(Scanner scanner) {
