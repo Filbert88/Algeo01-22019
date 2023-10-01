@@ -532,7 +532,7 @@ public class Matrix {
         return cofacMatrix;
     }
 
-    public void     determinanCofExp(Scanner scanner){
+    public void determinanCofExp(Scanner scanner){
         // untuk menampilkan cara menentukan determinan dengan menggunakan ekspansi kofaktor
         int i;
         int n = this.rows;
@@ -660,7 +660,7 @@ public class Matrix {
         System.out.format("Total Pertukaran Baris Yang terjadi : %d", changeRow);
         System.out.println();
         System.out.print("Determinan : ");
-        System.out.print(String.format("((%d)^%d)", -1,changeRow)); // Display the minus factor and changeRow
+        System.out.print(String.format("((%d)^%d)", -1,changeRow)); 
         System.out.print(" * ");
         for (int m = 0; m < n; m++) {
             double diagonalElement = this.getElmt(m, m);
@@ -774,8 +774,9 @@ public class Matrix {
         return inverse;
     }
 
-    public static void interPolim(Scanner scanner){
+       public static void interPolim(Scanner scanner){
         int n;
+        String output = "";
         do {
             System.out.print("Masukin berapa titik yang Anda mau Interpolasikan : ");
             n = scanner.nextInt();
@@ -825,7 +826,8 @@ public class Matrix {
             System.out.println();
             System.out.print("Polynomial Function : ");
             System.out.println();
-            System.out.print("f(x) = ");
+            output += "f(x) = ";
+            System.out.print(output);
             boolean isZero = true;
             boolean isZero2 = true;
 
@@ -836,18 +838,28 @@ public class Matrix {
                 }
                 if (!isZero) {
                     System.out.print(coefficient > 0 ? " + " : " - ");
+                    if (coefficient > 0) {
+                        output += " + ";
+                    } else {
+                        output += " - ";
+                    }
+                    
                 } else {
                     isZero = false;
                     if (coefficient < 0) {
                         System.out.print("-");
+                        output += "-";
                     }
                 }
                 if (i == 0) {
                     System.out.print(String.format("%.4f", Math.abs(coefficient)));
+                    output += String.format("%.4f", Math.abs(coefficient));
                 } else if (i == 1) {
                     System.out.print(String.format("%.4f", Math.abs(coefficient))+" x");
+                    output += String.format("%.4f", Math.abs(coefficient))+" x";
                 } else {
                     System.out.print(String.format("%.4f", Math.abs(coefficient)) + " x^" + i);
+                    output += String.format("%.4f", Math.abs(coefficient)) + " x^" + i;
                 }
             }
 
@@ -859,6 +871,7 @@ public class Matrix {
 
             System.out.println();
             System.out.print(String.format("f(%.1f) = ",soal));
+            output += String.format("\nf(%.1f) = ",soal);
             for (int i = 0; i < n; i++) {
                 double coefficient = hasilspl.matrix[i][0];
                 if (Math.abs(coefficient) < 1e-4) {
@@ -867,26 +880,43 @@ public class Matrix {
 
                 if (!isZero2) {
                     System.out.print(coefficient > 0 ? " + " : " - ");
+                    if (coefficient > 0) {
+                        output += " + ";
+                    } else {
+                        output += " - ";
+                    }
                 } else {
                     isZero2 = false;
                     if (coefficient < 0) {
                         System.out.print("-");
+                        output += "-";
                     }
                 }
 
                 if (i == 0) {
                     System.out.print(String.format("%.4f", Math.abs(coefficient)));
+                    output += String.format("%.4f", Math.abs(coefficient));
                 } else if (i == 1) {
                     System.out.print(String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")");
+                    output += String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")";
                 } else {
                     System.out.print(String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")");
+                    output += String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")"; 
                 }
             }
             System.out.println(String.format(" = %.4f", result));
+            output += String.format(" = %.4f", result);
         } else{
             System.out.println();
             System.out.println("Tidak ada fungsi Polynomial");
+            output += " Tidak ada fungsi Polynomial";
         } 
+
+        try {
+            OutputToFile(scanner,output);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
     }
     
     // untuk interpolasi
@@ -1491,40 +1521,63 @@ public class Matrix {
 
     public static void OutputToFile (Scanner scanner,String result) throws IOException {
         System.out.println();
-        System.out.print("Masukan Nama Output file yang Anda Inginkan (beserta .txt): ");
-        String fileName = scanner.next();
+        System.out.println("Apakah anda ingin menyimpan hasilnya dalam folder ?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        System.out.println();
+        String pilihan;
+        while (true) {
+            System.out.println();
+            System.out.print("Ketik 1 Jika 'Ya' dan 2 jika 'Tidak' : ");
+            pilihan = scanner.next();
 
-        while (!fileName.toLowerCase().endsWith(".txt")){
-            if (!fileName.toLowerCase().endsWith(".txt")) {
-                System.out.println("File harus disertai extension '.txt'. Tolong masukan Nama file yang benar.");
-                System.out.println();
-            }
-            System.out.print("Masukan Nama Output file yang Anda Inginkan (beserta .txt): ");
-            fileName = scanner.next();
-        };
-
-        String outputFolderPath = "../test/output";
-        String filePath = outputFolderPath + File.separator + fileName;
-        File file = new File(filePath);
-
-
-        if (file.exists()) {
-            System.out.println("File '" + fileName + "' Sudah ada di folder Output.");
-            System.out.println("Tolong input nama file yang berbeda.");
-            OutputToFile(scanner,result); 
-        } else {
-            file.createNewFile();
-
-            if (file.exists()) {
-                try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-                    writer.println(result);
-                    System.out.println("Hasil telah disimpan ke " + fileName);
-                } catch (IOException e) {
-                    System.err.println("Error writing to file: " + e.getMessage());
-                }
+            if (pilihan.equals("1") || pilihan.equals("2")) {
+                break;
             } else {
-                System.out.println("File '" + fileName + "' tidak eda.");
+                System.out.println("Pilihan tidak valid. Silakan ketik 1 untuk 'Ya' atau 2 untuk 'Tidak'.");
             }
         }
+        if (pilihan.equalsIgnoreCase("1")){
+            boolean saved = false;
+
+            while (!saved){
+                System.out.println();
+                System.out.print("Masukan Nama Output file yang Anda Inginkan (beserta .txt): ");
+                String fileName = scanner.next();
+
+                while (!fileName.toLowerCase().endsWith(".txt")){
+                    if (!fileName.toLowerCase().endsWith(".txt")) {
+                        System.out.println("File harus disertai extension '.txt'. Tolong masukan Nama file yang benar.");
+                        System.out.println();
+                    }
+                    System.out.print("Masukan Nama Output file yang Anda Inginkan (beserta .txt): ");
+                    fileName = scanner.next();
+                };
+
+                String outputFolderPath = "../test/output";
+                String filePath = outputFolderPath + File.separator + fileName;
+                File file = new File(filePath);
+
+                if (file.exists()) {
+                    System.out.println("File '" + fileName + "' Sudah ada di folder Output.");
+                    System.out.println("Tolong input nama file yang berbeda."); 
+                } else {
+                    file.createNewFile();
+
+                    if (file.exists()) {
+                        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+                            writer.println(result);
+                            System.out.println("Hasil telah disimpan ke " + fileName);
+                            saved = true;
+                        } catch (IOException e) {
+                            System.err.println("Error writing to file: " + e.getMessage());
+                        }
+                    } else {
+                        System.out.println("File '" + fileName + "' tidak ada.");
+                    }
+                }
+            }  
+        }
     }
+
 }
