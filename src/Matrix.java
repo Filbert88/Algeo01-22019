@@ -77,6 +77,17 @@ public class Matrix {
         }
     }
 
+    public boolean areStringsInside(String[] array) {
+        for (String element : array) {
+            try {
+                Integer.parseInt(element); 
+            } catch (NumberFormatException e) {
+                return true;
+            }
+        }
+        return false; 
+    }
+
     double getValidDoubleInput(String message, Scanner scanner) {
         while (true) {
             try {
@@ -176,47 +187,55 @@ public class Matrix {
     }
 
     public void readMatrixFromFile(Scanner scanner) {
-        while (true){
-            int row=0;
-            int col=0;
-            int counter=0;
+        while (true) {
+            int row = 0;
+            boolean valid=true;
+            int col = 0;
+            int counter = 0;
             System.out.print("Enter the file name:");
             String fileName = scanner.next();
-            if(isTxtFile(fileName)){
-                String filePath = "../test/"+fileName;
+            if (isTxtFile(fileName)) {
+                String filePath = "../test/" + fileName;
                 try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
                     String line;
                     while ((line = rowcolReader.readLine()) != null) {
-                        row +=1;
+                        row += 1;
                         String[] temparray = line.split(" ");
+                        if (this.areStringsInside(temparray)) {
+                            valid = false;
+                        }
                         col = temparray.length;
                     }
                     rowcolReader.close();
-                    BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
-                    this.rows = row;
-                    this.columns = col;
-                    this.matrix = new double[row][col];
-                    while ((line = matrixReader.readLine()) != null) {
-                        String[] temparray = line.split(" ");
-                        for (int i = 0; i < col; i++) {
-                        double value = Double.parseDouble(temparray[i]);
-                        this.setELmt(counter,i,value);
+                    if (valid){
+                        BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
+                        this.rows = row;
+                        this.columns = col;
+                        this.matrix = new double[row][col];
+                        while ((line = matrixReader.readLine()) != null) {
+                            String[] temparray = line.split(" ");
+                            for (int i = 0; i < col; i++) {
+                                double value = Double.parseDouble(temparray[i]);
+                                this.setELmt(counter, i, value);
+                            }
+                            counter += 1;
                         }
-                        counter +=1;
+                        return;
                     }
-                    return;
+                    else{
+                        System.out.println("There are strings inside the matrix, please enter another file name to progress.");
+                    }
                 } catch (IOException e) {
-                    System.out.println("Please make sure the file exist and readable.");
+                    System.out.println("Please make sure the file exists and is readable.");
                     System.out.println("Please enter a valid file name.");
                 }
-            }
-            else{
+            } else {
                 System.out.println("The file is not a txt file.");
                 System.out.println("Please enter a valid file name.");
             }
         }
-        
-    }
+}
+
 
     public Matrix readMatrixFromFileForBicubic(Scanner scanner) {
         int row=0;
