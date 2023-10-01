@@ -107,24 +107,50 @@ public class Matrix {
         }
     }
 
-    public void readMatrixFromTerminal(Scanner scanner){
-        double elmt;
-        int row,column,i,j;
-        row = ValidateIntInput("Masukkan Jumlah Baris: ",scanner);
-        column = ValidateIntInput("Masukkan Jumlah Kolom: ",scanner);
-
+    public void readMatrixFromTerminal(Scanner scanner) {
+        int row, column, i, j;
+        boolean validMatrix;
+        row = ValidateIntInput("Masukkan Jumlah Baris: ", scanner);
+        column = ValidateIntInput("Masukkan Jumlah Kolom: ", scanner);
         this.rows = row;
         this.columns = column;
         this.matrix = new double[row][column];
-    
-        System.out.println("Masukkan Matriks: ");
-        for(i=0;i<row;i++){
-            for(j=0;j<column;j++){
-                elmt = scanner.nextDouble();
-                this.matrix[i][j] = elmt;
+
+        while (true) {
+            validMatrix = true;
+            System.out.println();
+            System.out.println("Masukkan Matriks: ");
+
+            for (i=0;i<row;i++) {
+                String[] temp = scanner.nextLine().split(" ");
+                if (temp.length != column) {
+                    validMatrix = false;
+                    System.out.println();
+                    System.out.println(String.format("Data dalam tiap baris hanya boleh sebanyak %d.", column));
+                    System.out.println("Tolong input Matriks ulang dari awal!\n");
+                    break;
+                }
+                for (j=0;j<column;j++) {
+                    try {
+                        this.matrix[i][j] = Double.parseDouble(temp[j]);
+                    } catch (NumberFormatException e) {
+                        validMatrix = false;
+                        System.out.println();
+                        System.out.println("Masukan matriks tidak boleh selain bilangan riil.");
+                        System.out.println("Tolong input Matriks ulang dari awal!\n");
+                        break;
+                    }
+                }
+                if (validMatrix == false) {
+                    break;
+                }
+            }
+            if (validMatrix) {
+                return;
             }
         }
     }
+    
 
     public void readMatrixFromTerminalRegresi(int rows,int cols,Scanner scanner){
         double elmt;
@@ -146,25 +172,24 @@ public class Matrix {
     public void readSquareMatrix(Scanner scanner){
         int row,column,i,j;
         boolean validMatrix;
-       
+        row = ValidateIntInput("Masukkan Jumlah Ukuran Matriks yang diinginkan: ",scanner);
+        column = row;
+        this.rows = row;
+        this.columns = column;
+        this.matrix = new double[row][column];
+
         while (true){
             validMatrix = true;
-            row = ValidateIntInput("Masukkan Jumlah Ukuran Matriks yang diinginkan: ",scanner);
-            column = row;
-            this.rows = row;
-            this.columns = column;
-            this.matrix = new double[row][column];
-
             System.out.println();
             System.out.println("Masukkan Matriks: ");
 
             for(i=0;i<row;i++){
                 String[] temp = scanner.nextLine().split(" ");
                 if (temp.length != column) {
+                    validMatrix = false;
                     System.out.println();
                     System.out.println(String.format("Data dalam tiap baris hanya boleh sebanyak %d.", column));
                     System.out.println("Tolong input Matriks ulang dari awal!\n");
-                    validMatrix = false;
                     break;
                 }
                 for (j=0; j<column; j++) {
@@ -178,9 +203,12 @@ public class Matrix {
                         break;
                     }
                 }
+                if (validMatrix  == false) {
+                    break;
+                }
             }
             if (validMatrix) {
-                break;
+                return;
             } 
         }
     }
