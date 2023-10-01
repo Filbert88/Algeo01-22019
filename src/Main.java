@@ -256,39 +256,22 @@ public class Main {
             else if (pilihan.equals(Selection.menu_interpolasi_bicubic)) {
                 boolean selesai=false;
                 while(!selesai){
-                    //GANTI INI
-                    String pilih=scanner.next();
-                    while (!pilih.equals("1")&&!pilih.equals("2")) {
+                    Selection.option_interpolasi_bicubic();
+                    String jenis_input="";
+                    jenis_input=scanner.next();
+                    while(!jenis_input.equals(Selection.submenu_1)&&!jenis_input.equals(Selection.submenu_2)&&!jenis_input.equals(Selection.submenu_3)){
                         System.out.println("Inputan tidak valid");
-                        System.out.print("Pilih metode : ");
-                        pilih=scanner.next();
-                    }
-
-                    if (pilih.equals("1")){
-                        //GANTI INI
-                        Selection.option_spl();
-                        System.out.print("Jenis input : ");
-                        String jenis_input="";
+                        System.out.print("Jenis Input : ");
                         jenis_input=scanner.next();
-
-                        while(!jenis_input.equals(Selection.submenu_1)&&!jenis_input.equals(Selection.submenu_2)&&!jenis_input.equals(Selection.submenu_3)){
-                            System.out.println("Inputan tidak valid");
-                            System.out.print("Jenis Input : ");
-                            jenis_input=scanner.next();
                         }
 
                         if (!jenis_input.equals(Selection.submenu_3)) {
-                            //GANTI INI
+                            Bicubic.BicubicPage(scanner,jenis_input);
                             selesai=true;
                             pilihan=Selection.kembali(scanner);                            
                         }
                     }
-                    else if (pilih.equals("2")){
-                        Selection.menu_utama();
-                        selesai=true;
-                    }
                 }
-            }
 
             else if (pilihan.equals(Selection.menu_regresi)) {
                 boolean selesai=false;

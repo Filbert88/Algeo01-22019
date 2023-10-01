@@ -1258,7 +1258,7 @@ public class Matrix {
         int q=0;
         for(int i=0;i<16;i++){
             for (int j=0;j<1;j++){
-                turunan.setELmt(i,j,getElmt(q,p));
+                turunan.setELmt(i,j,this.getElmt(q,p));
                 p+=1;
                 if(p==4){
                     p=0;
@@ -1280,9 +1280,9 @@ public class Matrix {
         expansion.printMatrix();
         return expansion;
     }
-    public double bicubicSplineInterpolation(){
-        Matrix turunan = MatrixTurunan();
+    public double bicubicSplineInterpolation(double x,double y){
         Matrix expansion = InverseExpansion();
+        Matrix turunan = this.MatrixTurunan();
         Matrix alpha = this.multiply(expansion,turunan);
         System.out.println();
         System.out.println("Menghitung nilai alpha dengan rumus y=A.alpha");
@@ -1300,8 +1300,6 @@ public class Matrix {
         int newY;
         Matrix newMatrixX = new Matrix(1,4);
         Matrix newMatrixY = new Matrix(4,1);
-        double x =0.1;
-        double y = 0.9;
         for (int i=0;i<1;i++){ // Deply the X elements
             for (int j=0;j<4;j++){
                 newMatrixX.setELmt(i,j,val);
