@@ -929,7 +929,7 @@ public class Matrix {
         return inverse;
     }
 
-       public static void interPolim(Scanner scanner){
+    public static void interPolim(Scanner scanner){
         int n;
         String output = "";
         do {
@@ -1025,8 +1025,8 @@ public class Matrix {
             }
 
             System.out.println();
-            System.out.print(String.format("f(%.1f) = ",soal));
-            output += String.format("\nf(%.1f) = ",soal);
+            System.out.print(String.format("f(%.4f) = ",soal));
+            output += String.format("\nf(%.4f) = ",soal);
             for (int i = 0; i < n; i++) {
                 double coefficient = hasilspl.matrix[i][0];
                 if (Math.abs(coefficient) < 1e-4) {
@@ -1074,6 +1074,147 @@ public class Matrix {
         }
     }
     
+    public static void InterPolimFromFile(Scanner scanner){
+        int n;
+        String output = "";
+        Matrix m = new Matrix(0, 0);
+        double soal = m.readMatrixFromFileforInterpolation(scanner);
+        Matrix matrixSoal = m.copyMatrix();
+        n = matrixSoal.getRow();
+
+        Matrix newMatrix = new Matrix(n,n+1);
+        int column = newMatrix.getColumn();
+
+        Matrix hasilspl = new Matrix(n, 0);
+        int count = 0;
+        int ocurrence = 0;
+
+        for(int i=0;i<n;i++){
+            double x = matrixSoal.matrix[i][0];
+            int j = 0;
+            while (j< column - 1){
+                newMatrix.matrix[i][j] = Math.pow(x,j);
+                j++;
+            }
+            double y = matrixSoal.matrix[i][1] ;
+            newMatrix.matrix[i][j] = y;
+        }
+
+        System.out.println();
+        System.out.println("Matriks Augmented : ");
+        newMatrix.printMatrix();
+
+        double firstValue = newMatrix.matrix[0][1];
+        for(int i=1;i<n;i++){
+            if(newMatrix.matrix[i][1] == firstValue){
+                ocurrence++;
+            }
+        }
+        hasilspl = newMatrix.hasilOBEGauss();
+
+        for(int i=0;i<n;i++){
+            if(hasilspl.matrix[i][0]!=0){
+                count ++;
+            }
+        }
+
+        if (count != 0 && n>1 && ocurrence != n-1){
+            System.out.println();
+            System.out.print("Polynomial Function : ");
+            System.out.println();
+            output += "f(x) = ";
+            System.out.print(output);
+            boolean isZero = true;
+            boolean isZero2 = true;
+
+            for (int i = 0; i < n; i++) {
+                double coefficient = hasilspl.matrix[i][0];
+                if (Math.abs(coefficient) < 1e-4) {
+                    continue;
+                }
+                if (!isZero) {
+                    System.out.print(coefficient > 0 ? " + " : " - ");
+                    if (coefficient > 0) {
+                        output += " + ";
+                    } else {
+                        output += " - ";
+                    }
+                    
+                } else {
+                    isZero = false;
+                    if (coefficient < 0) {
+                        System.out.print("-");
+                        output += "-";
+                    }
+                }
+                if (i == 0) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
+                    output += String.format("%.4f", Math.abs(coefficient));
+                } else if (i == 1) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient))+" x");
+                    output += String.format("%.4f", Math.abs(coefficient))+" x";
+                } else {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " x^" + i);
+                    output += String.format("%.4f", Math.abs(coefficient)) + " x^" + i;
+                }
+            }
+
+            double result = 0.0;
+            for (int i = 0; i < n; i++) {
+                double coefficient = hasilspl.matrix[i][0];
+                result += coefficient * Math.pow(soal, i);
+            }
+
+            System.out.println();
+            System.out.print(String.format("f(%.4f) = ",soal));
+            output += String.format("\nf(%.4f) = ",soal);
+            for (int i = 0; i < n; i++) {
+                double coefficient = hasilspl.matrix[i][0];
+                if (Math.abs(coefficient) < 1e-4) {
+                    continue;
+                }
+
+                if (!isZero2) {
+                    System.out.print(coefficient > 0 ? " + " : " - ");
+                    if (coefficient > 0) {
+                        output += " + ";
+                    } else {
+                        output += " - ";
+                    }
+                } else {
+                    isZero2 = false;
+                    if (coefficient < 0) {
+                        System.out.print("-");
+                        output += "-";
+                    }
+                }
+
+                if (i == 0) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
+                    output += String.format("%.4f", Math.abs(coefficient));
+                } else if (i == 1) {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")");
+                    output += String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")";
+                } else {
+                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")");
+                    output += String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")"; 
+                }
+            }
+            System.out.println(String.format(" = %.4f", result));
+            output += String.format(" = %.4f", result);
+        } else{
+            System.out.println();
+            System.out.println("Tidak ada fungsi Polynomial");
+            output += " Tidak ada fungsi Polynomial";
+        } 
+
+        try {
+            OutputToFile(scanner,output);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
     // untuk interpolasi
     public Matrix hasilOBEGauss(){
         int now=0;
@@ -1679,7 +1820,6 @@ public class Matrix {
         System.out.println("Apakah anda ingin menyimpan hasilnya dalam folder ?");
         System.out.println("1. Ya");
         System.out.println("2. Tidak");
-        System.out.println();
         String pilihan;
         while (true) {
             System.out.println();
