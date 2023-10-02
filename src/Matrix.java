@@ -1819,14 +1819,13 @@ public class Matrix {
     }
 
     public static void OutputToFile (Scanner scanner,String result) throws IOException {
-        System.out.println();
-        System.out.println("Apakah anda ingin menyimpan hasilnya dalam folder ?");
+        System.out.println("\nApakah anda ingin menyimpan hasilnya dalam folder ?");
         System.out.println("1. Ya");
         System.out.println("2. Tidak");
+
         String pilihan;
         while (true) {
-            System.out.println();
-            System.out.print("Ketik 1 Jika 'Ya' dan 2 jika 'Tidak' : ");
+            System.out.print("\nKetik 1 Jika 'Ya' dan 2 jika 'Tidak' : ");
             pilihan = scanner.next();
 
             if (pilihan.equals("1") || pilihan.equals("2")) {
@@ -1835,12 +1834,11 @@ public class Matrix {
                 System.out.println("Pilihan tidak valid. Silakan ketik 1 untuk 'Ya' atau 2 untuk 'Tidak'.");
             }
         }
-        if (pilihan.equalsIgnoreCase("1")){
+        if (pilihan.equals("1")){
             boolean saved = false;
 
             while (!saved){
-                System.out.println();
-                System.out.print("Masukan Nama Output file yang Anda Inginkan (beserta .txt): ");
+                System.out.print("\nMasukan Nama Output file yang Anda Inginkan (beserta .txt): ");
                 String fileName = scanner.next();
 
                 while (!fileName.toLowerCase().endsWith(".txt")){
@@ -1852,30 +1850,24 @@ public class Matrix {
                     fileName = scanner.next();
                 };
 
-                String outputFolderPath = "../test/output";
-                String filePath = outputFolderPath + File.separator + fileName;
+                String filePath = "../test/output/" + fileName;
                 File file = new File(filePath);
 
+                file.createNewFile();
+
                 if (file.exists()) {
-                    System.out.println("File '" + fileName + "' Sudah ada di folder Output.");
-                    System.out.println("Tolong input nama file yang berbeda."); 
-                } else {
-                    file.createNewFile();
-
-                    if (file.exists()) {
-                        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-                            writer.println(result);
-                            System.out.println("Hasil telah disimpan ke " + fileName);
-                            saved = true;
-                        } catch (IOException e) {
-                            System.err.println("Error writing to file: " + e.getMessage());
-                        }
-                    } else {
-                        System.out.println("File '" + fileName + "' tidak ada.");
+                    try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+                        writer.println(result);
+                        System.out.println("Hasil telah disimpan ke " + fileName);
+                        saved = true;
+                    } catch (IOException e) {
+                        System.err.println("Error writing to file: " + e.getMessage());
                     }
+                } else {
+                    System.out.println("File '" + fileName + "' tidak ada.");
                 }
-            }  
-        }
+            }
+        }  
     }
-
 }
+
