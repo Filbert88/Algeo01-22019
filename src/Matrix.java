@@ -264,17 +264,20 @@ public class Matrix {
                     }
                     rowcolReader.close();
                     if (valid){
-                        BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
                         this.rows = row;
                         this.columns = col;
                         this.matrix = new double[row][col];
-                        while ((line = matrixReader.readLine()) != null) {
-                            String[] temparray = line.split(" ");
-                            for (int i = 0; i < col; i++) {
-                                double value = Double.parseDouble(temparray[i]);
-                                this.setELmt(counter, i, value);
+                        try (BufferedReader matrixReader = new BufferedReader(new FileReader(filePath))){
+                            while ((line = matrixReader.readLine()) != null) {
+                                String[] temparray = line.split(" ");
+                                for (int i = 0; i < col; i++) {
+                                    double value = Double.parseDouble(temparray[i]);
+                                    this.setELmt(counter, i, value);
+                                }
+                                counter += 1;
                             }
-                            counter += 1;
+                        } catch (IOException e) {
+                            System.out.println("Error reading matrix data from the file.");
                         }
                         return;
                     }
