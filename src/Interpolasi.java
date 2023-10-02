@@ -34,8 +34,7 @@ public class Interpolasi {
             Matrix.interPolim(scanner);
         }
         else if (pilihan_input.equals(Selection.submenu_2)){
-            // iNTERPOLIMFROMFILE
-            System.out.println("tes");
+            Matrix.InterPolimFromFile(scanner);
         }
     }
 } 
