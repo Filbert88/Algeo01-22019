@@ -377,7 +377,7 @@ public class Matrix {
             int col = 0;
             int rowcounter = 0;
             int counter = 0;
-            System.out.print("Enter the file name:");
+            System.out.print("Enter the file name : ");
             String fileName = scanner.next();
             if (isTxtFile(fileName)) {
                 String filePath = "../test/" + fileName;
