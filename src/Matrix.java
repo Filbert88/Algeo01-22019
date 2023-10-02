@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.text.DecimalFormat;
 
 public class Matrix {
     int rows;
@@ -932,6 +933,7 @@ public class Matrix {
     public static void interPolim(Scanner scanner){
         int n;
         String output = "";
+        DecimalFormat df = new DecimalFormat("#.####");
         do {
             System.out.print("Masukin berapa titik yang Anda mau Interpolasikan : ");
             n = scanner.nextInt();
@@ -1007,14 +1009,14 @@ public class Matrix {
                     }
                 }
                 if (i == 0) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
-                    output += String.format("%.4f", Math.abs(coefficient));
+                    System.out.print(String.format(df.format(Math.abs(coefficient))));
+                    output += String.format(df.format(Math.abs(coefficient)));
                 } else if (i == 1) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient))+" x");
-                    output += String.format("%.4f", Math.abs(coefficient))+" x";
+                    System.out.print(String.format(df.format(Math.abs(coefficient)))+" x");
+                    output += String.format(df.format(Math.abs(coefficient)))+" x";
                 } else {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " x^" + i);
-                    output += String.format("%.4f", Math.abs(coefficient)) + " x^" + i;
+                    System.out.print(String.format(df.format(Math.abs(coefficient))) + " x^" + i);
+                    output += String.format(df.format(Math.abs(coefficient))) + " x^" + i;
                 }
             }
 
@@ -1025,8 +1027,8 @@ public class Matrix {
             }
 
             System.out.println();
-            System.out.print(String.format("f(%.4f) = ",soal));
-            output += String.format("\nf(%.4f) = ",soal);
+            System.out.print(String.format("f(" + df.format(soal) + ") = "));
+            output += String.format("\nf(" + df.format(soal) + ") = ");
             for (int i = 0; i < n; i++) {
                 double coefficient = hasilspl.matrix[i][0];
                 if (Math.abs(coefficient) < 1e-4) {
@@ -1049,18 +1051,18 @@ public class Matrix {
                 }
 
                 if (i == 0) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
-                    output += String.format("%.4f", Math.abs(coefficient));
+                    System.out.print(String.format(df.format(Math.abs(coefficient))));
+                    output += String.format(df.format(Math.abs(coefficient)));
                 } else if (i == 1) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")");
-                    output += String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")";
+                    System.out.print(String.format(df.format(Math.abs(coefficient)))+ " * (" + df.format(Math.abs(soal)) + ")");
+                    output += String.format(df.format(Math.abs(coefficient)))+ " * (" + df.format(Math.abs(soal)) + ")";
                 } else {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")");
-                    output += String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")"; 
+                    System.out.print(String.format(df.format(Math.abs(coefficient))) + " * (" + df.format(Math.abs(soal)) + "^" + i + ")");
+                    output += String.format(df.format(Math.abs(coefficient))) + " * (" + df.format(Math.abs(soal)) + "^" + i + ")"; 
                 }
             }
-            System.out.println(String.format(" = %.4f", result));
-            output += String.format(" = %.4f", result);
+            System.out.println(String.format(" = " + df.format(result)));
+            output += String.format(" = " + df.format(result));
         } else{
             System.out.println();
             System.out.println("Tidak ada fungsi Polynomial");
@@ -1077,6 +1079,7 @@ public class Matrix {
     public static void InterPolimFromFile(Scanner scanner){
         int n;
         String output = "";
+        DecimalFormat df = new DecimalFormat("#.####");
         Matrix m = new Matrix(0, 0);
         double soal = m.readMatrixFromFileforInterpolation(scanner);
         Matrix matrixSoal = m.copyMatrix();
@@ -1148,14 +1151,14 @@ public class Matrix {
                     }
                 }
                 if (i == 0) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
-                    output += String.format("%.4f", Math.abs(coefficient));
+                    System.out.print(String.format(df.format(Math.abs(coefficient))));
+                    output += String.format(df.format(Math.abs(coefficient)));
                 } else if (i == 1) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient))+" x");
-                    output += String.format("%.4f", Math.abs(coefficient))+" x";
+                    System.out.print(String.format(df.format(Math.abs(coefficient)))+" x");
+                    output += String.format(df.format(Math.abs(coefficient)))+" x";
                 } else {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " x^" + i);
-                    output += String.format("%.4f", Math.abs(coefficient)) + " x^" + i;
+                    System.out.print(String.format(df.format(Math.abs(coefficient))) + " x^" + i);
+                    output += String.format(df.format(Math.abs(coefficient))) + " x^" + i;
                 }
             }
 
@@ -1166,8 +1169,8 @@ public class Matrix {
             }
 
             System.out.println();
-            System.out.print(String.format("f(%.4f) = ",soal));
-            output += String.format("\nf(%.4f) = ",soal);
+            System.out.print(String.format("f(" + df.format(soal) + ") = "));
+            output += String.format("\nf(" + df.format(soal) + ") = ");
             for (int i = 0; i < n; i++) {
                 double coefficient = hasilspl.matrix[i][0];
                 if (Math.abs(coefficient) < 1e-4) {
@@ -1190,18 +1193,18 @@ public class Matrix {
                 }
 
                 if (i == 0) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)));
-                    output += String.format("%.4f", Math.abs(coefficient));
+                    System.out.print(String.format(df.format(Math.abs(coefficient))));
+                    output += String.format(df.format(Math.abs(coefficient)));
                 } else if (i == 1) {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")");
-                    output += String.format("%.4f", Math.abs(coefficient))+ " * (" + soal + ")";
+                    System.out.print(String.format(df.format(Math.abs(coefficient)))+ " * (" + df.format(Math.abs(soal)) + ")");
+                    output += String.format(df.format(Math.abs(coefficient)))+ " * (" + df.format(Math.abs(soal)) + ")";
                 } else {
-                    System.out.print(String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")");
-                    output += String.format("%.4f", Math.abs(coefficient)) + " * (" + soal + "^" + i + ")"; 
+                    System.out.print(String.format(df.format(Math.abs(coefficient))) + " * (" + df.format(Math.abs(soal)) + "^" + i + ")");
+                    output += String.format(df.format(Math.abs(coefficient))) + " * (" + df.format(Math.abs(soal)) + "^" + i + ")"; 
                 }
             }
-            System.out.println(String.format(" = %.4f", result));
-            output += String.format(" = %.4f", result);
+            System.out.println(String.format(" = " + df.format(result)));
+            output += String.format(" = " + df.format(result));
         } else{
             System.out.println();
             System.out.println("Tidak ada fungsi Polynomial");
