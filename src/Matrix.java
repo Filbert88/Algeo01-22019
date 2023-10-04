@@ -143,11 +143,12 @@ public class Matrix {
     }
     
 
-    public void readMatrixFromTerminalRegresi(int rows,int cols,Scanner scanner){
+    public void readMatrixFromTerminalRegresi(Scanner scanner){
         int row, column, i, j;
         boolean validMatrix;
-        row = rows;
-        column = cols;
+        row = ValidateIntInput("Masukkan Jumlah Sampel: ", scanner);
+        column = ValidateIntInput("Masukkan Jumlah peubah X: ", scanner);
+        column +=1;
         this.rows = row;
         this.columns = column;
         this.matrix = new double[row][column];
@@ -156,6 +157,7 @@ public class Matrix {
             validMatrix = true;
             System.out.println();
             System.out.println("Masukkan Matriks: ");
+
             for (i=0;i<row;i++) {
                 String[] temp = scanner.nextLine().split(" ");
                 if (temp.length != column) {
@@ -311,65 +313,66 @@ public class Matrix {
         }
     }
 
-    public void readMatrixFromFileForRegression(Scanner scanner, int peubah, int data) {
-        int row = 0;
-        int a = 0;
-        boolean XYvalidation = true;
-        int maxcol = 0;
-        boolean valid = true;
-        int col = 0;
-        int rowcounter = 0;
-        int counter = 0;
-        System.out.print("Enter the file name:");
-        String fileName = scanner.next();
-        if (isTxtFile(fileName)) {
-            String filePath = "../test/" + fileName;
-            try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = rowcolReader.readLine()) != null) {
-                    row += 1;
-                    String[] temparray = line.split(" ");
-                    if (this.areStringsInside(temparray)) {
-                        valid = false;
-                    }
-                    col = temparray.length;
-                    maxcol = Math.max(col,maxcol);
-                    if (col != maxcol && row<=data){
-                        XYvalidation = false;
-                    }
-                }
-                if (row != data || col-1 != peubah) {
-                    XYvalidation = false;
-                }
-                rowcolReader.close();
-                if (valid && XYvalidation) {
-                    BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
-                    this.rows = row;
-                    this.columns = col;
-                    this.matrix = new double[row][col];
-                    while ((line = matrixReader.readLine()) != null) {
-                        rowcounter += 1;
+    public Matrix readMatrixFromFileForRegression(Scanner scanner) {
+       while (true) {
+            int row = 0;
+            int maxcol = 0;
+            boolean valid=true;
+            int col = 0;
+            int counter = 0;
+            System.out.print("Enter the file name:");
+            String fileName = scanner.next();
+            if (isTxtFile(fileName)) {
+                String filePath = "../test/" + fileName;
+                try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
+                    String line;
+                    while ((line = rowcolReader.readLine()) != null) {
+                        row += 1;
                         String[] temparray = line.split(" ");
-                        for (int i = 0; i < col; i++) {
-                            double value = Double.parseDouble(temparray[i]);
-                            this.setELmt(counter, i, value);
+                        if (this.areStringsInside(temparray)) {
+                            valid = false;
                         }
-                        counter += 1;
+                        col = temparray.length;
+                        maxcol = Math.max(col,maxcol);
+                        if(col != maxcol){
+                            valid = false;
+                        }
                     }
-                } else if (!XYvalidation) {
-                    System.out.println("Harap masukkan data sesuai jumlah data dan peubah!");
-                } else {
-                    System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
+                    rowcolReader.close();
+                    if (valid){
+                        this.rows = row;
+                        this.columns = col;
+                        this.matrix = new double[row][col];
+                        Matrix output = new Matrix(1,2);
+                        output.setELmt(0,0,row);
+                        output.setELmt(0,1,col-1);
+                        try (BufferedReader matrixReader = new BufferedReader(new FileReader(filePath))){
+                            while ((line = matrixReader.readLine()) != null) {
+                                String[] temparray = line.split(" ");
+                                for (int i = 0; i < col; i++) {
+                                    double value = Double.parseDouble(temparray[i]);
+                                    this.setELmt(counter, i, value);
+                                }
+                                counter += 1;
+                            }
+                        } catch (IOException e) {
+                            System.out.println("Error reading matrix data from the file.");
+                        }
+                        return output;
+                    }
+                    else{
+                        System.out.println("There are strings inside the matrix, please enter another file name to progress.");
+                    }
+                } catch (IOException e) {
+                    System.out.println("Please make sure the file exists and is readable.");
+                    System.out.println("Please enter a valid file name.");
                 }
-            } catch (IOException e) {
-                System.out.println("Pastikan File ada dan dapat dibaca.");
-                System.out.println("Harap masukkan nama file yang valid");
+            } else {
+                System.out.println("The file is not a txt file.");
+                System.out.println("Please enter a valid file name.");
             }
-        } else {
-            System.out.println("File tidak dalam bentuk .txt !");
-            System.out.println("Harap masukkan nama file yang valid");
         }
-}
+    }
 
     public Matrix readMatrixFromFileForBicubic(Scanner scanner) {
         while (true) {
@@ -1015,21 +1018,13 @@ public class Matrix {
         int n;
         String output = "";
         DecimalFormat df = new DecimalFormat("#.####");
-
         do {
-            try {
-                System.out.print("Masukin berapa titik yang Anda mau Interpolasikan : ");
-                n = scanner.nextInt();
-                if (n <= 0) {
-                    System.out.println("Titik harus lebih dari 0 untuk melakukan Interpolasi.");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Input tidak valid. Harap masukkan angka yang valid.");
-                scanner.next(); 
-                n = -1;
+            System.out.print("Masukin berapa titik yang Anda mau Interpolasikan : ");
+            n = scanner.nextInt();
+            if (n <= 0) {
+                System.out.println("Titik harus lebih dari harus lebih dari 0 untuk melakukan Interpolasi.");
             }
         } while (n <= 0);
-        
         Matrix m = new Matrix(n,n+1);
         Matrix hasilspl = new Matrix(n,0);
         int count = 0;
@@ -1913,7 +1908,7 @@ public class Matrix {
         return mergedMatrix;
         }
 
-    public Matrix Beta(int peubah){
+    public Matrix Beta(double peubah){
         int i,j;
         int _row,_col,_mat;
         Matrix newY = this.createYMatrix();
