@@ -12,16 +12,6 @@ public class Matrix {
         this.columns = col; 
         this.matrix = new double[row][col];
     }
-
-    public Matrix ErrorMatrix (){
-        Matrix Error = new Matrix(2,2);
-        for(int i=0;i<this.rows;i++){
-            for(int j=0;j<this.columns;j++){
-                this.setELmt(i,j,-9999999);
-            }
-        }
-        return Error;
-    }
     
     public double getElmt(int i,int j){
         return this.matrix[i][j];

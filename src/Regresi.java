@@ -38,26 +38,23 @@ public class Regresi{
             int data;
             int xk;
             System.out.print("Masukkan jumlah peubah X:");
-            peubah =scanner.nextInt();
+            peubah = scanner.nextInt();
+            scanner.nextLine();
             System.out.print("Masukkan jumlah sampel:");
-            data =scanner.nextInt();
+            data = scanner.nextInt();
+            scanner.nextLine();
             M.readMatrixFromTerminalRegresi(data,(peubah+1),scanner);
             Matrix Beta = M.Beta(peubah);
             Beta.printMatrix();
-            // for (int i=0;i<peubah;i++){
-            //     System.out.print("Masukkan nilai Xk-"+(i+1)+" :");
-            //     xk = scanner.nextInt();
-
-            // }
         }
         else if (pilihan_input.equals(Selection.submenu_2)){
             int peubah;
             int data;
             int xk;
             System.out.print("Masukkan jumlah peubah X:");
-            peubah =scanner.nextInt();
+            peubah = scanner.nextInt();
             System.out.print("Masukkan jumlah sampel:");
-            data =scanner.nextInt();
+            data = scanner.nextInt();
             M.readMatrixFromFileForRegression(scanner,peubah,data);
             Matrix Beta = M.Beta(peubah);
             for (int i=0;i<peubah;i++){

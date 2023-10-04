@@ -41,7 +41,7 @@ public class Main {
                         }
                     }
                     else if (pilih.equals("2")){
-                        SPL.gausspage();
+                        SPL.gaussjordanpage();
                         Selection.option_spl();
                         System.out.print("Jenis input : ");
                         String jenis_input="";
