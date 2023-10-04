@@ -61,7 +61,7 @@ public class Selection {
         Selection.ui();
         System.out.println("|               (1) Input Manual                |");
         System.out.println("|                (2) Input File                 |");
-        System.out.println("|                  (3) Kembali                 |");
+        System.out.println("|                  (3) Kembali                  |");
         Selection.ui();
     }
 
@@ -94,7 +94,7 @@ public class Selection {
         Selection.ui();
         System.out.println("|               (1) Input Manual                |");
         System.out.println("|                (2) Input File                 |");
-        System.out.println("|                (3) Kembali                 |");
+        System.out.println("|                 (3) Kembali                  |");
         Selection.ui();
         System.out.print("Jenis input : ");
     }
