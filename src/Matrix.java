@@ -154,18 +154,44 @@ public class Matrix {
     
 
     public void readMatrixFromTerminalRegresi(int rows,int cols,Scanner scanner){
-        double elmt;
-        int row,column,i,j;
+        int row, column, i, j;
+        boolean validMatrix;
+        row = rows;
+        column = cols;
+        this.rows = row;
+        this.columns = column;
+        this.matrix = new double[row][column];
 
-        this.rows = rows;
-        this.columns = cols+1;
-        this.matrix = new double[rows][cols+1];
-    
-        System.out.println("Masukkan Matriks: ");
-        for(i=0;i<rows;i++){
-            for(j=0;j<cols+1;j++){
-                elmt = scanner.nextDouble();
-                this.matrix[i][j] = elmt;
+        while (true) {
+            validMatrix = true;
+            System.out.println();
+            System.out.println("Masukkan Matriks: ");
+            for (i=0;i<row;i++) {
+                String[] temp = scanner.nextLine().split(" ");
+                if (temp.length != column) {
+                    validMatrix = false;
+                    System.out.println();
+                    System.out.println(String.format("Data dalam tiap baris hanya boleh sebanyak %d.", column));
+                    System.out.println("Tolong input Matriks ulang dari awal!\n");
+                    break;
+                }
+                for (j=0;j<column;j++) {
+                    try {
+                        this.matrix[i][j] = Double.parseDouble(temp[j]);
+                    } catch (NumberFormatException e) {
+                        validMatrix = false;
+                        System.out.println();
+                        System.out.println("Masukan matriks tidak boleh selain bilangan riil.");
+                        System.out.println("Tolong input Matriks ulang dari awal!\n");
+                        break;
+                    }
+                }
+                if (validMatrix == false) {
+                    break;
+                }
+            }
+            if (validMatrix) {
+                return;
             }
         }
     }
