@@ -142,6 +142,50 @@ public class Matrix {
         }
     }
     
+    public void readMatrixFromTerminalforBicubic(Scanner scanner) {
+        int row, column, i, j;
+        boolean validMatrix;
+        row = 4;
+        column = 4;
+        this.rows = 4;
+        this.columns = 4;
+        this.matrix = new double[4][4];
+
+        scanner.nextLine();
+        while (true) {
+            validMatrix = true;
+            System.out.println();
+            System.out.println("Masukkan Matriks: ");
+
+            for (i=0;i<row;i++) {
+                String[] temp = scanner.nextLine().split(" ");
+                if (temp.length != column) {
+                    validMatrix = false;
+                    System.out.println();
+                    System.out.println(String.format("Data dalam tiap baris hanya boleh sebanyak %d.", column));
+                    System.out.println("Tolong input Matriks ulang dari awal!\n");
+                    break;
+                }
+                for (j=0;j<column;j++) {
+                    try {
+                        this.matrix[i][j] = Double.parseDouble(temp[j]);
+                    } catch (NumberFormatException e) {
+                        validMatrix = false;
+                        System.out.println();
+                        System.out.println("Masukan matriks tidak boleh selain bilangan riil.");
+                        System.out.println("Tolong input Matriks ulang dari awal!\n");
+                        break;
+                    }
+                }
+                if (validMatrix == false) {
+                    break;
+                }
+            }
+            if (validMatrix) {
+                return;
+            }
+        }
+    }
 
     public void readMatrixFromTerminalRegresi(Scanner scanner){
         int row, column, i, j;
