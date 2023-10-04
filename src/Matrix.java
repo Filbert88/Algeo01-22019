@@ -1785,7 +1785,7 @@ public class Matrix {
                     val = this.getElmt(a,b);
                     newMatrix.setELmt(i,j,val);
                     b +=1;
-                    if (b == columns){
+                    if (b == columns-1){
                         b = 0;
                         a +=1;
                     }
@@ -1810,16 +1810,57 @@ public class Matrix {
         }
         return newMatrix;
     }
+    public Matrix mergeMatrix(Matrix newX, Matrix newY) {
+        int mergedRows = newX.getRow();
+        int mergedCols = newX.getColumn() + newY.getColumn();
+        Matrix mergedMatrix = new Matrix(mergedRows, mergedCols);
+        for (int i = 0; i < mergedRows; i++) {
+            for (int j = 0; j < newX.getColumn(); j++) {
+                mergedMatrix.setELmt(i, j, newX.getElmt(i, j));
+            }
+        }
+        for (int i = 0; i < mergedRows; i++) {
+            for (int j = 0; j < newY.getColumn(); j++) {
+                mergedMatrix.setELmt(i, newX.getColumn() + j, newY.getElmt(i, j));
+            }
+        }
+        return mergedMatrix;
+        }
 
     public Matrix Beta(){
+        int i,j,n=2;
+        int _row,_col,_mat;
         Matrix newY = this.createYMatrix();
         Matrix newX = this.createXMatrix();
+        Matrix newXMerged = newX.mergeMatrix(newX,newY);
         Matrix newXTranspose = newX.transpose();
-        Matrix newX2 = multiply(newXTranspose,newX);
-        Matrix newXInverse2 = newX2.InverseIdentitasTanpaCara();
-        Matrix Beta = multiply(multiply(newXInverse2,newXTranspose),newY);
-        return Beta;
+        Matrix newX2 = multiply(newXTranspose,newXMerged);
+        for (i=0;i<n+1;i++){
+          for (j=0;j<n+2;j++){
+            if(j==n+1){
+              System.out.format("%.2f",newX2.getElmt(i,j));
+            }
+            else{
+              System.out.format("%.2fb%d",newX2.getElmt(i,j),j);
+            }
+            if(j==n){
+              System.out.print("=");
+            }
+            else if (j<n){
+              if (newX2.getElmt(i,j+1)>=0){
+                System.out.print("+");
+              }
+            }
+          }
+          System.out.println();
+        }
+        System.out.println("Persamaan:");
+        Matrix BETA = newX2.hasilOBEGauss();
+        System.out.println("Nilai Beta");
+        return BETA;
     }
+        // Matrix newXInverse2 = newX2.InverseIdentitasTanpaCara();
+        // Matrix Beta = multiply(multiply(newXInverse2,newXTranspose),newY);
 
     public static void OutputToFile (Scanner scanner,String result) throws IOException {
         System.out.println("\nApakah anda ingin menyimpan hasilnya dalam folder ?");
