@@ -1018,13 +1018,21 @@ public class Matrix {
         int n;
         String output = "";
         DecimalFormat df = new DecimalFormat("#.####");
+
         do {
-            System.out.print("Masukin berapa titik yang Anda mau Interpolasikan : ");
-            n = scanner.nextInt();
-            if (n <= 0) {
-                System.out.println("Titik harus lebih dari harus lebih dari 0 untuk melakukan Interpolasi.");
+            try {
+                System.out.print("Masukin berapa titik yang Anda mau Interpolasikan : ");
+                n = scanner.nextInt();
+                if (n <= 0) {
+                    System.out.println("Titik harus lebih dari 0 untuk melakukan Interpolasi.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Input tidak valid. Harap masukkan angka yang valid.");
+                scanner.next(); 
+                n = -1;
             }
         } while (n <= 0);
+        
         Matrix m = new Matrix(n,n+1);
         Matrix hasilspl = new Matrix(n,0);
         int count = 0;
@@ -1159,7 +1167,7 @@ public class Matrix {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
-    
+
     public static void InterPolimFromFile(Scanner scanner){
         int n;
         String output = "";
