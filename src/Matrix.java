@@ -293,6 +293,66 @@ public class Matrix {
                 System.out.println("Please enter a valid file name.");
             }
         }
+    }
+
+    public void readMatrixFromFileForRegression(Scanner scanner, int peubah, int data) {
+        int row = 0;
+        int a = 0;
+        boolean XYvalidation = true;
+        int maxcol = 0;
+        boolean valid = true;
+        int col = 0;
+        int rowcounter = 0;
+        int counter = 0;
+        System.out.print("Enter the file name:");
+        String fileName = scanner.next();
+        if (isTxtFile(fileName)) {
+            String filePath = "../test/" + fileName;
+            try (BufferedReader rowcolReader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = rowcolReader.readLine()) != null) {
+                    row += 1;
+                    String[] temparray = line.split(" ");
+                    if (this.areStringsInside(temparray)) {
+                        valid = false;
+                    }
+                    col = temparray.length;
+                    maxcol = Math.max(col,maxcol);
+                    if (col != maxcol && row<=data){
+                        XYvalidation = false;
+                    }
+                }
+                if (row != data || col-1 != peubah) {
+                    XYvalidation = false;
+                }
+                rowcolReader.close();
+                if (valid && XYvalidation) {
+                    BufferedReader matrixReader = new BufferedReader(new FileReader(filePath));
+                    this.rows = row;
+                    this.columns = col;
+                    this.matrix = new double[row][col];
+                    while ((line = matrixReader.readLine()) != null) {
+                        rowcounter += 1;
+                        String[] temparray = line.split(" ");
+                        for (int i = 0; i < col; i++) {
+                            double value = Double.parseDouble(temparray[i]);
+                            this.setELmt(counter, i, value);
+                        }
+                        counter += 1;
+                    }
+                } else if (!XYvalidation) {
+                    System.out.println("Harap masukkan data sesuai jumlah data dan peubah!");
+                } else {
+                    System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
+                }
+            } catch (IOException e) {
+                System.out.println("Pastikan File ada dan dapat dibaca.");
+                System.out.println("Harap masukkan nama file yang valid");
+            }
+        } else {
+            System.out.println("File tidak dalam bentuk .txt !");
+            System.out.println("Harap masukkan nama file yang valid");
+        }
 }
 
     public Matrix readMatrixFromFileForBicubic(Scanner scanner) {
@@ -319,7 +379,9 @@ public class Matrix {
                         }
                         col = temparray.length;
                         maxcol = Math.max(col,maxcol);
-                        System.out.println("row"+row);
+                        if (col !=4 && row <4){
+                            XYvalidation = false;
+                        }
                     }
                         if(row !=5 || maxcol != 4){
                             XYvalidation = false;
@@ -1827,36 +1889,41 @@ public class Matrix {
         return mergedMatrix;
         }
 
-    public Matrix Beta(){
-        int i,j,n=2;
+    public Matrix Beta(int peubah){
+        int i,j;
         int _row,_col,_mat;
         Matrix newY = this.createYMatrix();
         Matrix newX = this.createXMatrix();
+        // System.out.println("Nilai X");
+        // newX.printMatrix();
+        // System.out.println("Nilai Y");
+        // newY.printMatrix();
         Matrix newXMerged = newX.mergeMatrix(newX,newY);
         Matrix newXTranspose = newX.transpose();
         Matrix newX2 = multiply(newXTranspose,newXMerged);
-        for (i=0;i<n+1;i++){
-          for (j=0;j<n+2;j++){
-            if(j==n+1){
+        System.out.println("Persamaan:");
+        for (i=0;i<peubah+1;i++){
+          for (j=0;j<peubah+2;j++){
+            if(j==peubah+1){
               System.out.format("%.2f",newX2.getElmt(i,j));
             }
             else{
               System.out.format("%.2fb%d",newX2.getElmt(i,j),j);
             }
-            if(j==n){
-              System.out.print("=");
+            if(j==peubah){
+              System.out.print(" = ");
             }
-            else if (j<n){
+            else if (j<peubah){
               if (newX2.getElmt(i,j+1)>=0){
-                System.out.print("+");
+                System.out.print(" + ");
               }
             }
           }
           System.out.println();
         }
-        System.out.println("Persamaan:");
         Matrix BETA = newX2.hasilOBEGauss();
         System.out.println("Nilai Beta");
+        BETA.printMatrix();
         return BETA;
     }
         // Matrix newXInverse2 = newX2.InverseIdentitasTanpaCara();
