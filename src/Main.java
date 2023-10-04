@@ -303,7 +303,7 @@ public class Main {
 
                     if (pilih.equals("1")){
                         Regresi.RegressionPage();
-                        Selection.option_regresi();
+                        Selection.option_spl();
                         String jenis_input="";
                         jenis_input=scanner.next();
 
