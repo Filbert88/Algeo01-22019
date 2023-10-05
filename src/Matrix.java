@@ -1875,10 +1875,11 @@ public class Matrix {
         expansion.printMatrix();
         return expansion;
     }
-    public double bicubicSplineInterpolation(double x,double y){
+    public double bicubicSplineInterpolation(double x,double y, Scanner scanner){
         Matrix expansion = InverseExpansion();
         Matrix turunan = this.MatrixTurunan();
         Matrix alpha = this.multiply(expansion,turunan);
+        String output = "";
         System.out.println();
         System.out.println("Menghitung nilai alpha dengan rumus y=A.alpha");
         Matrix alphaconvert = new Matrix(4,4);
@@ -1917,6 +1918,12 @@ public class Matrix {
         System.out.println();
         Matrix hasil = multiply(multiply(newMatrixX,alphaconvert),newMatrixY);
         System.out.println("Nilai f("+x+","+y+") adalah "+hasil.getElmt(0,0));
+        output += hasil.getElmt(0, 0);
+        try{
+            OutputToFile(scanner,output);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
         return hasil.getElmt(0,0);
 
     }
@@ -1982,7 +1989,6 @@ public class Matrix {
 
     public Matrix Beta(double peubah){
         int i,j;
-        int _row,_col,_mat;
         Matrix newY = this.createYMatrix();
         Matrix newX = this.createXMatrix();
         // System.out.println("Nilai X");
