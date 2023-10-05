@@ -1,150 +1,80 @@
 <h1 align="center">Tugas Besar 1 IF2121 Aljabar Linear dan Geometri</h1>
-<p align="center">by Farel Winalda</p>
-> Kelas 01 IF-G Kelompok 5 - APAU & APIN
+<h2 align="center">Kelompok 5 - APAU & APIN</h2>
+<h2 align="center">Kelas 01 IF-G</h2>
+<p align="center"></p>
+<p align="center">Sistem Persamaan Linier, Determinan, dan Aplikasinya</p>
+<p align="center">Semester ganjil Tahun 2023/2024</p>
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Built With](#built-with)
+- [Built With](#installing)
+- [Prequisites](#prequisites)
+- [Installation](#installation)
 - [Features](#features)
-- [How to use](#how-to-use)
-- [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
+- [About](#about)
 
-Sistem Persamaan Linier, Determinan, dan Aplikasinya
-Semester ganjil Tahun 2023/2024
 
 ## Overview
 
-![screenshot](https://github.com/FarelW/SEA-Farel/blob/6b5813be45661c7edea558fff4b2dca73b98d092/Sea-Documentation.png)
-Nama Kelompok :
-- 13522019 - Wilson Yusda
-- 13522021 - Filbert 
-- 13522047 - Farel Winalda
+![screenshot](https://github.com/Filbert88/TUBES-ALGEO-1/blob/d5e8925fdf81671e12d005604ece903d557ed92d/Apau%20%26%20Apin.jpg)
+Our Team members :
+- 13522019 - Wilson Yusda (Belakang)
+- 13522021 - Filbert (Kanan)
+- 13522047 - Farel Winalda (Kiri)
 
-## Installing / Getting started
+Our mentors:
+- Dr. Ir. Rinaldi Munir, M.T.
+- 13521031 - Fahrian Afdholi
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+Here is the purpose of making this project :
+- Create a library (library or package) in Java to find SPL solutions using the Gauss elimination method, Gauss-Jordan elimination method, inverse matrix method, and Cramer's rule (Cramer's rule specifically for SPL with n variables and n equations), calculating the matrix determinant using row reduction and with cofactor expansion, and calculating matrix inverses.
+- Solve various problems in SPL form, solve interpolation and linear regression problems, calculate inverse matrices, calculate matrix determinants using various methods (row reduction and cofactor expansion).
 
-```shell
-packagemanager install awesome-project
-awesome-project start
-awesome-project "Do something!"  # prints "Nah."
-```
+### Built With
+- [Java Programming Language](https://www.java.com/)
 
-Here you should say what actually happens when you execute the code above.
+## Prerequisites
 
-### Initial Configuration
+List any prerequisites that are required to run your Java program. For example:
+- Java Development Kit (JDK) 8 or higher
 
-Some projects require initial configuration (e.g. access tokens or keys, `npm i`).
-This is the section where you would document those requirements.
+## Installation
 
-## Developing
+If you want to run this program you will need to set up 
 
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
-
+1. Clone this repository :
 ```shell
 git clone https://github.com/Filbert88/TUBES-ALGEO-1/
-cd TUBES-ALGEO-1
-packagemanager install
 ```
 
-And state what happens step-by-step.
-
-### Building
-
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here:
-
+2. Build / Compile java program :
 ```shell
-./configure
-make
-make install
+./Build
 ```
+Or you can just double click Build file in first directory
 
-Here again you should state what actually happens when the code above gets
-executed.
-
-### Deploying / Publishing
-
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
-
+3. Run the program :
 ```shell
-packagemanager deploy awesome-project -s server.com -u username -p password
+./App
 ```
-
-And again you'd need to tell what the previous code actually does.
+Or you can just double click App file in first directory
 
 ## Features
 
-What's all the bells and whistles this project can perform?
-* What's the main functionality
-* You can also do another thing
-* If you get really randy, you can even do this
+Here is the purpose of making this project :
+- The program contains of menu options (SPL, Determinant, Inverse, Interpolation Polynomial & Bicubic Spline, and Regression)
+- The program can receive input either from the keyboard (terminal) or read input from text files.
+- Step by step how to get the answer
+- File output (file.txt)
+- Each menu contains various problem solving methods
 
-## Configuration
+## About Us
 
-Here you should write what are all of the configurations a user can enter when
-using the project.
-
-#### Argument 1
-Type: `String`  
-Default: `'default value'`
-
-State what an argument does and how you can use it. If needed, you can provide
-an example below.
-
-Example:
-```bash
-awesome-project "Some other value"  # Prints "You're nailing this readme!"
-```
-
-#### Argument 2
-Type: `Number|Boolean`  
-Default: 100
-
-Copy-paste as many of these as you need.
-
-## Contributing
-
-When you publish something open source, one of the greatest motivations is that
-anyone can just jump in and start contributing to your project.
-
-These paragraphs are meant to welcome those kind souls to feel that they are
-needed. You should state something like:
-
-"If you'd like to contribute, please fork the repository and use a feature
-branch. Pull requests are warmly welcome."
-
-If there's anything else the developer needs to know (e.g. the code style
-guide), you should link it here. If there's a lot of things to take into
-consideration, it is common to separate this section to its own file called
-`CONTRIBUTING.md` (or similar). If so, you should say that it exists here.
-
-## Links
-
-Even though this information can be found inside the project on machine-readable
-format like in a .json file, it's good to include a summary of most useful
-links to humans using your project. You can include links like:
-
-- Project homepage: https://your.github.com/awesome-project/
-- Repository: https://github.com/your/awesome-project/
-- Issue tracker: https://github.com/your/awesome-project/issues
-  - In case of sensitive bugs like security vulnerabilities, please contact
-    my@email.com directly instead of using issue tracker. We value your effort
-    to improve the security and privacy of this project!
-- Related projects:
-  - Your other project: https://github.com/your/other-project/
-  - Someone else's project: https://github.com/someones/awesome-project/
+Hello there, 
+if you curious about our other project you can check our github by click the link below
 
 
-## Licensing
-
-One really important part: Give your project a proper license. Here you should
-state what the license is and how to find the text version of the license.
-Something like:
-
-"The code in this project is licensed under MIT license."
+- [@Razark-Y](https://github.com/Razark-Y)
+- [@Filbert88](https://github.com/Filbert88)
+- [@FarelW](https://github.com/FarelW)
