@@ -1918,6 +1918,7 @@ public class Matrix {
         System.out.println();
         Matrix hasil = multiply(multiply(newMatrixX,alphaconvert),newMatrixY);
         System.out.println("Nilai f("+x+","+y+") adalah "+hasil.getElmt(0,0));
+        output += "Hasil taksiran: ";
         output += hasil.getElmt(0, 0);
         try{
             OutputToFile(scanner,output);
