@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.io.IOException;
 public class Inverse{
     public static void landingpage(){
         Selection.clear();
@@ -45,6 +45,7 @@ public class Inverse{
     }
 
     public static void inversAdjoin(Scanner scanner,String pilihan_input){     
+        String output = "";
         Matrix M = new Matrix(0, 0);
         if(pilihan_input.equals(Selection.submenu_1)){
             M.readSquareMatrix(scanner);
@@ -64,9 +65,22 @@ public class Inverse{
         System.out.println();
         System.out.println("Matriks Inverse :");
         Inverse.printMatrix();
+        try {
+            for (int x=0;x<Inverse.getRow();x++){
+                for(int y=0;y<Inverse.getColumn();y++){
+                    output += String.format("%2f",Inverse.getElmt(x, y)); 
+                    output += " ";               
+                }   
+                output += "\n";
+            }
+            Matrix.OutputToFile(scanner,output);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
         }
     }
-    public static void inverseIdentitas(Scanner scanner,String pilihan_input){    
+    public static void inverseIdentitas(Scanner scanner,String pilihan_input){  
+        String output = "";  
         Matrix M = new Matrix(0, 0);
         if(pilihan_input.equals(Selection.submenu_1)){
             M.readSquareMatrix(scanner);
@@ -86,6 +100,18 @@ public class Inverse{
             System.out.println();
             System.out.println("Matriks Inverse :");
             Inverse.printMatrix();
+            try {
+                for (int x=0;x<Inverse.getRow();x++){
+                    for(int y=0;y<Inverse.getColumn();y++){
+                        output += String.format("%2f",Inverse.getElmt(x, y)); 
+                        output += " ";               
+                    }   
+                    output += "\n";
+                }
+                Matrix.OutputToFile(scanner,output);
+            } catch (IOException e) {
+                System.err.println("Error writing to file: " + e.getMessage());
+            }
         }
     }
 }
