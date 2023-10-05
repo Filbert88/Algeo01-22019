@@ -307,6 +307,7 @@ public class Matrix {
     public void readMatrixFromFile(Scanner scanner) {
         while (true) {
             int row = 0;
+            int maxcol =0;
             boolean valid=true;
             int col = 0;
             int counter = 0;
@@ -323,6 +324,10 @@ public class Matrix {
                             valid = false;
                         }
                         col = temparray.length;
+                        maxcol = Math.max(col,maxcol);
+                        if(col != maxcol){
+                            valid = false;
+                        }
                     }
                     rowcolReader.close();
                     if (valid){
@@ -344,7 +349,7 @@ public class Matrix {
                         return;
                     }
                     else{
-                        System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
+                        System.out.println("Isi Matriks tidak sesuai, harap pastikan input tidak berisi string maupun memiliki ukuran yang tidak pas.");
                     }
                 } catch (IOException e) {
                     System.out.println("Pastikan File ada dan dapat dibaca.");
@@ -405,7 +410,7 @@ public class Matrix {
                         return output;
                     }
                     else{
-                        System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
+                        System.out.println("Isi Matriks tidak sesuai, harap pastikan input tidak berisi string maupun memiliki ukuran yang tidak pas");
                     }
                 } catch (IOException e) {
                     System.out.println("Pastikan File ada dan dapat dibaca.");
@@ -472,7 +477,8 @@ public class Matrix {
                                 else{
                                     Matrix taksiran = new Matrix(1,2);
                                     for (int i = 0; i < 2; i++) {
-                                        double value = Double.parseDouble(temparray[i]);                                        taksiran.setELmt(0, a, value);
+                                        double value = Double.parseDouble(temparray[i]);                                        
+                                        taksiran.setELmt(0, a, value);
                                         a+=1;
                                     }
                                     return taksiran;
@@ -481,10 +487,10 @@ public class Matrix {
                     }
                     }
                     else if (!XYvalidation){
-                        System.out.println("Hanya menerima input matrix 4 baris dan 4 kolom");
+                        System.out.println("Hanya menerima input matrix 4 baris dan 4 kolom + 2 kolom di baris baru sebagai taksiran.");
                     }
                     else{
-                        System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
+                        System.out.println("Isi Matriks tidak sesuai, harap pastikan input tidak berisi string maupun memiliki ukuran yang tidak pas");
                     }
                 } catch (IOException e) {
                     System.out.println("Pastikan File ada dan dapat dibaca.");
