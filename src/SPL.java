@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class SPL {
@@ -157,10 +158,13 @@ public class SPL {
 
             System.out.println();
             System.out.println("Solusi Persamaan Linear :");
+            String[] Output = new String[M.columns-1];
 
             for (int i = 0; i < solusi.rows; i++) {
+                String temp="";
                 String var = "a";
                 System.out.print(var+String.valueOf(i+1)+" = ");
+                temp+=var+String.valueOf(i+1)+" = ";
                 boolean all0=true;
                 for (int j = 0; j < solusi.columns-1; j++) {
                     if (solusi.getElmt(i, j)!=0) {
@@ -170,9 +174,11 @@ public class SPL {
 
                 if (all0) {
                     if (solusi.getElmt(i, solusi.columns-1)!=mark) {
+                        temp+=String.format("%.2f",solusi.getElmt(i, solusi.columns-1));
                         System.out.println(String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
                     }
                     else{
+                        temp+=var+String.valueOf(i+1)+" (sembarang bilangan real)";
                         System.out.println(var+String.valueOf(i+1)+" (sembarang bilangan real)");
                     }
                 }
@@ -182,17 +188,21 @@ public class SPL {
                         if (solusi.getElmt(i, j)!=0) {
                             if (solusi.getElmt(i, j)>0) {
                                 if (count>0) {
+                                    temp+=" - ("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print(" - ("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));                                    
                                 }
                                 else{
+                                    temp+="-("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print("-("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
                                 }
                             }
                             else{
                                 if (count>0) {
+                                    temp+=" + ("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print(" + ("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
                                 }
                                 else{
+                                    temp+="("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print("("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
 
                                 }
@@ -205,14 +215,21 @@ public class SPL {
                     }
                     else{
                         if (solusi.getElmt(i, solusi.columns-1)>0) {
+                            temp+=" + "+String.format("%.2f",solusi.getElmt(i, solusi.columns-1));
                             System.out.println(" + "+String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
                         }
                         else{
+                            temp+=" - "+String.format("%.2f",(-1)*solusi.getElmt(i, solusi.columns-1));
                             System.out.println(" - "+String.format("%.2f",(-1)*solusi.getElmt(i, solusi.columns-1)));
                         }
                     }
                 }
-
+                Output[i]=temp;
+            }
+            try {
+                Matrix.ListToFile(scanner, Output);
+            } catch (IOException e) {
+                System.err.println("Error writing to file: " + e.getMessage());
             }
         }
         else{
@@ -278,12 +295,15 @@ public class SPL {
                 }
             }
 
+            String[] Output = new String[M.columns-1];
             System.out.println();
             System.out.println("Solusi Persamaan Linear :");
 
             for (int i = 0; i < solusi.rows; i++) {
+                String temp="";
                 String var = "a";
                 System.out.print(var+String.valueOf(i+1)+" = ");
+                temp+=var+String.valueOf(i+1)+" = ";
                 boolean all0=true;
                 for (int j = 0; j < solusi.columns-1; j++) {
                     if (solusi.getElmt(i, j)!=0) {
@@ -293,9 +313,11 @@ public class SPL {
 
                 if (all0) {
                     if (solusi.getElmt(i, solusi.columns-1)!=mark) {
+                        temp+=String.format("%.2f",solusi.getElmt(i, solusi.columns-1));
                         System.out.println(String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
                     }
                     else{
+                        temp+=var+String.valueOf(i+1)+" (sembarang bilangan real)";
                         System.out.println(var+String.valueOf(i+1)+" (sembarang bilangan real)");
                     }
                 }
@@ -305,17 +327,21 @@ public class SPL {
                         if (solusi.getElmt(i, j)!=0) {
                             if (solusi.getElmt(i, j)>0) {
                                 if (count>0) {
+                                    temp+=" - ("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print(" - ("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));                                    
                                 }
                                 else{
+                                    temp+="-("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print("-("+String.format("%.2f",solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
                                 }
                             }
                             else{
                                 if (count>0) {
+                                    temp+=" + ("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print(" + ("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
                                 }
                                 else{
+                                    temp+="("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1);
                                     System.out.print("("+String.format("%.2f",(-1)*solusi.getElmt(i, j))+")*"+var+String.valueOf(j+1));
 
                                 }
@@ -328,14 +354,22 @@ public class SPL {
                     }
                     else{
                         if (solusi.getElmt(i, solusi.columns-1)>0) {
+                            temp+=" + "+String.format("%.2f",solusi.getElmt(i, solusi.columns-1));
                             System.out.println(" + "+String.format("%.2f",solusi.getElmt(i, solusi.columns-1)));
                         }
                         else{
+                            temp+=" - "+String.format("%.2f",(-1)*solusi.getElmt(i, solusi.columns-1));
                             System.out.println(" - "+String.format("%.2f",(-1)*solusi.getElmt(i, solusi.columns-1)));
                         }
                     }
                 }
+                Output[i]=temp;
+            }
 
+            try {
+                Matrix.ListToFile(scanner, Output);
+            } catch (IOException e) {
+                System.err.println("Error writing to file: " + e.getMessage());
             }
         }
         else{
@@ -380,6 +414,7 @@ public class SPL {
                 System.out.println("Tidak berlaku matriks inverse.");
             }
             else{
+                String[] Output = new String[M.columns-1];
                 Matrix Inverse = Mcopy.inverseAdjoinFunc();
                 System.out.println();
                 System.out.println("Matriks Inverse A^(-1) :");
@@ -415,6 +450,13 @@ public class SPL {
                 String var="a";
                 for (int i = 0; i < Mhasil.rows; i++) {
                     System.out.println(var+String.valueOf(i+1)+" = "+String.format("%.2f",Mhasil.getElmt(i, 0)));
+                    Output[i]=var+String.valueOf(i+1)+" = "+String.format("%.2f",Mhasil.getElmt(i, 0));
+                }
+
+                try {
+                    Matrix.ListToFile(scanner, Output);
+                } catch (IOException e) {
+                    System.err.println("Error writing to file: " + e.getMessage());
                 }
             }
         }
@@ -460,6 +502,7 @@ public class SPL {
                 System.out.println("Tidak berlaku metode cramer karena determinan = 0");
             }
             else{
+                String[] Output = new String[M.columns-1];
                 Matrix Mhasil= new Matrix(M.rows, 1);
                 for (int i = 0; i < Mhasil.rows; i++) {
                     Mhasil.setELmt(i, 0, M.getElmt(i, M.columns-1));
@@ -485,7 +528,14 @@ public class SPL {
                 System.out.println("Solusi Persamaan Linear : ");
                 for (int i = 0; i < Mhasil.rows; i++) {
                     System.out.println(var+String.valueOf(i+1)+" = "+"det("+var+String.valueOf(i+1)+") / det("+var+") = "+String.format("%.2f", Mdet.getElmt(i, 0)/det));
+                    Output[i]=var+String.valueOf(i+1)+" = "+String.format("%.2f", Mdet.getElmt(i, 0)/det);
                 }
+                
+                try {
+                    Matrix.ListToFile(scanner, Output);
+                } catch (IOException e) {
+                    System.err.println("Error writing to file: " + e.getMessage());
+                }                
             }
 
         }
