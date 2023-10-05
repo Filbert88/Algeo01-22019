@@ -8,7 +8,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
-  - [Built With](#built-with)
+- [Built With](#built-with)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Features](#features)
@@ -20,9 +20,9 @@
 
 ![screenshot](https://github.com/Filbert88/TUBES-ALGEO-1/blob/d5e8925fdf81671e12d005604ece903d557ed92d/Apau%20%26%20Apin.jpg)
 Our Team members :
-- 13522019 - Wilson Yusda (Belakang)
-- 13522021 - Filbert (Kanan)
-- 13522047 - Farel Winalda (Kiri)
+- 13522019 - Wilson Yusda (Belakang) (Github : Razark-Y)
+- 13522021 - Filbert (Kanan) (Github : Filbert88)
+- 13522047 - Farel Winalda (Kiri) (Github : FarelW)
 
 Our mentors:
 - Dr. Ir. Rinaldi Munir, M.T.
@@ -64,11 +64,12 @@ Or you can just double click App file in first directory
 ## Features
 
 Here is the purpose of making this project :
-* The program contains of menu options (SPL, Determinant, Inverse, Interpolation Polynomial & Bicubic Spline, and Regression)
+* The program contains of menu options (SPL, Determinant, Inverse, Interpolation Polynomial,Bicubic Spline Interpolation, and Regression)
 * The program can receive input either from the keyboard (terminal) or read input from text files.
 * Step by step how to get the answer
 * File output (file.txt)
 * Each menu contains various problem solving methods
+* Each function contains multiple error handling method to ensure greatest experience for the user.
 
 ## File Structures
 
@@ -77,7 +78,7 @@ This repo contains of 4 folders such as :
 - src : contains of main program source code .java 
 - doc : contain of our assignment report
 - test : contains of study cases problems that can be used as an input in the program.
- - output : contains of output .txt file based on users  
+- output : contains of output .txt file based on users  
 
 ## About
 
