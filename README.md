@@ -1,13 +1,22 @@
-# Tugas Besar 1 IF2121 Aljabar Linear dan Geometri
+<h1 align="center">Tugas Besar 1 IF2121 Aljabar Linear dan Geometri</h1>
+<p align="center">by Farel Winalda</p>
 > Kelas 01 IF-G Kelompok 5 - APAU & APIN
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Built With](#built-with)
+- [Features](#features)
+- [How to use](#how-to-use)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
 Sistem Persamaan Linier, Determinan, dan Aplikasinya
 Semester ganjil Tahun 2023/2024
 
-Program Studi Teknik Informatika
-Sekolah Teknik Elektro dan Informatika
-Institut Teknologi Bandung
+## Overview
 
+![screenshot](https://github.com/FarelW/SEA-Farel/blob/6b5813be45661c7edea558fff4b2dca73b98d092/Sea-Documentation.png)
 Nama Kelompok :
 - 13522019 - Wilson Yusda
 - 13522021 - Filbert 

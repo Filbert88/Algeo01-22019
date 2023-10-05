@@ -305,7 +305,7 @@ public class Main {
                         Regresi.RegressionPage();
                         Selection.option_spl();
                         String jenis_input="";
-                        System.out.print("Pilih metode : ");
+                        System.out.print("Jenis Input : ");
                         jenis_input=scanner.next();
 
                         while(!jenis_input.equals(Selection.submenu_1)&&!jenis_input.equals(Selection.submenu_2)&&!jenis_input.equals(Selection.submenu_3)){
