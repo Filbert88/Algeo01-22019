@@ -63,11 +63,20 @@ Or you can just double click App file in first directory
 ## Features
 
 Here is the purpose of making this project :
-- The program contains of menu options (SPL, Determinant, Inverse, Interpolation Polynomial & Bicubic Spline, and Regression)
-- The program can receive input either from the keyboard (terminal) or read input from text files.
-- Step by step how to get the answer
-- File output (file.txt)
-- Each menu contains various problem solving methods
+* The program contains of menu options (SPL, Determinant, Inverse, Interpolation Polynomial & Bicubic Spline, and Regression)
+* The program can receive input either from the keyboard (terminal) or read input from text files.
+* Step by step how to get the answer
+* File output (file.txt)
+* Each menu contains various problem solving methods
+
+## File Structures
+
+This repo contains of 4 folders such as :
+- bin : contains of java executable file .class that has been compiled from the src folder
+- src : contains of main program source code .java 
+- doc : contain of our assignment report
+- test : contains of study cases problems that can be used as an input in the program.
+ - output : contains of output .txt file based on users  
 
 ## About
 
