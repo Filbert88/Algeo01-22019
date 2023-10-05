@@ -12,6 +12,7 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Features](#features)
+- [File Structures](#file-structures)
 - [About](#about)
 
 
