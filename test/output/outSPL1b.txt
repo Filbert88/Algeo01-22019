@@ -1,0 +1,5 @@
+a1 = (1.00)*a5 + 3.00
+a2 = (2.00)*a5
+a3 = a3 (sembarang bilangan real)
+a4 = (1.00)*a5 - 1.00
+a5 = a5 (sembarang bilangan real)

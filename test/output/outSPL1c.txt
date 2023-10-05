@@ -1,0 +1,6 @@
+a1 = a1 (sembarang bilangan real)
+a2 = -(1.00)*a6 + 1.00
+a3 = a3 (sembarang bilangan real)
+a4 = -(1.00)*a6 - 2.00
+a5 = (1.00)*a6 + 1.00
+a6 = a6 (sembarang bilangan real)
