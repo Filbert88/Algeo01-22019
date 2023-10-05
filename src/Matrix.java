@@ -848,6 +848,9 @@ public class Matrix {
             System.out.print(String.format( " + (%.2f x %.2f)", this.getElmt(0, i), cofactorMat.getElmt(0, i)));
             det += this.matrix[0][i] * cofactorMat.matrix[0][i];
         }
+        if (det == -0.00){
+            det = 0.00;
+        }
         System.out.print(String.format(" = %.2f", det));
         System.out.println();
 
@@ -931,12 +934,10 @@ public class Matrix {
             }
         }
 
-        double minus = Math.pow(-1, changeRow);
+        det = Math.pow(-1, changeRow);
         for(i=0;i<n;i++){
             det *= this.getElmt(i,i);
-        }
-        double hasil = det*minus;
-        double hasillast = round(hasil,8);
+        }   
 
         System.out.println("Lalu,Kalikan Peubah (Berapa kali jumlah baris yang ditukar) dengan semua elemen diagonal dari Matriks tersebut.");
         System.out.println();
@@ -948,7 +949,6 @@ public class Matrix {
         System.out.print(" * ");
         for (int m = 0; m < n; m++) {
             double diagonalElement = this.getElmt(m, m);
-            det *= diagonalElement;
             System.out.print(String.format("%.2f", diagonalElement));
     
             if (m < n - 1) {
@@ -956,9 +956,9 @@ public class Matrix {
             }
         }
     
-        System.out.println(" = " + String.format("%.2f", hasillast));
+        System.out.println(" = " + String.format("%.2f", det));
 
-        return hasillast;
+        return det;
     }
 
     public double determinanOBEtanpaPrint(){
@@ -987,14 +987,12 @@ public class Matrix {
             }
         }
 
-        double minus = Math.pow(-1, changeRow);
+        det = Math.pow(-1, changeRow);
         for(i=0;i<n;i++){
             det *= mOut.getElmt(i,i);
         }
-        double hasil = det*minus;
-        double hasillast = round(hasil,8);
 
-        return hasillast;
+        return det;
     }
 
     public Matrix transpose(){
@@ -1025,7 +1023,7 @@ public class Matrix {
                     sign = -1;
                 }
                 minor = this.minor(i,j);
-                double det = minor.determinanOBE();
+                double det = minor.determinanOBEtanpaPrint();
                 adjoin.setELmt(i,j,(det*sign));    
             }
         }
@@ -1046,7 +1044,7 @@ public class Matrix {
         int cols = this.columns;
         Matrix inverse = new Matrix(rows,cols);
         Matrix adjoin = this.adjoin();
-        double det = this.determinanOBE();
+        double det = this.determinanOBEtanpaPrint();
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
                 inverse.setELmt(i,j,adjoin.getElmt(i,j)/det);
