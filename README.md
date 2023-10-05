@@ -8,11 +8,11 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Built With](#installing)
-- [Prequisites](#prequisites)
+- [Built With](#build with)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Features](#features)
-- [About](#about)
+- [About](#about us)
 
 
 ## Overview
