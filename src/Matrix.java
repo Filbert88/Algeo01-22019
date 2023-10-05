@@ -820,45 +820,51 @@ public class Matrix {
         // untuk menampilkan cara menentukan determinan dengan menggunakan ekspansi kofaktor
         int i;
         int n = this.rows;
+        int col = this.columns;
         double det;
         Matrix cofactorMat = this.cofactor();
+        if (n == col){
+            System.out.println();
+            System.out.println("Matriks : ");
+            printMatrix();
+            System.out.println();
+            System.out.println("Matriks Kofaktor : ");
+            cofactorMat.printMatrix();
 
-        System.out.println();
-        System.out.println("Matriks : ");
-        printMatrix();
-        System.out.println();
-        System.out.println("Matriks Kofaktor : ");
-        cofactorMat.printMatrix();
-
-        System.out.println();
-        System.out.println("Cara : ");
-        System.out.println("1. Lakukan perhitungan dengan menggunakan baris pertama.");
-        System.out.println("2. Kalikan elemen baris pertama dari Matriks dengan elemen baris pertama dari Matriks Kofaktor.");
-        System.out.println("3. Lalu, tambahkan semua elemennya.");
-        
-        if (this.rows == 1){
-            det = this.getElmt(0, 0);
-            System.out.println(String.format("Determinant Matriks adalah %.2f", det));
-        }
-        System.out.println();
-        System.out.print("Determinan : ");
-        System.out.print(String.format( "(%.2f x %.2f)", this.getElmt(0,0) , cofactorMat.getElmt(0,0)));
-        det = this.getElmt(0,0) * cofactorMat.getElmt(0,0);
-        for(i=1;i<n;i++){
-            System.out.print(String.format( " + (%.2f x %.2f)", this.getElmt(0, i), cofactorMat.getElmt(0, i)));
-            det += this.matrix[0][i] * cofactorMat.matrix[0][i];
-        }
-        if (det == -0.00){
-            det = 0.00;
-        }
-        System.out.print(String.format(" = %.2f", det));
-        System.out.println();
-
-        try {
+            System.out.println();
+            System.out.println("Cara : ");
+            System.out.println("1. Lakukan perhitungan dengan menggunakan baris pertama.");
+            System.out.println("2. Kalikan elemen baris pertama dari Matriks dengan elemen baris pertama dari Matriks Kofaktor.");
+            System.out.println("3. Lalu, tambahkan semua elemennya.");
+            
+            if (this.rows == 1){
+                det = this.getElmt(0, 0);
+                System.out.println(String.format("Determinant Matriks adalah %.2f", det));
+            }
+            System.out.println();
+            System.out.print("Determinan : ");
+            System.out.print(String.format( "(%.2f x %.2f)", this.getElmt(0,0) , cofactorMat.getElmt(0,0)));
+            det = this.getElmt(0,0) * cofactorMat.getElmt(0,0);
+            for(i=1;i<n;i++){
+                System.out.print(String.format( " + (%.2f x %.2f)", this.getElmt(0, i), cofactorMat.getElmt(0, i)));
+                det += this.matrix[0][i] * cofactorMat.matrix[0][i];
+            }
+            System.out.print(String.format(" = %.2f", det));
+            System.out.println();
+            try {
             String output = String.format("%.2f", det);
             Matrix.OutputToFile(scanner,output);
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
+            } catch (IOException e) {
+                System.err.println("Error writing to file: " + e.getMessage());
+            }
+        }else{
+            System.out.println("Matriks bukanlah Matriks persegi sehingga tidak dapat menghasilkan determinan.");
+            String output = "Matriks bukanlah Matriks persegi sehingga tidak dapat menghasilkan determinan";
+            try {
+                Matrix.OutputToFile(scanner,output);
+            } catch (IOException e) {
+                System.err.println("Error writing to file: " + e.getMessage());
+            }
         }
     }
 
@@ -893,72 +899,88 @@ public class Matrix {
         return Math.round(number * factor) / factor;
     }
 
-    public double determinanOBE(){
+    public void determinanOBE(Scanner scanner){
         // menentukan determinan dengan menggunakan reduksi baris
         int n = this.rows;
+        int col = this.columns;
         int i,j,k,l,changeRow = 0;
         int count = 1;
         double det = 1.0;
 
-        System.out.println();
-        System.out.println("Matriks : ");
-        printMatrix();
-        System.out.println();
-        for(i=0;i<n;i++){
-            if(this.getElmt(i,i) == 0){
-                for(j=i+1;j<n;j++){
-                    if (this.getElmt(j,i) != 0){
-                        changeRow += 1;
-                        this.swapRows(i,j);
-                        System.out.println("Matriks " + count + " : (Tukar R" + (i + 1) + " dengan R" + (j + 1) + ")");
-                        count ++;
-                        printMatrix();
-                        System.out.println();
-                        break;
+        if (n == col){
+            System.out.println();
+            System.out.println("Matriks : ");
+            printMatrix();
+            System.out.println();
+            for(i=0;i<n;i++){
+                if(this.getElmt(i,i) == 0){
+                    for(j=i+1;j<n;j++){
+                        if (this.getElmt(j,i) != 0){
+                            changeRow += 1;
+                            this.swapRows(i,j);
+                            System.out.println("Matriks " + count + " : (Tukar R" + (i + 1) + " dengan R" + (j + 1) + ")");
+                            count ++;
+                            printMatrix();
+                            System.out.println();
+                            break;
+                        }
+                    }
+                }
+                for(k=i+1;k<n;k++){
+                    double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
+                    if (this.getElmt(i, i) != 0){
+                        for(l=0;l<n;l++){
+                        this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
+                        }
+                        if (pembuatnol != 0){
+                            System.out.println("Matriks " + count + " : (R" + (k + 1) + " dikurang dengan " + String.format("%.2f", pembuatnol) + " kali R" + (i + 1) + ")");
+                            printMatrix();
+                            System.out.println();
+                            count ++;
+                        }
                     }
                 }
             }
-            for(k=i+1;k<n;k++){
-                double pembuatnol = this.getElmt(k, i)/this.getElmt(i,i);
-                if (this.getElmt(i, i) != 0){
-                    for(l=0;l<n;l++){
-                    this.setELmt(k, l, this.getElmt(k,l) - (pembuatnol*(this.getElmt(i,l))));
-                    }
-                    if (pembuatnol != 0){
-                        System.out.println("Matriks " + count + " : (R" + (k + 1) + " dikurang dengan " + String.format("%.2f", pembuatnol) + " kali R" + (i + 1) + ")");
-                        printMatrix();
-                        System.out.println();
-                        count ++;
-                    }
+
+            det = Math.pow(-1, changeRow);
+            for(i=0;i<n;i++){
+                det *= this.getElmt(i,i);
+            }   
+
+            System.out.println("Lalu,Kalikan Peubah (Berapa kali jumlah baris yang ditukar) dengan semua elemen diagonal dari Matriks tersebut.");
+            System.out.println();
+
+            System.out.format("Total Pertukaran Baris Yang terjadi : %d", changeRow);
+            System.out.println();
+            System.out.print("Determinan : ");
+            System.out.print(String.format("((%d)^%d)", -1,changeRow)); 
+            System.out.print(" * ");
+            for (int m = 0; m < n; m++) {
+                double diagonalElement = this.getElmt(m, m);
+                System.out.print(String.format("%.2f", diagonalElement));
+        
+                if (m < n - 1) {
+                    System.out.print(" * ");
                 }
             }
-        }
+        
+            System.out.println(" = " + String.format("%.2f", det));
+            try {
+                String output = String.format("%.2f", det);
+                Matrix.OutputToFile(scanner,output);
+            } catch (IOException e) {
+                System.err.println("Error writing to file: " + e.getMessage());
+            }
 
-        det = Math.pow(-1, changeRow);
-        for(i=0;i<n;i++){
-            det *= this.getElmt(i,i);
-        }   
-
-        System.out.println("Lalu,Kalikan Peubah (Berapa kali jumlah baris yang ditukar) dengan semua elemen diagonal dari Matriks tersebut.");
-        System.out.println();
-
-        System.out.format("Total Pertukaran Baris Yang terjadi : %d", changeRow);
-        System.out.println();
-        System.out.print("Determinan : ");
-        System.out.print(String.format("((%d)^%d)", -1,changeRow)); 
-        System.out.print(" * ");
-        for (int m = 0; m < n; m++) {
-            double diagonalElement = this.getElmt(m, m);
-            System.out.print(String.format("%.2f", diagonalElement));
-    
-            if (m < n - 1) {
-                System.out.print(" * ");
+        }else{
+            System.out.println("\nMatriks bukanlah matriks persegi sehingga tidak akan menghasilkan determinan");
+            String output = "Matriks bukanlah matriks persegi sehingga tidak akan menghasilkan determinan";
+            try {
+                Matrix.OutputToFile(scanner,output);
+            } catch (IOException e) {
+                System.err.println("Error writing to file: " + e.getMessage());
             }
         }
-    
-        System.out.println(" = " + String.format("%.2f", det));
-
-        return det;
     }
 
     public double determinanOBEtanpaPrint(){

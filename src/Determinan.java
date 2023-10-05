@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.*;
 
 public class Determinan {
@@ -66,12 +65,13 @@ public class Determinan {
         else if (pilihan_input.equals(Selection.submenu_2)){
             M.readMatrixFromFile(scanner);
         }
+        M.determinanOBE(scanner);
  
-        try {
-            String output = String.format("%.2f", M.determinanOBE());
-            Matrix.OutputToFile(scanner,output);
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
-        }
+        // try {
+        //     String output = String.format("%.2f", M.determinanOBE(scanner));
+        //     Matrix.OutputToFile(scanner,output);
+        // } catch (IOException e) {
+        //     System.err.println("Error writing to file: " + e.getMessage());
+        // }
     }
 }
