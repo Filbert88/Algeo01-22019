@@ -310,7 +310,7 @@ public class Matrix {
             boolean valid=true;
             int col = 0;
             int counter = 0;
-            System.out.print("Enter the file name:");
+            System.out.print("Masukkan nama file : ");
             String fileName = scanner.next();
             if (isTxtFile(fileName)) {
                 String filePath = "../test/" + fileName;
@@ -339,20 +339,20 @@ public class Matrix {
                                 counter += 1;
                             }
                         } catch (IOException e) {
-                            System.out.println("Error reading matrix data from the file.");
+                            System.out.println("Error membaca matrix data dari file.");
                         }
                         return;
                     }
                     else{
-                        System.out.println("There are strings inside the matrix, please enter another file name to progress.");
+                        System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
                     }
                 } catch (IOException e) {
-                    System.out.println("Please make sure the file exists and is readable.");
-                    System.out.println("Please enter a valid file name.");
+                    System.out.println("Pastikan File ada dan dapat dibaca.");
+                    System.out.println("Harap masukkan nama file yang valid.");
                 }
             } else {
-                System.out.println("The file is not a txt file.");
-                System.out.println("Please enter a valid file name.");
+                System.out.println("File tidak dalam bentuk .txt !");
+                System.out.println("Harap masukkan nama file yang valid.");
             }
         }
     }
@@ -364,7 +364,7 @@ public class Matrix {
             boolean valid=true;
             int col = 0;
             int counter = 0;
-            System.out.print("Enter the file name:");
+            System.out.print("Masukkan nama file : ");
             String fileName = scanner.next();
             if (isTxtFile(fileName)) {
                 String filePath = "../test/" + fileName;
@@ -400,20 +400,20 @@ public class Matrix {
                                 counter += 1;
                             }
                         } catch (IOException e) {
-                            System.out.println("Error reading matrix data from the file.");
+                            System.out.println("Error membaca matrix data dari file.");
                         }
                         return output;
                     }
                     else{
-                        System.out.println("There are strings inside the matrix, please enter another file name to progress.");
+                        System.out.println("Terdapat input string di dalam matrix, harap input matrix dengan element double.");
                     }
                 } catch (IOException e) {
-                    System.out.println("Please make sure the file exists and is readable.");
-                    System.out.println("Please enter a valid file name.");
+                    System.out.println("Pastikan File ada dan dapat dibaca.");
+                    System.out.println("Harap masukkan nama file yang valid.");
                 }
             } else {
-                System.out.println("The file is not a txt file.");
-                System.out.println("Please enter a valid file name.");
+                System.out.println("File tidak dalam bentuk .txt !");
+                System.out.println("Harap masukkan nama file yang valid.");
             }
         }
     }
@@ -428,7 +428,7 @@ public class Matrix {
             int col = 0;
             int rowcounter = 0;
             int counter = 0;
-            System.out.print("Enter the file name:");
+            System.out.print("Masukkan nama file : ");
             String fileName = scanner.next();
             if (isTxtFile(fileName)) {
                 String filePath = "../test/" + fileName;
@@ -488,11 +488,11 @@ public class Matrix {
                     }
                 } catch (IOException e) {
                     System.out.println("Pastikan File ada dan dapat dibaca.");
-                    System.out.println("Harap masukkan nama file yang valid");
+                    System.out.println("Harap masukkan nama file yang valid.");
                 }
             } else {
                 System.out.println("File tidak dalam bentuk .txt !");
-                System.out.println("Harap masukkan nama file yang valid");
+                System.out.println("Harap masukkan nama file yang valid.");
             }
         }
     }
@@ -505,7 +505,7 @@ public class Matrix {
             int col = 0;
             int rowcounter = 0;
             int counter = 0;
-            System.out.print("Enter the file name : ");
+            System.out.print("Masukkan nama file : ");
             String fileName = scanner.next();
             if (isTxtFile(fileName)) {
                 String filePath = "../test/" + fileName;
@@ -564,7 +564,7 @@ public class Matrix {
                     System.out.println("Harap masukkan nama file yang valid");
                 }
             } else {
-                System.out.println("File tidak dalam bentu .txt !");
+                System.out.println("File tidak dalam bentuk .txt !");
                 System.out.println("Harap masukkan nama file yang valid");
             }
         }
