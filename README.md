@@ -20,9 +20,9 @@
 
 ![screenshot](https://github.com/Filbert88/TUBES-ALGEO-1/blob/d5e8925fdf81671e12d005604ece903d557ed92d/Apau%20%26%20Apin.jpg)
 Our Team members :
-- 13522019 - Wilson Yusda (Belakang) (Github : Razark-Y)
-- 13522021 - Filbert (Kanan) (Github : Filbert88)
-- 13522047 - Farel Winalda (Kiri) (Github : FarelW)
+- 13522019 - Wilson Yusda (Belakang) [Razark-Y](https://github.com/Razark-Y)
+- 13522021 - Filbert (Kanan) [Filbert88](https://github.com/Filbert88)
+- 13522047 - Farel Winalda (Kiri) [FarelW](https://github.com/FarelW)
 
 Our mentors:
 - Dr. Ir. Rinaldi Munir, M.T.
