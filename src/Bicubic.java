@@ -69,11 +69,11 @@ public class Bicubic{
                 }
             }
 
-                M.bicubicSplineInterpolation(x,y);
+                M.bicubicSplineInterpolation(x,y,scanner);
             }
         else if (pilihan_input.equals(Selection.submenu_2)){
             Matrix taksiran = M.readMatrixFromFileForBicubic(scanner);
-            M.bicubicSplineInterpolation(taksiran.getElmt(0,0),taksiran.getElmt(0,1));
+            M.bicubicSplineInterpolation(taksiran.getElmt(0,0),taksiran.getElmt(0,1),scanner);
         }
     }
 }
