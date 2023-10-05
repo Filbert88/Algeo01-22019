@@ -1,6 +1,6 @@
 <h1 align="center">Tugas Besar 1 IF2121 Aljabar Linear dan Geometri</h1>
-<h2 align="center">Kelompok 5 - APAU & APIN</h2>
-<h2 align="center">Kelas 01 IF-G</h2>
+<h3 align="center">Kelompok 5 - APAU & APIN</h3>
+<h3 align="center">Kelas 01 IF-G</h3>
 <p align="center"></p>
 <p align="center">Sistem Persamaan Linier, Determinan, dan Aplikasinya</p>
 <p align="center">Semester ganjil Tahun 2023/2024</p>
@@ -8,11 +8,10 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Built With](#build with)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Features](#features)
-- [About](#about us)
+- [About](#about)
 
 
 ## Overview
@@ -69,7 +68,7 @@ Here is the purpose of making this project :
 - File output (file.txt)
 - Each menu contains various problem solving methods
 
-## About Us
+## About
 
 Hello there, 
 if you curious about our other project you can check our github by click the link below
