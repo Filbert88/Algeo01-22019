@@ -495,7 +495,7 @@ public class SPL {
             System.out.println("Matriks persamaan linear a :");
             Mcopy.printMatrix();
             double det=Mcopy.determinanOBEtanpaPrint();
-            System.out.println("Determinan a : "+String.format("%.2f",det));
+            System.out.println("Determinan a : "+String.valueOf(Mcopy.determinanOBEtanpaPrint()));
 
             if (Mcopy.determinanOBEtanpaPrint() == 0){
                 System.out.println();
@@ -519,7 +519,7 @@ public class SPL {
                     System.out.println();
                     System.out.println("Matriks "+var+String.valueOf(i+1)+" : "+"(Tukar kolom "+(i+1)+" matriks a dengan hasil SPL)");
                     Mtemp.printMatrix();
-                    System.out.println("Determinan "+var+String.valueOf(i+1)+" : "+String.format("%.2f",Mtemp.determinanOBEtanpaPrint()));
+                    System.out.println("Determinan "+var+String.valueOf(i+1)+" : "+String.valueOf(Mtemp.determinanOBEtanpaPrint()));
 
                     Mdet.setELmt(i, 0, Mtemp.determinanOBEtanpaPrint());
                 }
@@ -530,7 +530,7 @@ public class SPL {
                     System.out.println(var+String.valueOf(i+1)+" = "+"det("+var+String.valueOf(i+1)+") / det("+var+") = "+String.format("%.2f", Mdet.getElmt(i, 0)/det));
                     Output[i]=var+String.valueOf(i+1)+" = "+String.format("%.2f", Mdet.getElmt(i, 0)/det);
                 }
-                
+
                 try {
                     Matrix.ListToFile(scanner, Output);
                 } catch (IOException e) {
