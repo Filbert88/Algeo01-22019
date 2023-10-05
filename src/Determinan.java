@@ -66,12 +66,5 @@ public class Determinan {
             M.readMatrixFromFile(scanner);
         }
         M.determinanOBE(scanner);
- 
-        // try {
-        //     String output = String.format("%.2f", M.determinanOBE(scanner));
-        //     Matrix.OutputToFile(scanner,output);
-        // } catch (IOException e) {
-        //     System.err.println("Error writing to file: " + e.getMessage());
-        // }
     }
 }
